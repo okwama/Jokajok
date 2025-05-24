@@ -11,17 +11,17 @@ const Cart = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-swahili-dust-50 py-16">
+      <div className="min-h-screen page-background py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <ShoppingBag className="h-24 w-24 text-swahili-dust-400 mx-auto mb-6" />
-          <h1 className="text-3xl font-serif font-bold text-swahili-dust-800 mb-4">
+          <ShoppingBag className="h-24 w-24 text-copper-wood-400 mx-auto mb-6" />
+          <h1 className="text-3xl font-serif font-bold text-soft-sand mb-4">
             Your cart is empty
           </h1>
-          <p className="text-xl text-swahili-dust-600 mb-8">
+          <p className="text-xl text-copper-wood-400 mb-8">
             Discover our beautiful collection of African crafts
           </p>
           <Link to="/products">
-            <Button size="lg" className="bg-copper-600 hover:bg-copper-700">
+            <Button className="flat-button text-lg px-8 py-4">
               Continue Shopping
             </Button>
           </Link>
@@ -31,9 +31,9 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-swahili-dust-50 py-8">
+    <div className="min-h-screen page-background py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-serif font-bold text-swahili-dust-800 mb-8">
+        <h1 className="text-3xl font-serif font-bold text-soft-sand mb-8">
           Shopping Cart ({itemCount} items)
         </h1>
 
@@ -41,7 +41,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
-              <Card key={item.id} className="overflow-hidden">
+              <Card key={item.id} className="overflow-hidden bg-dark-clay-100 border-copper-wood-700">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
                     <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
@@ -53,10 +53,10 @@ const Cart = () => {
                     </div>
                     
                     <div className="flex-1">
-                      <h3 className="text-lg font-serif font-semibold text-swahili-dust-800">
+                      <h3 className="text-lg font-serif font-semibold text-soft-sand">
                         {item.name}
                       </h3>
-                      <p className="text-copper-600 font-semibold">${item.price}</p>
+                      <p className="text-burnished-copper font-semibold">${item.price}</p>
                     </div>
 
                     <div className="flex items-center space-x-2">
@@ -65,28 +65,30 @@ const Cart = () => {
                         size="sm"
                         onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
                         disabled={item.quantity <= 1}
+                        className="bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
-                      <span className="w-12 text-center font-semibold">{item.quantity}</span>
+                      <span className="w-12 text-center font-semibold text-soft-sand">{item.quantity}</span>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
                       >
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
 
                     <div className="text-right">
-                      <p className="text-lg font-semibold text-swahili-dust-800">
+                      <p className="text-lg font-semibold text-soft-sand">
                         ${(item.price * item.quantity).toFixed(2)}
                       </p>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => removeItem(item.id)}
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        className="text-red-400 hover:text-red-300 hover:bg-red-900/20"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -99,25 +101,25 @@ const Cart = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-8">
+            <Card className="sticky top-8 bg-dark-clay-100 border-copper-wood-700">
               <CardContent className="p-6">
-                <h2 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-4">
+                <h2 className="text-xl font-serif font-semibold text-soft-sand mb-4">
                   Order Summary
                 </h2>
                 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
-                    <span className="text-swahili-dust-600">Subtotal</span>
-                    <span className="font-semibold">${total.toFixed(2)}</span>
+                    <span className="text-copper-wood-400">Subtotal</span>
+                    <span className="font-semibold text-soft-sand">${total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-swahili-dust-600">Shipping</span>
-                    <span className="font-semibold text-green-600">Free</span>
+                    <span className="text-copper-wood-400">Shipping</span>
+                    <span className="font-semibold text-burnished-copper">Free</span>
                   </div>
-                  <div className="border-t border-swahili-dust-200 pt-3">
+                  <div className="border-t border-copper-wood-700 pt-3">
                     <div className="flex justify-between">
-                      <span className="text-lg font-semibold">Total</span>
-                      <span className="text-lg font-bold text-copper-600">
+                      <span className="text-lg font-semibold text-soft-sand">Total</span>
+                      <span className="text-lg font-bold text-burnished-copper">
                         ${total.toFixed(2)}
                       </span>
                     </div>
@@ -126,12 +128,12 @@ const Cart = () => {
 
                 <div className="space-y-3">
                   <Link to="/checkout" className="block">
-                    <Button className="w-full bg-copper-600 hover:bg-copper-700" size="lg">
+                    <Button className="w-full flat-button text-lg py-3">
                       Proceed to Checkout
                     </Button>
                   </Link>
                   <Link to="/products" className="block">
-                    <Button variant="outline" className="w-full" size="lg">
+                    <Button className="w-full flat-button-secondary text-lg py-3">
                       Continue Shopping
                     </Button>
                   </Link>

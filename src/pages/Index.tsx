@@ -56,21 +56,21 @@ const Index = () => {
       description: 'Explore our complete collection of authentic African accessories',
       icon: ShoppingBag,
       link: '/products',
-      color: 'bg-burnished-copper'
+      color: 'bg-burnished-copper-500'
     },
     {
       title: 'Read Our Stories',
       description: 'Discover the heritage and craftsmanship behind each piece',
       icon: Heart,
       link: '/blog',
-      color: 'bg-swahili-dust-700'
+      color: 'bg-copper-wood-600'
     },
     {
       title: 'Join Our Community',
       description: 'Connect with fellow lovers of African artistry',
       icon: Users,
       link: '/register',
-      color: 'bg-copper-wood-600'
+      color: 'bg-swahili-dust-700'
     }
   ];
 
@@ -83,13 +83,13 @@ const Index = () => {
       <CategoryGrid />
 
       {/* Navigation Cards Section */}
-      <section className="py-20 bg-dark-clay-50">
+      <section className="py-20 page-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
               Where Would You Like to Go?
             </h2>
-            <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
               Navigate through our world of authentic African craftsmanship
             </p>
           </div>
@@ -97,15 +97,15 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {navigationCards.map((card, index) => (
               <Link key={index} to={card.link} className="group">
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800 group-hover:scale-105 copper-glow">
+                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 group-hover:scale-105 copper-glow border border-copper-wood-700">
                   <CardContent className="p-8 text-center sisal-texture">
-                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform stamped-button`}>
+                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform border border-copper-wood-700`}>
                       <card.icon className="h-8 w-8 text-charred-wood" />
                     </div>
                     <h3 className="text-xl font-serif font-semibold text-soft-sand mb-3">
                       {card.title}
                     </h3>
-                    <p className="text-soft-sand-dark leading-relaxed">
+                    <p className="text-copper-wood-400 leading-relaxed">
                       {card.description}
                     </p>
                   </CardContent>
@@ -122,13 +122,13 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-burnished-copper rounded-full flex items-center justify-center mx-auto mb-4 stamped-button">
+                <div className="w-16 h-16 bg-burnished-copper-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-copper-wood-700">
                   <feature.icon className="h-8 w-8 text-charred-wood" />
                 </div>
                 <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-soft-sand-dark">{feature.description}</p>
+                <p className="text-copper-wood-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -136,20 +136,20 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-dark-clay-100">
+      <section className="py-20 page-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
               Handpicked for You
             </h2>
-            <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
               Discover our most beloved pieces, each telling a unique African story
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800 copper-glow">
+              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 copper-glow border border-copper-wood-700">
                 <div className="aspect-square overflow-hidden sisal-texture">
                   <img 
                     src={product.image} 
@@ -162,10 +162,10 @@ const Index = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-swahili-dust-600'}`} 
+                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-copper-wood-600'}`} 
                       />
                     ))}
-                    <span className="ml-2 text-sm text-soft-sand-dark">({product.rating})</span>
+                    <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
                   </div>
                   <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                     {product.name}
@@ -173,7 +173,7 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold text-burnished-copper">${product.price}</span>
                     <Link to={`/products/${product.id}`}>
-                      <Button size="sm" className="stamped-button bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood">
+                      <Button className="flat-button">
                         View Details
                       </Button>
                     </Link>
@@ -185,7 +185,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <Link to="/products">
-              <Button size="lg" className="btn-secondary bg-swahili-dust hover:bg-swahili-dust-dark text-charred-wood">
+              <Button className="flat-button-secondary text-lg px-8 py-4">
                 View All Products
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -202,17 +202,17 @@ const Index = () => {
               <h2 className="text-4xl font-serif font-bold text-soft-sand mb-6">
                 Crafted with Heritage, Designed for Today
               </h2>
-              <p className="text-lg text-soft-sand-dark mb-6 leading-relaxed">
+              <p className="text-lg text-copper-wood-400 mb-6 leading-relaxed">
                 Every JokaJok piece is a celebration of African artisanship. Our skilled craftspeople 
                 blend traditional techniques passed down through generations with contemporary design 
                 sensibilities.
               </p>
-              <p className="text-lg text-soft-sand-dark mb-8 leading-relaxed">
+              <p className="text-lg text-copper-wood-400 mb-8 leading-relaxed">
                 From the bustling markets of Nairobi to the leather workshops of Morocco, 
                 we source and create products that honor our heritage while embracing the future.
               </p>
               <Link to="/blog">
-                <Button size="lg" className="stamped-button bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood">
+                <Button className="flat-button text-lg px-8 py-4">
                   Read Our Story
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>

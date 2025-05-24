@@ -81,14 +81,14 @@ const Products = () => {
   });
 
   return (
-    <div className="min-h-screen bg-swahili-dust-50 py-8">
+    <div className="min-h-screen page-background py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-4">
+          <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
             Our Collection
           </h1>
-          <p className="text-xl text-swahili-dust-600 max-w-2xl mx-auto">
+          <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
             Discover authentic African craftsmanship in every piece
           </p>
         </div>
@@ -96,13 +96,13 @@ const Products = () => {
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-swahili-dust-400 h-5 w-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-copper-wood-400 h-5 w-5" />
             <Input
               type="text"
               placeholder="Search products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-swahili-dust-100 border-swahili-dust-300"
+              className="pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
             />
           </div>
           <div className="flex gap-2">
@@ -111,7 +111,10 @@ const Products = () => {
                 key={category.id}
                 variant={selectedCategory === category.id ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category.id)}
-                className={selectedCategory === category.id ? "bg-copper-600 hover:bg-copper-700" : ""}
+                className={selectedCategory === category.id 
+                  ? "flat-button" 
+                  : "bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800 hover:text-soft-sand"
+                }
               >
                 {category.name}
               </Button>
@@ -122,7 +125,7 @@ const Products = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
-            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-50">
+            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 copper-glow">
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={product.image} 
@@ -135,19 +138,19 @@ const Products = () => {
                   {[...Array(5)].map((_, i) => (
                     <Star 
                       key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-copper-500 fill-current' : 'text-swahili-dust-300'}`} 
+                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-copper-wood-600'}`} 
                     />
                   ))}
-                  <span className="ml-2 text-sm text-swahili-dust-600">({product.rating})</span>
+                  <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-2">
+                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                   {product.name}
                 </h3>
-                <p className="text-swahili-dust-600 mb-4">{product.description}</p>
+                <p className="text-copper-wood-400 mb-4">{product.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-copper-600">${product.price}</span>
+                  <span className="text-2xl font-bold text-burnished-copper">${product.price}</span>
                   <Link to={`/products/${product.id}`}>
-                    <Button size="sm" className="bg-copper-600 hover:bg-copper-700">
+                    <Button className="flat-button">
                       View Details
                     </Button>
                   </Link>
@@ -159,7 +162,7 @@ const Products = () => {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-xl text-swahili-dust-600">No products found matching your criteria.</p>
+            <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
           </div>
         )}
       </div>
