@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Star, Plus, Minus, Heart, Share2 } from 'lucide-react';
@@ -16,7 +15,7 @@ const ProductDetail = () => {
 
   // Mock product data - in real app, this would come from API
   const product = {
-    id: Number(id),
+    id: id || '1', // Keep as string to match useParams
     name: 'Maasai Leather Tote',
     price: 89,
     images: [
