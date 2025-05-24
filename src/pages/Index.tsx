@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import HeroSection from '@/components/HeroSection';
+import CategoryGrid from '@/components/CategoryGrid';
 
 const Index = () => {
   const featuredProducts = [
@@ -54,7 +56,7 @@ const Index = () => {
       description: 'Explore our complete collection of authentic African accessories',
       icon: ShoppingBag,
       link: '/products',
-      color: 'bg-copper-600'
+      color: 'bg-burnished-copper'
     },
     {
       title: 'Read Our Stories',
@@ -73,58 +75,21 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-swahili-dust-50">
+    <div className="min-h-screen bg-charred-wood">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-swahili-dust-900/90 to-copper-900/70"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-[scale-in_2s_ease-out] transform-gpu"
-          style={{
-            backgroundImage: `url('/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png')`,
-            animation: 'hero-float 6s ease-in-out infinite'
-          }}
-        ></div>
-        
-        <div className="relative z-10 text-center text-swahili-dust-50 max-w-4xl mx-auto px-4 animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 animate-[slide-in-right_1s_ease-out]">
-            Discover Africa's
-            <span className="block text-copper-300 animate-[fade-in_2s_ease-out_0.5s_both]">Timeless Beauty</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed animate-[fade-in_1.5s_ease-out_1s_both]">
-            Where traditional craftsmanship meets contemporary style. 
-            Each piece carries the soul of Africa.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-[fade-in_1.5s_ease-out_1.5s_both]">
-            <Link to="/products">
-              <Button size="lg" className="btn-primary text-lg px-8 py-4 hover:scale-105 transition-transform">
-                Explore Collection
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/blog">
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-swahili-dust-200 text-swahili-dust-100 hover:bg-swahili-dust-200 hover:text-swahili-dust-900 hover:scale-105 transition-all">
-                Our Story
-              </Button>
-            </Link>
-          </div>
-        </div>
+      <HeroSection />
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-swahili-dust-200 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-swahili-dust-200 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </section>
+      {/* Category Grid */}
+      <CategoryGrid />
 
       {/* Navigation Cards Section */}
-      <section className="py-20 bg-swahili-dust-100">
+      <section className="py-20 bg-dark-clay-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-4">
+            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
               Where Would You Like to Go?
             </h2>
-            <p className="text-xl text-swahili-dust-600 max-w-2xl mx-auto">
+            <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
               Navigate through our world of authentic African craftsmanship
             </p>
           </div>
@@ -132,15 +97,15 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {navigationCards.map((card, index) => (
               <Link key={index} to={card.link} className="group">
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-50 group-hover:scale-105">
-                  <CardContent className="p-8 text-center">
-                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform`}>
-                      <card.icon className="h-8 w-8 text-swahili-dust-50" />
+                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800 group-hover:scale-105 copper-glow">
+                  <CardContent className="p-8 text-center sisal-texture">
+                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform stamped-button`}>
+                      <card.icon className="h-8 w-8 text-charred-wood" />
                     </div>
-                    <h3 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-3">
+                    <h3 className="text-xl font-serif font-semibold text-soft-sand mb-3">
                       {card.title}
                     </h3>
-                    <p className="text-swahili-dust-600 leading-relaxed">
+                    <p className="text-soft-sand-dark leading-relaxed">
                       {card.description}
                     </p>
                   </CardContent>
@@ -152,18 +117,18 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-swahili-dust-50">
+      <section className="py-20 bg-charred-wood african-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-copper-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="h-8 w-8 text-swahili-dust-50" />
+                <div className="w-16 h-16 bg-burnished-copper rounded-full flex items-center justify-center mx-auto mb-4 stamped-button">
+                  <feature.icon className="h-8 w-8 text-charred-wood" />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-2">
+                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-swahili-dust-600">{feature.description}</p>
+                <p className="text-soft-sand-dark">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -171,21 +136,21 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-swahili-dust-100">
+      <section className="py-20 bg-dark-clay-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-4">
+            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
               Handpicked for You
             </h2>
-            <p className="text-xl text-swahili-dust-600 max-w-2xl mx-auto">
+            <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
               Discover our most beloved pieces, each telling a unique African story
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-50">
-                <div className="aspect-square overflow-hidden">
+              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800 copper-glow">
+                <div className="aspect-square overflow-hidden sisal-texture">
                   <img 
                     src={product.image} 
                     alt={product.name}
@@ -197,18 +162,18 @@ const Index = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-copper-500 fill-current' : 'text-swahili-dust-300'}`} 
+                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-swahili-dust-600'}`} 
                       />
                     ))}
-                    <span className="ml-2 text-sm text-swahili-dust-600">({product.rating})</span>
+                    <span className="ml-2 text-sm text-soft-sand-dark">({product.rating})</span>
                   </div>
-                  <h3 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-2">
+                  <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-copper-600">${product.price}</span>
+                    <span className="text-2xl font-bold text-burnished-copper">${product.price}</span>
                     <Link to={`/products/${product.id}`}>
-                      <Button size="sm" className="btn-primary">
+                      <Button size="sm" className="stamped-button bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood">
                         View Details
                       </Button>
                     </Link>
@@ -220,7 +185,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <Link to="/products">
-              <Button size="lg" className="btn-secondary">
+              <Button size="lg" className="btn-secondary bg-swahili-dust hover:bg-swahili-dust-dark text-charred-wood">
                 View All Products
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -230,24 +195,24 @@ const Index = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 bg-gradient-to-r from-swahili-dust-200 to-copper-100">
+      <section className="py-20 bg-gradient-to-r from-swahili-dust-800 to-burnished-copper-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-6">
+              <h2 className="text-4xl font-serif font-bold text-soft-sand mb-6">
                 Crafted with Heritage, Designed for Today
               </h2>
-              <p className="text-lg text-swahili-dust-700 mb-6 leading-relaxed">
+              <p className="text-lg text-soft-sand-dark mb-6 leading-relaxed">
                 Every JokaJok piece is a celebration of African artisanship. Our skilled craftspeople 
                 blend traditional techniques passed down through generations with contemporary design 
                 sensibilities.
               </p>
-              <p className="text-lg text-swahili-dust-700 mb-8 leading-relaxed">
+              <p className="text-lg text-soft-sand-dark mb-8 leading-relaxed">
                 From the bustling markets of Nairobi to the leather workshops of Morocco, 
                 we source and create products that honor our heritage while embracing the future.
               </p>
               <Link to="/blog">
-                <Button size="lg" className="btn-primary">
+                <Button size="lg" className="stamped-button bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood">
                   Read Our Story
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -257,9 +222,9 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png" 
                 alt="African craftsmanship" 
-                className="rounded-lg shadow-2xl"
+                className="rounded-lg shadow-2xl sisal-texture"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-swahili-dust-900/20 to-transparent rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/40 to-transparent rounded-lg"></div>
             </div>
           </div>
         </div>

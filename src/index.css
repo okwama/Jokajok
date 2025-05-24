@@ -5,33 +5,33 @@
 
 @layer base {
   :root {
-    --background: 39 34 28; /* Rich brown */
-    --foreground: 39 15 8; /* Dark chocolate */
+    --background: 28 26 22; /* Dark Clay */
+    --foreground: 215 206 199; /* Soft Sand */
 
-    --card: 244 239 231;
-    --card-foreground: 39 15 8;
+    --card: 58 50 38; /* Darker earth tone */
+    --card-foreground: 215 206 199;
 
-    --popover: 244 239 231;
-    --popover-foreground: 39 15 8;
+    --popover: 58 50 38;
+    --popover-foreground: 215 206 199;
 
-    --primary: 20 52 72; /* Copper */
-    --primary-foreground: 39 34 28;
+    --primary: 184 115 51; /* Burnished Copper */
+    --primary-foreground: 30 27 24;
 
-    --secondary: 39 26 19; /* Swahili dust */
-    --secondary-foreground: 39 15 8;
+    --secondary: 167 138 127; /* Swahili Dust */
+    --secondary-foreground: 30 27 24;
 
-    --muted: 39 26 19;
-    --muted-foreground: 39 15 8;
+    --muted: 58 50 38;
+    --muted-foreground: 167 138 127;
 
-    --accent: 20 52 72;
-    --accent-foreground: 39 34 28;
+    --accent: 184 115 51;
+    --accent-foreground: 30 27 24;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 39 34 28;
+    --destructive: 150 30 30;
+    --destructive-foreground: 215 206 199;
 
-    --border: 39 26 19;
-    --input: 39 26 19;
-    --ring: 20 52 72;
+    --border: 58 50 38;
+    --input: 58 50 38;
+    --ring: 184 115 51;
 
     --radius: 0.5rem;
   }
@@ -43,33 +43,94 @@
   }
 
   body {
-    @apply bg-swahili-dust-50 text-swahili-dust-900 font-sans;
-    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23c4a385" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    @apply bg-charred-wood text-soft-sand font-sans;
+    background-image: 
+      url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23A78A7F" fill-opacity="0.08"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'),
+      radial-gradient(circle at 25% 25%, rgba(167, 138, 127, 0.03) 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, rgba(184, 115, 51, 0.03) 2px, transparent 2px);
+    background-size: 60px 60px, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 20px 20px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-serif text-soft-sand;
   }
 
   a {
-    @apply text-copper-wood-600 hover:text-copper-wood-700 transition-colors;
+    @apply text-copper-wood-400 hover:text-copper-wood-300 transition-colors;
   }
 }
 
 @layer components {
   .african-pattern {
-    background-image: radial-gradient(circle at 25% 25%, #c4a385 2px, transparent 2px),
-                      radial-gradient(circle at 75% 75%, #d67e47 2px, transparent 2px);
+    background-image: 
+      radial-gradient(circle at 25% 25%, #A78A7F 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, #B87333 2px, transparent 2px);
     background-size: 40px 40px;
     background-position: 0 0, 20px 20px;
   }
   
+  .sisal-texture {
+    background-image: 
+      linear-gradient(45deg, rgba(167, 138, 127, 0.1) 25%, transparent 25%),
+      linear-gradient(-45deg, rgba(167, 138, 127, 0.1) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, rgba(167, 138, 127, 0.1) 75%),
+      linear-gradient(-45deg, transparent 75%, rgba(167, 138, 127, 0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+  
+  .kanga-pattern {
+    background-image: 
+      repeating-linear-gradient(0deg, rgba(184, 115, 51, 0.1), rgba(184, 115, 51, 0.1) 2px, transparent 2px, transparent 10px),
+      repeating-linear-gradient(90deg, rgba(167, 138, 127, 0.1), rgba(167, 138, 127, 0.1) 2px, transparent 2px, transparent 10px);
+  }
+  
   .btn-primary {
-    @apply bg-copper-600 hover:bg-copper-700 text-swahili-dust-50 font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg relative overflow-hidden;
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
   }
   
   .btn-secondary {
-    @apply bg-swahili-dust-600 hover:bg-swahili-dust-700 text-swahili-dust-50 font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply bg-swahili-dust hover:bg-swahili-dust-dark text-charred-wood font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
+  }
+
+  .copper-glow {
+    box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+  }
+
+  .copper-glow:hover {
+    box-shadow: 0 0 30px rgba(184, 115, 51, 0.5);
+  }
+
+  .stamped-button {
+    @apply relative overflow-hidden;
+    background: linear-gradient(145deg, #B87333, #A0611F);
+    box-shadow: 
+      inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+      inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .stamped-button:active {
+    transform: translateY(1px);
+    box-shadow: 
+      inset 2px 2px 6px rgba(0, 0, 0, 0.3),
+      inset -1px -1px 2px rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -78,6 +139,39 @@
     transform: scale(1) translateY(0px);
   }
   50% {
-    transform: scale(1.05) translateY(-10px);
+    transform: scale(1.02) translateY(-5px);
   }
+}
+
+@keyframes dust-particles {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(360deg);
+  }
+}
+
+@keyframes copper-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.dust-particle {
+  animation: dust-particles 4s linear infinite;
+}
+
+.copper-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(184, 115, 51, 0.3), transparent);
+  background-size: 200% 100%;
+  animation: copper-shimmer 2s linear infinite;
 }
