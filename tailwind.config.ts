@@ -78,9 +78,21 @@ export default {
 					800: '#864031',
 					900: '#6d352a',
 				},
+				'copper-wood': {
+					50: '#faf6f2',
+					100: '#f3ebe0',
+					200: '#e6d4c1',
+					300: '#d6b89b',
+					400: '#c59973',
+					500: '#b8825a',
+					600: '#ab7150',
+					700: '#8f5d45',
+					800: '#754d3e',
+					900: '#614135',
+				},
 			},
 			fontFamily: {
-				sans: ['Asap', 'sans-serif'],
+				sans: ['Ubuntu', 'sans-serif'],
 				serif: ['Crimson Text', 'serif'],
 			},
 			borderRadius: {

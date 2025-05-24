@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Star, Plus, Minus, Heart, Share2 } from 'lucide-react';
@@ -12,6 +13,7 @@ const ProductDetail = () => {
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedColor, setSelectedColor] = useState('Natural Brown');
 
   // Mock product data - in real app, this would come from API
   const product = {
@@ -22,6 +24,13 @@ const ProductDetail = () => {
       '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png'
+    ],
+    colors: [
+      { name: 'Natural Brown', value: '#8B4513', available: true },
+      { name: 'Dark Walnut', value: '#654321', available: true },
+      { name: 'Cognac', value: '#A0522D', available: true },
+      { name: 'Black Coffee', value: '#3C2414', available: false },
+      { name: 'Caramel', value: '#C19A6B', available: true }
     ],
     rating: 4.8,
     reviews: 124,
@@ -50,7 +59,7 @@ const ProductDetail = () => {
     
     toast({
       title: "Added to cart",
-      description: `${quantity} x ${product.name} added to your cart.`,
+      description: `${quantity} x ${product.name} in ${selectedColor} added to your cart.`,
     });
   };
 
@@ -58,7 +67,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-swahili-dust-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back button */}
-        <Link to="/products" className="inline-flex items-center text-copper-600 hover:text-copper-700 mb-8">
+        <Link to="/products" className="inline-flex items-center text-copper-wood-600 hover:text-copper-wood-700 mb-8">
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Products
         </Link>
@@ -66,7 +75,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Images */}
           <div className="space-y-4">
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden rounded-lg bg-swahili-dust-100">
               <img 
                 src={product.images[selectedImage]} 
                 alt={product.name}
@@ -118,6 +127,33 @@ const ProductDetail = () => {
             <div>
               <h3 className="text-lg font-semibold text-swahili-dust-800 mb-2">Description</h3>
               <p className="text-swahili-dust-600 leading-relaxed">{product.description}</p>
+            </div>
+
+            {/* Color Selection */}
+            <div>
+              <h3 className="text-lg font-semibold text-swahili-dust-800 mb-3">Color: {selectedColor}</h3>
+              <div className="flex flex-wrap gap-3">
+                {product.colors.map((color) => (
+                  <button
+                    key={color.name}
+                    onClick={() => color.available && setSelectedColor(color.name)}
+                    disabled={!color.available}
+                    className={`relative w-12 h-12 rounded-full border-2 transition-all ${
+                      selectedColor === color.name 
+                        ? 'border-copper-600 ring-2 ring-copper-200' 
+                        : 'border-swahili-dust-300'
+                    } ${!color.available ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}`}
+                    style={{ backgroundColor: color.value }}
+                    title={color.name}
+                  >
+                    {!color.available && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-full h-0.5 bg-swahili-dust-600 rotate-45"></div>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div>

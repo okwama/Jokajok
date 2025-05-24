@@ -21,9 +21,9 @@ const Footer = () => {
               Each piece tells a story of tradition, culture, and timeless elegance.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-swahili-dust-400 hover:text-copper-400 cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-swahili-dust-400 hover:text-copper-400 cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-swahili-dust-400 hover:text-copper-400 cursor-pointer transition-colors" />
+              <Facebook className="h-5 w-5 text-swahili-dust-400 hover:text-copper-wood-400 cursor-pointer transition-colors" />
+              <Instagram className="h-5 w-5 text-swahili-dust-400 hover:text-copper-wood-400 cursor-pointer transition-colors" />
+              <Twitter className="h-5 w-5 text-swahili-dust-400 hover:text-copper-wood-400 cursor-pointer transition-colors" />
             </div>
           </div>
 
@@ -31,10 +31,10 @@ const Footer = () => {
           <div>
             <h3 className="font-serif font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link to="/" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Home</Link></li>
-              <li><Link to="/products" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Products</Link></li>
-              <li><Link to="/blog" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Blog</Link></li>
-              <li><Link to="/account" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">My Account</Link></li>
+              <li><Link to="/" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Home</Link></li>
+              <li><Link to="/products" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Products</Link></li>
+              <li><Link to="/blog" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Blog</Link></li>
+              <li><Link to="/account" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">My Account</Link></li>
             </ul>
           </div>
 
@@ -42,10 +42,10 @@ const Footer = () => {
           <div>
             <h3 className="font-serif font-semibold text-lg mb-4">Customer Service</h3>
             <ul className="space-y-2">
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Shipping Info</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Returns</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Size Guide</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-400 transition-colors">Care Instructions</Link></li>
+              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Shipping Info</Link></li>
+              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Returns</Link></li>
+              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Size Guide</Link></li>
+              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Care Instructions</Link></li>
             </ul>
           </div>
 
@@ -54,15 +54,15 @@ const Footer = () => {
             <h3 className="font-serif font-semibold text-lg mb-4">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-copper-400" />
+                <MapPin className="h-4 w-4 text-copper-wood-400" />
                 <span className="text-swahili-dust-300 text-sm">Nairobi, Kenya</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-copper-400" />
+                <Phone className="h-4 w-4 text-copper-wood-400" />
                 <span className="text-swahili-dust-300 text-sm">+254 700 123 456</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-copper-400" />
+                <Mail className="h-4 w-4 text-copper-wood-400" />
                 <span className="text-swahili-dust-300 text-sm">hello@jokajok.com</span>
               </div>
             </div>

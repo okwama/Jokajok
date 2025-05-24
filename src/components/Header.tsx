@@ -36,7 +36,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-swahili-dust-700 hover:text-copper-600 font-medium transition-colors duration-200"
+                className="text-copper-wood-700 hover:text-copper-wood-800 font-medium transition-colors duration-200"
               >
                 {item.name}
               </Link>
@@ -111,7 +111,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block px-3 py-2 text-swahili-dust-700 hover:text-copper-600 font-medium"
+                  className="block px-3 py-2 text-copper-wood-700 hover:text-copper-wood-800 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -121,14 +121,14 @@ const Header = () => {
                 <>
                   <Link
                     to="/login"
-                    className="block px-3 py-2 text-swahili-dust-700 hover:text-copper-600 font-medium"
+                    className="block px-3 py-2 text-copper-wood-700 hover:text-copper-wood-800 font-medium"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="block px-3 py-2 text-swahili-dust-700 hover:text-copper-600 font-medium"
+                    className="block px-3 py-2 text-copper-wood-700 hover:text-copper-wood-800 font-medium"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Register
