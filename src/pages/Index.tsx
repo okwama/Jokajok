@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Star, Truck, Shield, Headphones } from 'lucide-react';
+import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -48,36 +48,61 @@ const Index = () => {
     }
   ];
 
+  const navigationCards = [
+    {
+      title: 'Shop All Products',
+      description: 'Explore our complete collection of authentic African accessories',
+      icon: ShoppingBag,
+      link: '/products',
+      color: 'bg-copper-600'
+    },
+    {
+      title: 'Read Our Stories',
+      description: 'Discover the heritage and craftsmanship behind each piece',
+      icon: Heart,
+      link: '/blog',
+      color: 'bg-swahili-dust-700'
+    },
+    {
+      title: 'Join Our Community',
+      description: 'Connect with fellow lovers of African artistry',
+      icon: Users,
+      link: '/register',
+      color: 'bg-copper-wood-600'
+    }
+  ];
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-swahili-dust-50">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-swahili-dust-900/80 to-copper-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-swahili-dust-900/90 to-copper-900/70"></div>
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-[scale-in_2s_ease-out] transform-gpu"
           style={{
-            backgroundImage: `url('/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png')`
+            backgroundImage: `url('/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png')`,
+            animation: 'hero-float 6s ease-in-out infinite'
           }}
         ></div>
         
-        <div className="relative z-10 text-center text-swahili-dust-50 max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 animate-fade-in">
+        <div className="relative z-10 text-center text-swahili-dust-50 max-w-4xl mx-auto px-4 animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 animate-[slide-in-right_1s_ease-out]">
             Discover Africa's
-            <span className="block text-copper-300">Timeless Beauty</span>
+            <span className="block text-copper-300 animate-[fade-in_2s_ease-out_0.5s_both]">Timeless Beauty</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed animate-[fade-in_1.5s_ease-out_1s_both]">
             Where traditional craftsmanship meets contemporary style. 
             Each piece carries the soul of Africa.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-[fade-in_1.5s_ease-out_1.5s_both]">
             <Link to="/products">
-              <Button size="lg" className="btn-primary text-lg px-8 py-4">
+              <Button size="lg" className="btn-primary text-lg px-8 py-4 hover:scale-105 transition-transform">
                 Explore Collection
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/blog">
-              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-swahili-dust-200 text-swahili-dust-100 hover:bg-swahili-dust-100 hover:text-swahili-dust-900">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-swahili-dust-200 text-swahili-dust-100 hover:bg-swahili-dust-200 hover:text-swahili-dust-900 hover:scale-105 transition-all">
                 Our Story
               </Button>
             </Link>
@@ -88,6 +113,40 @@ const Index = () => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-swahili-dust-200 rounded-full flex justify-center">
             <div className="w-1 h-3 bg-swahili-dust-200 rounded-full mt-2 animate-pulse"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation Cards Section */}
+      <section className="py-20 bg-swahili-dust-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-4">
+              Where Would You Like to Go?
+            </h2>
+            <p className="text-xl text-swahili-dust-600 max-w-2xl mx-auto">
+              Navigate through our world of authentic African craftsmanship
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {navigationCards.map((card, index) => (
+              <Link key={index} to={card.link} className="group">
+                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-50 group-hover:scale-105">
+                  <CardContent className="p-8 text-center">
+                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform`}>
+                      <card.icon className="h-8 w-8 text-swahili-dust-50" />
+                    </div>
+                    <h3 className="text-xl font-serif font-semibold text-swahili-dust-800 mb-3">
+                      {card.title}
+                    </h3>
+                    <p className="text-swahili-dust-600 leading-relaxed">
+                      {card.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -112,7 +171,7 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20">
+      <section className="py-20 bg-swahili-dust-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-swahili-dust-800 mb-4">
@@ -171,7 +230,7 @@ const Index = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-20 bg-gradient-to-r from-swahili-dust-100 to-copper-50">
+      <section className="py-20 bg-gradient-to-r from-swahili-dust-200 to-copper-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>

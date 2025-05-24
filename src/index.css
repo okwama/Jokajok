@@ -72,3 +72,12 @@
     @apply bg-swahili-dust-600 hover:bg-swahili-dust-700 text-swahili-dust-50 font-medium px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg;
   }
 }
+
+@keyframes hero-float {
+  0%, 100% {
+    transform: scale(1) translateY(0px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-10px);
+  }
+}

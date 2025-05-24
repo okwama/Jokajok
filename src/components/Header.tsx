@@ -45,14 +45,14 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="hidden md:flex">
+            <Button variant="ghost" size="sm" className="hidden md:flex text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200">
               <Search className="h-5 w-5" />
             </Button>
 
             {user ? (
               <div className="flex items-center space-x-2">
                 <Link to="/account">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200">
                     <User className="h-5 w-5" />
                     <span className="hidden sm:inline ml-2">{user.name}</span>
                   </Button>
@@ -61,7 +61,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={logout}
-                  className="hidden sm:flex"
+                  className="hidden sm:flex text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200"
                 >
                   Logout
                 </Button>
@@ -69,16 +69,16 @@ const Header = () => {
             ) : (
               <div className="hidden md:flex space-x-2">
                 <Link to="/login">
-                  <Button variant="ghost" size="sm">Login</Button>
+                  <Button variant="ghost" size="sm" className="text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200">Login</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="outline" size="sm">Register</Button>
+                  <Button variant="outline" size="sm" className="border-copper-wood-600 text-copper-wood-700 hover:bg-copper-wood-600 hover:text-swahili-dust-50">Register</Button>
                 </Link>
               </div>
             )}
 
             <Link to="/cart" className="relative">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200">
                 <ShoppingCart className="h-5 w-5" />
                 {itemCount > 0 && (
                   <Badge 
@@ -95,7 +95,7 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden"
+              className="md:hidden text-copper-wood-700 hover:text-copper-wood-800 hover:bg-swahili-dust-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -106,7 +106,7 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-swahili-dust-50 rounded-lg mt-2">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-swahili-dust-200 rounded-lg mt-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
