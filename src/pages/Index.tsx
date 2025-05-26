@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
@@ -5,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import HeroSection from '@/components/HeroSection';
 import CategoryGrid from '@/components/CategoryGrid';
+import ImageVideoSlider from '@/components/ImageVideoSlider';
 
 const Index = () => {
   const featuredProducts = [
@@ -49,6 +51,33 @@ const Index = () => {
     }
   ];
 
+  const sliderItems = [
+    {
+      id: 1,
+      type: 'image' as const,
+      src: '/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png',
+      alt: 'African artisan at work',
+      title: 'Crafted with Heritage',
+      subtitle: 'Discover authentic African craftsmanship'
+    },
+    {
+      id: 2,
+      type: 'image' as const,
+      src: '/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png',
+      alt: 'Traditional African marketplace',
+      title: 'From Our Heart to Yours',
+      subtitle: 'Each piece tells a unique story'
+    },
+    {
+      id: 3,
+      type: 'image' as const,
+      src: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+      alt: 'Handcrafted leather goods',
+      title: 'Premium Quality',
+      subtitle: 'Luxury meets tradition'
+    }
+  ];
+
   const navigationCards = [
     {
       title: 'Shop All Products',
@@ -78,45 +107,16 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Image/Video Slider Section */}
+      <section className="py-0">
+        <ImageVideoSlider slides={sliderItems} />
+      </section>
+
       {/* Category Grid */}
       <CategoryGrid />
 
-      {/* Navigation Cards Section */}
-      <section className="py-20 page-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
-              Where Would You Like to Go?
-            </h2>
-            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
-              Navigate through our world of authentic African craftsmanship
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {navigationCards.map((card, index) => (
-              <Link key={index} to={card.link} className="group">
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 group-hover:scale-105 copper-glow border border-copper-wood-700">
-                  <CardContent className="p-8 text-center sisal-texture">
-                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform border border-copper-wood-700`}>
-                      <card.icon className="h-8 w-8 text-charred-wood" />
-                    </div>
-                    <h3 className="text-xl font-serif font-semibold text-soft-sand mb-3">
-                      {card.title}
-                    </h3>
-                    <p className="text-copper-wood-400 leading-relaxed">
-                      {card.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
-      <section className="py-20 bg-charred-wood african-pattern">
+      <section className="py-20 bg-charred-wood">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -135,7 +135,7 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 page-background">
+      <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
@@ -148,8 +148,8 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-700 border border-copper-wood-700">
-                <div className="aspect-square overflow-hidden sisal-texture">
+              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
+                <div className="aspect-square overflow-hidden">
                   <img 
                     src={product.image} 
                     alt={product.name}
@@ -161,16 +161,16 @@ const Index = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-soft-sand'}`} 
+                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-400'}`} 
                       />
                     ))}
-                    <span className="ml-2 text-sm text-soft-sand">({product.rating})</span>
+                    <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
                   </div>
                   <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl text-soft-sand">Ksh{product.price}</span>
+                    <span className="text-2xl text-burnished-copper-500 font-semibold">Ksh{product.price}</span>
                     <Link to={`/products/${product.id}`}>
                       <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
                         View Details
@@ -221,10 +221,44 @@ const Index = () => {
               <img 
                 src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png" 
                 alt="African craftsmanship" 
-                className="rounded-lg shadow-2xl sisal-texture"
+                className="rounded-lg shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/40 to-transparent rounded-lg"></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation Cards Section - Moved to bottom */}
+      <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
+              Where Would You Like to Go?
+            </h2>
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
+              Navigate through our world of authentic African craftsmanship
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {navigationCards.map((card, index) => (
+              <Link key={index} to={card.link} className="group">
+                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 group-hover:scale-105 border border-copper-wood-700">
+                  <CardContent className="p-8 text-center">
+                    <div className={`w-16 h-16 ${card.color} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform border border-copper-wood-700`}>
+                      <card.icon className="h-8 w-8 text-charred-wood" />
+                    </div>
+                    <h3 className="text-xl font-serif font-semibold text-soft-sand mb-3">
+                      {card.title}
+                    </h3>
+                    <p className="text-copper-wood-400 leading-relaxed">
+                      {card.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
