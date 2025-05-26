@@ -112,7 +112,7 @@ const Products = () => {
                 variant={selectedCategory === category.id ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category.id)}
                 className={selectedCategory === category.id 
-                  ? "flat-button" 
+                  ? "bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood" 
                   : "bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800 hover:text-soft-sand"
                 }
               >
@@ -148,9 +148,9 @@ const Products = () => {
                 </h3>
                 <p className="text-copper-wood-400 mb-4">{product.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-burnished-copper">${product.price}</span>
+                  <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
                   <Link to={`/products/${product.id}`}>
-                    <Button className="flat-button">
+                    <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
                       View Details
                     </Button>
                   </Link>

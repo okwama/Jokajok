@@ -54,7 +54,7 @@ const HeroSection = () => {
       </div>
 
       {/* African fabric texture overlay */}
-      <div className="absolute inset-0 kanga-pattern opacity-30 z-20"></div>
+      <div className="absolute inset-0 kanga-pattern opacity-0 z-20"></div>
 
       {/* Copper dust particles */}
       {particles.map((particle) => (

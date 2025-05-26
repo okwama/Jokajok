@@ -281,13 +281,14 @@ const Checkout = () => {
                 </div>
 
                 <Button 
-                  onClick={handleSubmit}
-                  disabled={isProcessing}
-                  className="w-full flat-button text-lg py-3"
-                  size="lg"
-                >
-                  {isProcessing ? 'Processing...' : `Complete Order - $${total.toFixed(2)}`}
-                </Button>
+  onClick={handleSubmit}
+  disabled={isProcessing}
+  className="w-full bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-semibold rounded-md transition-colors duration-200 disabled:opacity-50"
+  size="lg"
+>
+  {isProcessing ? 'Processing...' : `Complete Order - $${total.toFixed(2)}`}
+</Button>
+
               </CardContent>
             </Card>
           </div>

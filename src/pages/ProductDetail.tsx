@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Star, Plus, Minus, Heart, Share2 } from 'lucide-react';
@@ -178,14 +177,18 @@ const ProductDetail = () => {
                     size="sm"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     disabled={quantity <= 1}
+                    className="bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
-                  <span className="w-12 text-center font-semibold">{quantity}</span>
+                  <div className="w-12 h-8 flex items-center justify-center bg-dark-clay-100 border border-copper-wood-600 rounded-md">
+                    <span className="text-soft-sand font-semibold">{quantity}</span>
+                  </div>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setQuantity(quantity + 1)}
+                    className="bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
@@ -195,15 +198,16 @@ const ProductDetail = () => {
               <div className="flex space-x-4">
                 <Button 
                   onClick={handleAddToCart}
-                  className="flex-1 bg-copper-600 hover:bg-copper-700"
+                  className="flex-1 bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood flex items-center justify-between px-6"
                   size="lg"
                 >
-                  Add to Cart - ${(product.price * quantity).toFixed(2)}
+                  <span>Add to Cart</span>
+                  <span className="ml-4 border-l border-charred-wood/20 pl-4">Ksh{(product.price * quantity).toFixed(2)}</span>
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="lg" className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800">
                   <Heart className="h-5 w-5" />
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" size="lg" className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>

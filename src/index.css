@@ -86,29 +86,41 @@
       repeating-linear-gradient(90deg, rgba(167, 138, 127, 0.1), rgba(167, 138, 127, 0.1) 2px, transparent 2px, transparent 10px);
   }
   
-  .btn-primary {
+  /* .btn-primary {
     @apply bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-sm border border-burnished-copper-600;
   }
   
   .btn-secondary {
     @apply bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-sm border border-copper-wood-700;
-  }
+  } */
 
-  .copper-glow {
+  /* .copper-glow {
     box-shadow: 0 0 15px rgba(184, 115, 51, 0.2);
-  }
+  } */
 
-  .copper-glow:hover {
+  /* .copper-glow:hover {
     box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
-  }
+  } */
 
-  .flat-button {
-    @apply bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-medium px-6 py-3 rounded-md transition-colors duration-200 border border-burnished-copper-600;
+  /* .flat-button {
+    @apply 
+      bg-burnished-copper-500 
+      hover:bg-burnished-copper-600 
+      text-charred-wood 
+      font-medium 
+      px-6 py-3 
+      rounded-md 
+      transition-colors duration-200 
+      border border-burnished-copper-600 
+      shadow-none 
+      focus:outline-none 
+      focus:ring-0;
   }
+  
 
   .flat-button-secondary {
     @apply bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand font-medium px-6 py-3 rounded-md transition-colors duration-200 border border-copper-wood-700;
-  }
+  } */
 
   .page-background {
     @apply bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900;

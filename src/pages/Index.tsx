@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
@@ -149,7 +148,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 copper-glow border border-copper-wood-700">
+              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-700 border border-copper-wood-700">
                 <div className="aspect-square overflow-hidden sisal-texture">
                   <img 
                     src={product.image} 
@@ -162,18 +161,18 @@ const Index = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-copper-wood-600'}`} 
+                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-soft-sand'}`} 
                       />
                     ))}
-                    <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
+                    <span className="ml-2 text-sm text-soft-sand">({product.rating})</span>
                   </div>
                   <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-burnished-copper">${product.price}</span>
+                    <span className="text-2xl text-soft-sand">Ksh{product.price}</span>
                     <Link to={`/products/${product.id}`}>
-                      <Button className="flat-button">
+                      <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
                         View Details
                       </Button>
                     </Link>
@@ -185,7 +184,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <Link to="/products">
-              <Button className="flat-button-secondary text-lg px-8 py-4">
+              <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
                 View All Products
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -212,7 +211,7 @@ const Index = () => {
                 we source and create products that honor our heritage while embracing the future.
               </p>
               <Link to="/blog">
-                <Button className="flat-button text-lg px-8 py-4">
+                <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
                   Read Our Story
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
