@@ -15,7 +15,7 @@ import WishlistCard from '@/components/WishlistCard';
 
 const Account = () => {
   const { user, logout } = useAuth();
-  const { addToCart } = useCart();
+  const { addItem } = useCart();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState('');
@@ -92,12 +92,13 @@ const Account = () => {
 
   const handleReorder = (items: any[]) => {
     items.forEach(item => {
-      addToCart({
-        id: item.id,
+      addItem({
+        id: item.id.toString(),
         name: item.name,
         price: item.price,
-        image: item.image
-      }, item.quantity);
+        image: item.image,
+        quantity: item.quantity
+      });
     });
     toast({
       title: "Items Added to Cart",
@@ -114,12 +115,12 @@ const Account = () => {
   };
 
   const handleAddToCartFromWishlist = (item: any) => {
-    addToCart({
-      id: item.id,
+    addItem({
+      id: item.id.toString(),
       name: item.name,
       price: item.price,
       image: item.image
-    }, 1);
+    });
     toast({
       title: "Added to Cart",
       description: `${item.name} has been added to your cart.`,
