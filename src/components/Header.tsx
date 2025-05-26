@@ -26,7 +26,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-12 h-12 bg-burnished-copper rounded-full flex items-center justify-center stamped-button">
-             <img src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png" alt="JJ" className="w-12 h-12" />
+             <img src="" alt="JJ" className="w-12 h-12" />
             </div>
             <span className="text-2xl font-serif font-bold text-soft-sand">JokaJok</span>
           </Link>
