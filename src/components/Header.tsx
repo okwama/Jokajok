@@ -1,25 +1,56 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X, Search } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { itemCount } = useCart();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Ladies', href: '/products?category=ladies' },
-    { name: 'Men', href: '/products?category=men' },
-    { name: 'Safari', href: '/products?category=safari' },
-    { name: 'Redline', href: '/products?category=redline' },
     { name: 'Blog', href: '/blog' },
   ];
+
+  const menCollection = [
+    'DOUBLE STRAP', 'CIGAR POUCH', 'DIGITAL NOMAD', 'DOUBLE STRAP NUBUCK',
+    'MAINEST SATCHEL', 'LAPTOP SLEEVE', 'WANDERLUST', 'URBAN NATIVE',
+    'SWOYO', 'RETRO SAFARI', 'NAYABINGI DRUM'
+  ];
+
+  const ladiesCollection = [
+    'AFRICAN SUMMER', 'MALKIA', 'TEKA', 'WENDO', 'WARIDI',
+    'KANINI KASEO', 'WANDERLUST', 'YASMINE'
+  ];
+
+  const safariCollection = [
+    'THAYAH WEEKENDER', 'KIFARU 360', 'WARIDI', 'OTONGOLO MONEY MAKER',
+    'TEKA', 'WANDERLUST LADIES', 'YASMINE', 'KIFARU 360 LARGE CHECKIN',
+    'CAMACHO', 'CAMACHO SCORPION', 'DIGITAL NOMAD'
+  ];
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
 
   return (
     <header className="bg-dark-clay-50 shadow-lg sticky top-0 z-50 border-b border-copper-wood-700">
@@ -31,7 +62,86 @@ const Header = () => {
           </Link>
 
           {/* Navigation - Desktop */}
-          <nav className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Ladies
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">LADIES COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {ladiesCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=ladies&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Men
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">MEN'S COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {menCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=men&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Safari
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">SAFARI COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {safariCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=safari&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link
+                    to="/products?category=redline"
+                    className="text-copper-wood-400 hover:text-burnished-copper-500 font-medium transition-all duration-200 relative"
+                  >
+                    Redline
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -42,14 +152,29 @@ const Header = () => {
                 <div className="absolute inset-0 bg-burnished-copper-500 opacity-0 hover:opacity-20 rounded transition-opacity duration-200"></div>
               </Link>
             ))}
-          </nav>
+          </div>
+
+          {/* Search Bar */}
+          <div className="hidden md:flex items-center">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-64 pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
+              />
+              <button
+                type="submit"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-copper-wood-400 hover:text-burnished-copper-500"
+              >
+                <Search className="h-4 w-4" />
+              </button>
+            </form>
+          </div>
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="hidden md:flex text-copper-wood-400 hover:text-burnished-copper-500 hover:bg-swahili-dust-700">
-              <Search className="h-5 w-5" />
-            </Button>
-
             {user ? (
               <div className="flex items-center space-x-2">
                 <Link to="/account">
@@ -108,6 +233,51 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-swahili-dust-800 rounded-lg mt-2 border border-copper-wood-700">
+              {/* Mobile Search */}
+              <form onSubmit={handleSearch} className="relative mb-4">
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
+                />
+                <button
+                  type="submit"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-copper-wood-400"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
+              </form>
+
+              <Link
+                to="/products?category=ladies"
+                className="block px-3 py-2 text-copper-wood-400 hover:text-burnished-copper-500 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Ladies
+              </Link>
+              <Link
+                to="/products?category=men"
+                className="block px-3 py-2 text-copper-wood-400 hover:text-burnished-copper-500 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Men
+              </Link>
+              <Link
+                to="/products?category=safari"
+                className="block px-3 py-2 text-copper-wood-400 hover:text-burnished-copper-500 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Safari
+              </Link>
+              <Link
+                to="/products?category=redline"
+                className="block px-3 py-2 text-copper-wood-400 hover:text-burnished-copper-500 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Redline
+              </Link>
               {navigation.map((item) => (
                 <Link
                   key={item.name}

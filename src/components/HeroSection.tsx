@@ -41,7 +41,6 @@ const HeroSection = () => {
           ></div>
         ) : (
           <div className="absolute inset-0 animate-fade-in">
-            {/* Simulated video with artisan work imagery */}
             <div 
               className="w-full h-full bg-cover bg-center animate-float"
               style={{
@@ -53,14 +52,11 @@ const HeroSection = () => {
         )}
       </div>
 
-      {/* African fabric texture overlay */}
-      <div className="absolute inset-0 kanga-pattern opacity-0 z-20"></div>
-
       {/* Copper dust particles */}
       {particles.map((particle) => (
         <div
           key={particle.id}
-          className="absolute w-2 h-2 bg-burnished-copper rounded-full dust-particle z-30"
+          className="absolute w-2 h-2 bg-burnished-copper-500 rounded-full dust-particle z-30"
           style={{
             left: `${particle.x}%`,
             animationDelay: `${particle.delay}s`,
@@ -73,23 +69,23 @@ const HeroSection = () => {
       <div className="relative z-40 text-center text-soft-sand max-w-4xl mx-auto px-4 animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 animate-slide-in-right">
           Discover Africa's
-          <span className="block text-burnished-copper animate-fade-in copper-shimmer bg-gradient-to-r from-burnished-copper-300 via-burnished-copper-500 to-burnished-copper-700 bg-clip-text text-transparent">
+          <span className="block text-burnished-copper-500 animate-fade-in bg-gradient-to-r from-burnished-copper-300 via-burnished-copper-500 to-burnished-copper-700 bg-clip-text text-transparent">
             Timeless Beauty
           </span>
         </h1>
-        <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed text-soft-sand-light">
+        <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed text-copper-wood-300">
           Where traditional craftsmanship meets contemporary style. 
           Each piece carries the soul of Africa, handcrafted with heritage.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/products">
-            <Button size="lg" className="stamped-button text-lg px-8 py-4 bg-burnished-copper hover:bg-burnished-copper-dark text-charred-wood font-semibold">
+            <Button size="lg" className="text-lg px-8 py-4 bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-semibold border-0">
               Explore Collection
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
           <Link to="/blog">
-            <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-soft-sand text-soft-sand hover:bg-soft-sand hover:text-charred-wood transition-all duration-300">
+            <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-copper-wood-400 text-copper-wood-400 hover:bg-copper-wood-800 hover:text-soft-sand transition-all duration-300">
               Our Story
             </Button>
           </Link>
@@ -98,8 +94,8 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-40">
-        <div className="w-6 h-10 border-2 border-soft-sand rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-burnished-copper rounded-full mt-2 animate-pulse"></div>
+        <div className="w-6 h-10 border-2 border-copper-wood-400 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-burnished-copper-500 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

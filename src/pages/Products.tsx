@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Filter, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +8,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+
+  useEffect(() => {
+    const search = searchParams.get('search');
+    const category = searchParams.get('category');
+    
+    if (search) {
+      setSearchTerm(search);
+    }
+    if (category) {
+      setSelectedCategory(category);
+    }
+  }, [searchParams]);
 
   const products = [
     {
@@ -18,7 +31,7 @@ const Products = () => {
       price: 89,
       image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       rating: 4.8,
-      category: 'bags',
+      category: 'ladies',
       description: 'Handcrafted by Maasai artisans'
     },
     {
@@ -27,7 +40,7 @@ const Products = () => {
       price: 65,
       image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       rating: 4.9,
-      category: 'bags',
+      category: 'ladies',
       description: 'Perfect for daily adventures'
     },
     {
@@ -36,7 +49,7 @@ const Products = () => {
       price: 125,
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.7,
-      category: 'bags',
+      category: 'men',
       description: 'Traditional patterns meet modern design'
     },
     {
@@ -63,32 +76,36 @@ const Products = () => {
       price: 75,
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.5,
-      category: 'bags',
+      category: 'safari',
       description: 'Eco-friendly elegance'
     }
   ];
 
   const categories = [
     { id: 'all', name: 'All Products' },
-    { id: 'bags', name: 'Bags' },
+    { id: 'ladies', name: 'Ladies' },
+    { id: 'men', name: 'Men' },
+    { id: 'safari', name: 'Safari' },
+    { id: 'redline', name: 'Redline' },
     { id: 'accessories', name: 'Accessories' }
   ];
 
   const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   return (
-    <div className="min-h-screen page-background py-8">
+    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
             Our Collection
           </h1>
-          <p className="text-xl text-soft-sand-dark max-w-2xl mx-auto">
+          <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
             Discover authentic African craftsmanship in every piece
           </p>
         </div>
@@ -105,14 +122,14 @@ const Products = () => {
               className="pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {categories.map((category) => (
               <Button
                 key={category.id}
                 variant={selectedCategory === category.id ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category.id)}
                 className={selectedCategory === category.id 
-                  ? "bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood" 
+                  ? "bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0" 
                   : "bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800 hover:text-soft-sand"
                 }
               >
@@ -125,7 +142,7 @@ const Products = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
-            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 copper-glow">
+            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={product.image} 
@@ -138,7 +155,7 @@ const Products = () => {
                   {[...Array(5)].map((_, i) => (
                     <Star 
                       key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper fill-current' : 'text-copper-wood-600'}`} 
+                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
                     />
                   ))}
                   <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
@@ -150,7 +167,7 @@ const Products = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
                   <Link to={`/products/${product.id}`}>
-                    <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
+                    <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0">
                       View Details
                     </Button>
                   </Link>
