@@ -1,26 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Search, Filter, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import EnhancedFilters from '@/components/EnhancedFilters';
 
 const Products = () => {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [filters, setFilters] = useState({
+    priceRange: [0, 200],
+    categories: [],
+    rating: 0,
+    sortBy: 'name',
+    inStock: false
+  });
 
   useEffect(() => {
     const search = searchParams.get('search');
-    const category = searchParams.get('category');
-    
     if (search) {
       setSearchTerm(search);
-    }
-    if (category) {
-      setSelectedCategory(category);
     }
   }, [searchParams]);
 
@@ -32,7 +31,9 @@ const Products = () => {
       image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       rating: 4.8,
       category: 'ladies',
-      description: 'Handcrafted by Maasai artisans'
+      description: 'Handcrafted by Maasai artisans',
+      inStock: true,
+      tags: ['leather', 'handmade']
     },
     {
       id: 2,
@@ -41,7 +42,9 @@ const Products = () => {
       image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       rating: 4.9,
       category: 'ladies',
-      description: 'Perfect for daily adventures'
+      description: 'Perfect for daily adventures',
+      inStock: true,
+      tags: ['crossbody', 'adventure']
     },
     {
       id: 3,
@@ -50,7 +53,9 @@ const Products = () => {
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.7,
       category: 'men',
-      description: 'Traditional patterns meet modern design'
+      description: 'Traditional patterns meet modern design',
+      inStock: false,
+      tags: ['messenger', 'traditional']
     },
     {
       id: 4,
@@ -59,7 +64,9 @@ const Products = () => {
       image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       rating: 4.6,
       category: 'accessories',
-      description: 'Compact and stylish'
+      description: 'Compact and stylish',
+      inStock: true,
+      tags: ['wallet', 'print']
     },
     {
       id: 5,
@@ -68,7 +75,9 @@ const Products = () => {
       image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       rating: 4.8,
       category: 'accessories',
-      description: 'Handmade with love'
+      description: 'Handmade with love',
+      inStock: true,
+      tags: ['jewelry', 'beaded']
     },
     {
       id: 6,
@@ -77,31 +86,61 @@ const Products = () => {
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.5,
       category: 'safari',
-      description: 'Eco-friendly elegance'
+      description: 'Eco-friendly elegance',
+      inStock: true,
+      tags: ['clutch', 'wooden']
     }
   ];
 
-  const categories = [
-    { id: 'all', name: 'All Products' },
-    { id: 'ladies', name: 'Ladies' },
-    { id: 'men', name: 'Men' },
-    { id: 'safari', name: 'Safari' },
-    { id: 'redline', name: 'Redline' },
-    { id: 'accessories', name: 'Accessories' }
-  ];
+  const applyFilters = (productList: any[]) => {
+    return productList
+      .filter(product => {
+        // Search filter
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                             product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                             product.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+        
+        // Category filter
+        const matchesCategory = filters.categories.length === 0 || filters.categories.includes(product.category);
+        
+        // Price filter
+        const matchesPrice = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
+        
+        // Rating filter
+        const matchesRating = filters.rating === 0 || product.rating >= filters.rating;
+        
+        // Stock filter
+        const matchesStock = !filters.inStock || product.inStock;
+        
+        return matchesSearch && matchesCategory && matchesPrice && matchesRating && matchesStock;
+      })
+      .sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'name_desc':
+            return b.name.localeCompare(a.name);
+          case 'price_asc':
+            return a.price - b.price;
+          case 'price_desc':
+            return b.price - a.price;
+          case 'rating':
+            return b.rating - a.rating;
+          case 'newest':
+            return b.id - a.id;
+          case 'popular':
+            return b.rating - a.rating;
+          default:
+            return a.name.localeCompare(b.name);
+        }
+      });
+  };
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredProducts = applyFilters(products);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
             Our Collection
           </h1>
@@ -110,45 +149,35 @@ const Products = () => {
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-copper-wood-400 h-5 w-5" />
-            <Input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
-            />
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            {categories.map((category) => (
-              <Button
-                key={category.id}
-                variant={selectedCategory === category.id ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category.id)}
-                className={selectedCategory === category.id 
-                  ? "bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0" 
-                  : "bg-transparent border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800 hover:text-soft-sand"
-                }
-              >
-                {category.name}
-              </Button>
-            ))}
-          </div>
+        {/* Enhanced Filters */}
+        <EnhancedFilters
+          onFilterChange={setFilters}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+        />
+
+        {/* Results Summary */}
+        <div className="mb-6">
+          <p className="text-copper-wood-400">
+            Showing {filteredProducts.length} of {products.length} products
+          </p>
         </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
             <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
-              <div className="aspect-square overflow-hidden">
+              <div className="aspect-square overflow-hidden relative">
                 <img 
                   src={product.image} 
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+                {!product.inStock && (
+                  <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
+                    Out of Stock
+                  </div>
+                )}
               </div>
               <CardContent className="p-6">
                 <div className="flex items-center mb-2">
@@ -167,8 +196,11 @@ const Products = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
                   <Link to={`/products/${product.id}`}>
-                    <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0">
-                      View Details
+                    <Button 
+                      className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0"
+                      disabled={!product.inStock}
+                    >
+                      {product.inStock ? 'View Details' : 'Out of Stock'}
                     </Button>
                   </Link>
                 </div>
@@ -180,6 +212,22 @@ const Products = () => {
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchTerm('');
+                setFilters({
+                  priceRange: [0, 200],
+                  categories: [],
+                  rating: 0,
+                  sortBy: 'name',
+                  inStock: false
+                });
+              }}
+              className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+            >
+              Clear All Filters
+            </Button>
           </div>
         )}
       </div>

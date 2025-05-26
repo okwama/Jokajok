@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CreditCard, Truck, Shield } from 'lucide-react';
+import { Truck, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import PaymentIntegration from '@/components/PaymentIntegration';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -16,7 +16,6 @@ const Checkout = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   
-  const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || '',
     firstName: '',
@@ -25,10 +24,6 @@ const Checkout = () => {
     city: '',
     postalCode: '',
     country: '',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    cardName: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,13 +33,7 @@ const Checkout = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsProcessing(true);
-
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
+  const handlePaymentSuccess = () => {
     const orderId = Math.random().toString(36).substr(2, 9).toUpperCase();
     
     toast({
@@ -169,65 +158,11 @@ const Checkout = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-dark-clay-100 border-copper-wood-700">
-              <CardHeader>
-                <CardTitle className="font-serif flex items-center text-soft-sand">
-                  <CreditCard className="h-5 w-5 mr-2" />
-                  Payment Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="cardNumber" className="text-copper-wood-400">Card Number</Label>
-                  <Input
-                    id="cardNumber"
-                    name="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    value={formData.cardNumber}
-                    onChange={handleInputChange}
-                    required
-                    className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="expiryDate" className="text-copper-wood-400">Expiry Date</Label>
-                    <Input
-                      id="expiryDate"
-                      name="expiryDate"
-                      placeholder="MM/YY"
-                      value={formData.expiryDate}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="cvv" className="text-copper-wood-400">CVV</Label>
-                    <Input
-                      id="cvv"
-                      name="cvv"
-                      placeholder="123"
-                      value={formData.cvv}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="cardName" className="text-copper-wood-400">Name on Card</Label>
-                  <Input
-                    id="cardName"
-                    name="cardName"
-                    value={formData.cardName}
-                    onChange={handleInputChange}
-                    required
-                    className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-                  />
-                </div>
-              </CardContent>
-            </Card>
+            {/* Payment Integration */}
+            <PaymentIntegration
+              total={total}
+              onPaymentSuccess={handlePaymentSuccess}
+            />
           </div>
 
           {/* Order Summary */}
@@ -250,14 +185,14 @@ const Checkout = () => {
                       <h4 className="font-semibold text-soft-sand">{item.name}</h4>
                       <p className="text-sm text-copper-wood-400">Qty: {item.quantity}</p>
                     </div>
-                    <span className="font-semibold text-burnished-copper">${(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-semibold text-burnished-copper">Ksh{(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
 
                 <div className="border-t border-copper-wood-700 pt-4 space-y-2">
                   <div className="flex justify-between">
                     <span className="text-copper-wood-400">Subtotal</span>
-                    <span className="text-soft-sand">${total.toFixed(2)}</span>
+                    <span className="text-soft-sand">Ksh{total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-copper-wood-400">Shipping</span>
@@ -265,7 +200,7 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-lg font-bold">
                     <span className="text-soft-sand">Total</span>
-                    <span className="text-burnished-copper">${total.toFixed(2)}</span>
+                    <span className="text-burnished-copper">Ksh{total.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -279,16 +214,6 @@ const Checkout = () => {
                     Free shipping across Africa
                   </div>
                 </div>
-
-                <Button 
-  onClick={handleSubmit}
-  disabled={isProcessing}
-  className="w-full bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-semibold rounded-md transition-colors duration-200 disabled:opacity-50"
-  size="lg"
->
-  {isProcessing ? 'Processing...' : `Complete Order - $${total.toFixed(2)}`}
-</Button>
-
               </CardContent>
             </Card>
           </div>
