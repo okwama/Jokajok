@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +7,8 @@ import { Plus, Edit, Trash2, Eye, Package } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import AddProductForm from './AddProductForm';
+import ProductDetailModal from './ProductDetailModal';
+import EditProductForm from './EditProductForm';
 
 interface ProductManagementProps {
   searchTerm: string;
@@ -17,6 +18,9 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
   const { toast } = useToast();
@@ -62,6 +66,22 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
     }
   };
 
+  const handleViewProduct = (product: any) => {
+    setSelectedProduct(product);
+    setShowDetailModal(true);
+  };
+
+  const handleEditProduct = (product: any) => {
+    setSelectedProduct(product);
+    setShowEditForm(true);
+  };
+
+  const handleProductUpdated = () => {
+    setShowEditForm(false);
+    setSelectedProduct(null);
+    fetchProducts();
+  };
+
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -93,6 +113,24 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
           </Button>
         </div>
         <AddProductForm onSuccess={() => { setShowAddForm(false); fetchProducts(); }} />
+      </div>
+    );
+  }
+
+  if (showEditForm && selectedProduct) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-serif font-bold text-soft-sand">Edit Product</h2>
+          <Button 
+            onClick={() => { setShowEditForm(false); setSelectedProduct(null); }}
+            variant="outline"
+            className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+          >
+            ← Back to Products
+          </Button>
+        </div>
+        <EditProductForm product={selectedProduct} onSuccess={handleProductUpdated} />
       </div>
     );
   }
@@ -188,10 +226,22 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
                   </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleViewProduct(product)}
+                        className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+                        title="View Details"
+                      >
                         <Eye className="h-4 w-4" />
                       </Button>
-                      <Button variant="outline" size="sm" className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={() => handleEditProduct(product)}
+                        className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+                        title="Edit Product"
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button 
@@ -199,6 +249,7 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
                         size="sm" 
                         onClick={() => deleteProduct(product.id)}
                         className="border-red-600 text-red-400 hover:bg-red-800"
+                        title="Delete Product"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -210,6 +261,15 @@ const ProductManagement = ({ searchTerm }: ProductManagementProps) => {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Product Detail Modal */}
+      {showDetailModal && selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          isOpen={showDetailModal}
+          onClose={() => { setShowDetailModal(false); setSelectedProduct(null); }}
+        />
+      )}
     </div>
   );
 };

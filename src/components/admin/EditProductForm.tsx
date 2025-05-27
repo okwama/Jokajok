@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { X, Plus } from 'lucide-react';
+import { X, Plus, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -15,22 +15,27 @@ interface Category {
   name: string;
 }
 
-const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+interface EditProductFormProps {
+  product: any;
+  onSuccess?: () => void;
+}
+
+const EditProductForm = ({ product, onSuccess }: EditProductFormProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category_id: '',
-    stock: '',
-    sku: '',
-    featured: false,
-    tags: [] as string[],
-    images: [] as string[]
+    name: product.name || '',
+    description: product.description || '',
+    price: product.price?.toString() || '',
+    category_id: product.category_id || '',
+    stock: product.stock?.toString() || '',
+    sku: product.sku || '',
+    featured: product.featured || false,
+    tags: product.tags || [],
+    images: product.images || []
   });
   const [newTag, setNewTag] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const { toast } = useToast();
 
   useEffect(() => {
@@ -57,29 +62,14 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         stock: parseInt(formData.stock),
       };
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('products')
-        .insert(productData)
-        .select()
-        .single();
+        .update(productData)
+        .eq('id', product.id);
 
       if (error) throw error;
 
-      toast({ title: 'Success', description: 'Product added successfully!' });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        description: '',
-        price: '',
-        category_id: '',
-        stock: '',
-        sku: '',
-        featured: false,
-        tags: [],
-        images: []
-      });
-
+      toast({ title: 'Success', description: 'Product updated successfully!' });
       onSuccess?.();
     } catch (error: any) {
       toast({ title: 'Error', description: error.message, variant: 'destructive' });
@@ -113,10 +103,12 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   return (
     <Card className="bg-dark-clay-100 border-copper-wood-700">
       <CardHeader>
-        <CardTitle className="text-soft-sand">Add New Product</CardTitle>
+        <CardTitle className="text-soft-sand">Edit Product</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
+          
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="name" className="text-copper-wood-400">Product Name</Label>
@@ -192,42 +184,6 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             </div>
           </div>
 
-          {/* Product Images */}
-          <div>
-            <Label className="text-copper-wood-400">Product Images</Label>
-            <div className="flex gap-2 mb-2">
-              <Input
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="Image URL"
-                className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-              />
-              <Button type="button" onClick={addImage} variant="outline" className="border-copper-wood-600">
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {formData.images.map((image, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={image}
-                    alt={`Product ${index + 1}`}
-                    className="w-full h-32 object-cover rounded border border-copper-wood-600"
-                  />
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    className="absolute top-1 right-1 h-6 w-6 p-0"
-                    onClick={() => removeImage(image)}
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div>
             <Label className="text-copper-wood-400">Tags</Label>
             <div className="flex gap-2 mb-2">
@@ -265,13 +221,49 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             />
             <Label htmlFor="featured" className="text-copper-wood-400">Featured Product</Label>
           </div>
+          
+          
+          <div>
+            <Label className="text-copper-wood-400">Product Images</Label>
+            <div className="flex gap-2 mb-2">
+              <Input
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="Image URL"
+                className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
+              />
+              <Button type="button" onClick={addImage} variant="outline" className="border-copper-wood-600">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {formData.images.map((image, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={image}
+                    alt={`Product ${index + 1}`}
+                    className="w-full h-32 object-cover rounded border border-copper-wood-600"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="absolute top-1 right-1 h-6 w-6 p-0"
+                    onClick={() => removeImage(image)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <Button 
             type="submit" 
             disabled={loading}
             className="w-full bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood"
           >
-            {loading ? 'Adding Product...' : 'Add Product'}
+            {loading ? 'Updating Product...' : 'Update Product'}
           </Button>
         </form>
       </CardContent>
@@ -279,4 +271,4 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

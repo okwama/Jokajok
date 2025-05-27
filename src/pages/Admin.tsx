@@ -1,11 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Plus, Package, ShoppingCart, Users, DollarSign, Warehouse, TrendingUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Search, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import ProductManagement from '@/components/admin/ProductManagement';
 import CategoryManagement from '@/components/admin/CategoryManagement';
 import OrderManagement from '@/components/admin/OrderManagement';
@@ -16,6 +17,63 @@ import FinanceManagement from '@/components/admin/FinanceManagement';
 const Admin = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { user, logout } = useAuth();
+
+  useEffect(() => {
+    checkAdminStatus();
+  }, [user]);
+
+  const checkAdminStatus = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    // For now, we'll check if the user email contains 'admin' or matches specific emails
+    // In production, you should have a proper roles system
+    const adminEmails = ['admin@jokajok.com', 'admin@example.com'];
+    const isUserAdmin = adminEmails.includes(user.email) || user.email.includes('admin');
+    
+    setIsAdmin(isUserAdmin);
+    setLoading(false);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
+  const handleNavigate = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center">
+        <div className="text-soft-sand">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-serif font-bold text-soft-sand mb-4">Access Denied</h1>
+          <p className="text-copper-wood-400 mb-6">You don't have permission to access the admin panel.</p>
+          <Button onClick={handleLogout} variant="outline" className="border-copper-wood-600 text-copper-wood-400">
+            <LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
@@ -35,6 +93,14 @@ const Admin = () => {
                 className="pl-10 bg-dark-clay-100 border-copper-wood-600 text-soft-sand placeholder:text-copper-wood-400"
               />
             </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
           </div>
         </div>
 
@@ -61,7 +127,7 @@ const Admin = () => {
           </TabsList>
 
           <TabsContent value="dashboard">
-            <AdminStats />
+            <AdminStats onNavigate={handleNavigate} />
           </TabsContent>
 
           <TabsContent value="products">

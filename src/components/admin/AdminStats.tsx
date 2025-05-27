@@ -1,19 +1,24 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Package, ShoppingCart, Users, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
+import { DollarSign, Package, ShoppingCart, Users, TrendingUp, AlertTriangle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import QuickActionsMenu from './QuickActionsMenu';
 
-const AdminStats = () => {
+interface AdminStatsProps {
+  onNavigate?: (tab: string) => void;
+}
+
+const AdminStats = ({ onNavigate }: AdminStatsProps) => {
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,
     totalRevenue: 0,
-    pendingOrders: 0,
-    monthlyGrowth: 0,
-    dailyRevenue: 0
+    lowStockProducts: 0
   });
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchStats();
@@ -21,63 +26,51 @@ const AdminStats = () => {
 
   const fetchStats = async () => {
     try {
-      // Fetch total products
+      // Fetch products count
       const { count: productsCount } = await supabase
         .from('products')
         .select('*', { count: 'exact', head: true });
 
-      // Fetch total orders
+      // Fetch orders count
       const { count: ordersCount } = await supabase
         .from('orders')
         .select('*', { count: 'exact', head: true });
 
-      // Fetch pending orders
-      const { count: pendingCount } = await supabase
-        .from('orders')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'pending');
-
-      // Fetch revenue from financial transactions
+      // Fetch total revenue
       const { data: revenueData } = await supabase
         .from('financial_transactions')
         .select('amount')
         .eq('transaction_type', 'sale');
 
-      const totalRevenue = revenueData?.reduce((sum, t) => sum + Number(t.amount), 0) || 0;
+      const totalRevenue = revenueData?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) || 0;
+
+      // Fetch low stock products (less than 10 items)
+      const { count: lowStockCount } = await supabase
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .lt('stock', 10);
 
       setStats({
         totalProducts: productsCount || 0,
         totalOrders: ordersCount || 0,
         totalRevenue,
-        pendingOrders: pendingCount || 0,
-        monthlyGrowth: 12.5, // This would need more complex calculation
-        dailyRevenue: totalRevenue / 30 // Simple approximation
+        lowStockProducts: lowStockCount || 0
       });
-    } catch (error) {
-      console.error('Error fetching stats:', error);
+    } catch (error: any) {
+      toast({ title: 'Error', description: 'Failed to fetch stats', variant: 'destructive' });
     } finally {
       setLoading(false);
     }
   };
 
-  const StatCard = ({ title, value, icon: Icon, change, changeType }: any) => (
+  const StatCard = ({ title, value, icon: Icon, color }: any) => (
     <Card className="bg-dark-clay-100 border-copper-wood-700">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-copper-wood-400">{title}</CardTitle>
-        <Icon className="h-4 w-4 text-burnished-copper-500" />
+        <Icon className={`h-4 w-4 ${color}`} />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold text-soft-sand">{value}</div>
-        {change && (
-          <p className="text-xs text-copper-wood-400 flex items-center mt-1">
-            {changeType === 'positive' ? (
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-            ) : (
-              <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
-            )}
-            {change}% from last month
-          </p>
-        )}
       </CardContent>
     </Card>
   );
@@ -87,82 +80,39 @@ const AdminStats = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      {/* Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Total Products"
           value={stats.totalProducts}
           icon={Package}
-          change={8.2}
-          changeType="positive"
+          color="text-blue-500"
         />
         <StatCard
           title="Total Orders"
           value={stats.totalOrders}
           icon={ShoppingCart}
-          change={stats.monthlyGrowth}
-          changeType="positive"
+          color="text-green-500"
         />
         <StatCard
           title="Total Revenue"
           value={`Ksh${stats.totalRevenue.toLocaleString()}`}
           icon={DollarSign}
-          change={15.3}
-          changeType="positive"
+          color="text-yellow-500"
         />
         <StatCard
-          title="Pending Orders"
-          value={stats.pendingOrders}
-          icon={Users}
-          change={-2.1}
-          changeType="negative"
+          title="Low Stock Items"
+          value={stats.lowStockProducts}
+          icon={AlertTriangle}
+          color="text-red-500"
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-dark-clay-100 border-copper-wood-700">
-          <CardHeader>
-            <CardTitle className="text-soft-sand font-serif">Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-copper-wood-400">New order #1234</span>
-                <span className="text-sm text-copper-wood-500">2 min ago</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-copper-wood-400">Product "Maasai Tote" updated</span>
-                <span className="text-sm text-copper-wood-500">5 min ago</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-copper-wood-400">Low stock alert: Safari Bag</span>
-                <span className="text-sm text-copper-wood-500">1 hour ago</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-dark-clay-100 border-copper-wood-700">
-          <CardHeader>
-            <CardTitle className="text-soft-sand font-serif">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <button className="p-4 bg-burnished-copper-500 text-charred-wood rounded-lg hover:bg-burnished-copper-600 transition-colors">
-                Add Product
-              </button>
-              <button className="p-4 bg-copper-wood-700 text-soft-sand rounded-lg hover:bg-copper-wood-600 transition-colors">
-                View Orders
-              </button>
-              <button className="p-4 bg-copper-wood-700 text-soft-sand rounded-lg hover:bg-copper-wood-600 transition-colors">
-                Manage Categories
-              </button>
-              <button className="p-4 bg-copper-wood-700 text-soft-sand rounded-lg hover:bg-copper-wood-600 transition-colors">
-                Export Data
-              </button>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Quick Actions */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-serif font-bold text-soft-sand">Quick Actions</h3>
+        <QuickActionsMenu onNavigate={onNavigate || (() => {})} />
       </div>
     </div>
   );
