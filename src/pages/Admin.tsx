@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Plus, Package, ShoppingCart, Users, DollarSign } from 'lucide-react';
+import { Search, Plus, Package, ShoppingCart, Users, DollarSign, Warehouse, TrendingUp } from 'lucide-react';
 import ProductManagement from '@/components/admin/ProductManagement';
 import CategoryManagement from '@/components/admin/CategoryManagement';
 import OrderManagement from '@/components/admin/OrderManagement';
 import AdminStats from '@/components/admin/AdminStats';
+import InventoryManagement from '@/components/admin/InventoryManagement';
+import FinanceManagement from '@/components/admin/FinanceManagement';
 
 const Admin = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,7 +39,7 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-dark-clay-100 border-copper-wood-700">
+          <TabsList className="grid w-full grid-cols-6 bg-dark-clay-100 border-copper-wood-700">
             <TabsTrigger value="dashboard" className="text-copper-wood-400 data-[state=active]:text-soft-sand data-[state=active]:bg-burnished-copper-500">
               Dashboard
             </TabsTrigger>
@@ -49,6 +51,12 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="orders" className="text-copper-wood-400 data-[state=active]:text-soft-sand data-[state=active]:bg-burnished-copper-500">
               Orders
+            </TabsTrigger>
+            <TabsTrigger value="inventory" className="text-copper-wood-400 data-[state=active]:text-soft-sand data-[state=active]:bg-burnished-copper-500">
+              Inventory
+            </TabsTrigger>
+            <TabsTrigger value="finance" className="text-copper-wood-400 data-[state=active]:text-soft-sand data-[state=active]:bg-burnished-copper-500">
+              Finance
             </TabsTrigger>
           </TabsList>
 
@@ -66,6 +74,14 @@ const Admin = () => {
 
           <TabsContent value="orders">
             <OrderManagement searchTerm={searchTerm} />
+          </TabsContent>
+
+          <TabsContent value="inventory">
+            <InventoryManagement />
+          </TabsContent>
+
+          <TabsContent value="finance">
+            <FinanceManagement />
           </TabsContent>
         </Tabs>
       </div>

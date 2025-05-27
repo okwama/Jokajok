@@ -1,17 +1,63 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Package, ShoppingCart, Users, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const AdminStats = () => {
-  // Mock data - in real app, this would come from API
-  const stats = {
-    totalProducts: 156,
-    totalOrders: 1249,
-    totalRevenue: 45670,
-    pendingOrders: 23,
-    monthlyGrowth: 12.5,
-    dailyRevenue: 1250
+  const [stats, setStats] = useState({
+    totalProducts: 0,
+    totalOrders: 0,
+    totalRevenue: 0,
+    pendingOrders: 0,
+    monthlyGrowth: 0,
+    dailyRevenue: 0
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      // Fetch total products
+      const { count: productsCount } = await supabase
+        .from('products')
+        .select('*', { count: 'exact', head: true });
+
+      // Fetch total orders
+      const { count: ordersCount } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true });
+
+      // Fetch pending orders
+      const { count: pendingCount } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'pending');
+
+      // Fetch revenue from financial transactions
+      const { data: revenueData } = await supabase
+        .from('financial_transactions')
+        .select('amount')
+        .eq('transaction_type', 'sale');
+
+      const totalRevenue = revenueData?.reduce((sum, t) => sum + Number(t.amount), 0) || 0;
+
+      setStats({
+        totalProducts: productsCount || 0,
+        totalOrders: ordersCount || 0,
+        totalRevenue,
+        pendingOrders: pendingCount || 0,
+        monthlyGrowth: 12.5, // This would need more complex calculation
+        dailyRevenue: totalRevenue / 30 // Simple approximation
+      });
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const StatCard = ({ title, value, icon: Icon, change, changeType }: any) => (
@@ -35,6 +81,10 @@ const AdminStats = () => {
       </CardContent>
     </Card>
   );
+
+  if (loading) {
+    return <div className="text-soft-sand">Loading dashboard...</div>;
+  }
 
   return (
     <div className="space-y-6">
