@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -27,17 +26,33 @@ const Admin = () => {
 
   const checkAdminStatus = async () => {
     if (!user) {
+      console.log('No user found in Admin component');
       setLoading(false);
       return;
     }
 
-    // For now, we'll check if the user email contains 'admin' or matches specific emails
-    // In production, you should have a proper roles system
-    const adminEmails = ['admin@jokajok.com', 'admin@example.com'];
-    const isUserAdmin = adminEmails.includes(user.email) || user.email.includes('admin');
-    
-    setIsAdmin(isUserAdmin);
-    setLoading(false);
+    try {
+      console.log('Checking admin status in Admin component for user:', user.id);
+      const { data, error } = await supabase
+        .from('admin_users')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      console.log('Admin check result in Admin component:', { data, error });
+      
+      if (error) {
+        console.error('Error checking admin status:', error);
+        setIsAdmin(false);
+      } else {
+        setIsAdmin(!!data);
+      }
+    } catch (error) {
+      console.error('Error in admin check:', error);
+      setIsAdmin(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -57,10 +72,12 @@ const Admin = () => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />;
+    console.log('No user, redirecting to login');
+    return <Navigate to="/admin/login" replace />;
   }
 
   if (!isAdmin) {
+    console.log('User is not admin, showing access denied');
     return (
       <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center">
         <div className="text-center">

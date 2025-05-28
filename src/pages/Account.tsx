@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Package, Heart, Settings, MapPin, CreditCard, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +11,19 @@ import { useToast } from '@/hooks/use-toast';
 import ProfileImageUpload from '@/components/ProfileImageUpload';
 import OrderCard from '@/components/OrderCard';
 import WishlistCard from '@/components/WishlistCard';
+import { supabase } from '@/integrations/supabase/client';
+import { Database } from '@/types/supabase';
+
+type Profile = {
+  id: string;
+  user_id: string;
+  name: string;
+  phone: string;
+  address: string;
+  avatar_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
 
 const Account = () => {
   const { user, logout } = useAuth();
@@ -19,15 +31,98 @@ const Account = () => {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
-  // Mock user data
-  const [userData, setUserData] = useState({
-    name: user?.name || 'John Doe',
-    email: user?.email || 'john@example.com',
-    phone: '+254 700 123 456',
-    address: '123 Main Street, Nairobi, Kenya',
-    joinDate: '2023-05-15'
-  });
+  useEffect(() => {
+    if (user) {
+      fetchProfile();
+    }
+  }, [user]);
+
+  const fetchProfile = async () => {
+    if (!user) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error) {
+        if (error.code === 'PGRST116') {
+          // Profile doesn't exist, create one
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert({
+              user_id: user.id,
+              name: user.email?.split('@')[0] || '',
+              phone: '',
+              address: '',
+              avatar_url: null
+            })
+            .select()
+            .single();
+
+          if (createError) throw createError;
+          setProfile(newProfile);
+        } else {
+          throw error;
+        }
+      } else {
+        setProfile(data);
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load profile data.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    if (!user || !profile) return;
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          name: profile.name,
+          phone: profile.phone,
+          address: profile.address
+        })
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Profile Updated",
+        description: "Your profile has been updated successfully.",
+      });
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update profile.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleInputChange = (field: keyof Profile, value: string) => {
+    if (profile) {
+      setProfile({
+        ...profile,
+        [field]: value
+      });
+    }
+  };
 
   const mockOrders = [
     {
@@ -67,14 +162,6 @@ const Account = () => {
       inStock: true
     }
   ]);
-
-  const handleSaveProfile = () => {
-    setIsEditing(false);
-    toast({
-      title: "Profile Updated",
-      description: "Your profile has been saved successfully.",
-    });
-  };
 
   const handleViewDetails = (orderId: string) => {
     toast({
@@ -127,6 +214,40 @@ const Account = () => {
     });
   };
 
+  const handleImageChange = async (url: string) => {
+    if (!user || !profile) return;
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ avatar_url: url })
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      setProfile(prev => prev ? { ...prev, avatar_url: url } : null);
+      toast({
+        title: "Profile Photo Updated",
+        description: "Your profile photo has been updated successfully.",
+      });
+    } catch (error) {
+      console.error('Error updating avatar:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update profile photo.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center">
+        <div className="text-soft-sand">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,7 +256,7 @@ const Account = () => {
             My Account
           </h1>
           <p className="text-copper-wood-400">
-            Welcome back, {userData.name}
+            Welcome back, {profile?.name || 'User'}
           </p>
         </div>
 
@@ -175,19 +296,35 @@ const Account = () => {
                     </Button>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <ProfileImageUpload 
-                    currentImage={profileImage}
-                    onImageChange={setProfileImage}
-                  />
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="flex flex-col items-center space-y-4">
+                      <ProfileImageUpload
+                        currentImage={profile?.avatar_url}
+                        onImageChange={handleImageChange}
+                        userId={user.id}
+                      />
+                      <div className="text-center">
+                        <h3 className="text-lg font-medium text-soft-sand">{profile?.name || 'Your Name'}</h3>
+                        <p className="text-sm text-copper-wood-400">{user.email}</p>
+                      </div>
+                    </div>
+                  </div>
                   
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="name" className="text-copper-wood-400">Full Name</Label>
                       <Input
                         id="name"
-                        value={userData.name}
-                        onChange={(e) => setUserData({...userData, name: e.target.value})}
+                        value={profile?.name || ''}
+                        onChange={(e) => {
+                          if (profile) {
+                            setProfile({
+                              ...profile,
+                              name: e.target.value
+                            });
+                          }
+                        }}
                         disabled={!isEditing}
                         className="bg-swahili-dust-700 border-copper-wood-600 text-soft-sand"
                       />
@@ -197,9 +334,8 @@ const Account = () => {
                       <Input
                         id="email"
                         type="email"
-                        value={userData.email}
-                        onChange={(e) => setUserData({...userData, email: e.target.value})}
-                        disabled={!isEditing}
+                        value={user?.email || ''}
+                        disabled
                         className="bg-swahili-dust-700 border-copper-wood-600 text-soft-sand"
                       />
                     </div>
@@ -207,8 +343,32 @@ const Account = () => {
                       <Label htmlFor="phone" className="text-copper-wood-400">Phone</Label>
                       <Input
                         id="phone"
-                        value={userData.phone}
-                        onChange={(e) => setUserData({...userData, phone: e.target.value})}
+                        value={profile?.phone || ''}
+                        onChange={(e) => {
+                          if (profile) {
+                            setProfile({
+                              ...profile,
+                              phone: e.target.value
+                            });
+                          }
+                        }}
+                        disabled={!isEditing}
+                        className="bg-swahili-dust-700 border-copper-wood-600 text-soft-sand"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="address" className="text-copper-wood-400">Address</Label>
+                      <Input
+                        id="address"
+                        value={profile?.address || ''}
+                        onChange={(e) => {
+                          if (profile) {
+                            setProfile({
+                              ...profile,
+                              address: e.target.value
+                            });
+                          }
+                        }}
                         disabled={!isEditing}
                         className="bg-swahili-dust-700 border-copper-wood-600 text-soft-sand"
                       />
@@ -225,7 +385,7 @@ const Account = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-copper-wood-400 mb-4">{userData.address}</p>
+                  <p className="text-copper-wood-400 mb-4">{profile?.address || 'No address saved'}</p>
                   <Button 
                     variant="outline"
                     className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-600 hover:text-charred-wood"

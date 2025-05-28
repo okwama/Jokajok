@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { X, Plus } from 'lucide-react';
+import { X, Plus, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -29,8 +29,8 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     images: [] as string[]
   });
   const [newTag, setNewTag] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -43,6 +43,65 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       toast({ title: 'Error', description: 'Failed to fetch categories', variant: 'destructive' });
     } else {
       setCategories(data || []);
+    }
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        throw new Error('Please upload an image file');
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error('Image size should be less than 5MB');
+      }
+
+      // Create a unique file name
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random()}.${fileExt}`;
+      const filePath = `products/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('products')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('products')
+        .getPublicUrl(filePath);
+
+      // Add to form data
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, publicUrl]
+      }));
+
+      toast({
+        title: "Image Uploaded",
+        description: "Product image has been uploaded successfully.",
+      });
+    } catch (error: any) {
+      console.error('Error uploading image:', error);
+      toast({
+        title: "Upload Failed",
+        description: error.message || "Failed to upload image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -97,13 +156,6 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
 
   const removeTag = (tagToRemove: string) => {
     setFormData(prev => ({ ...prev, tags: prev.tags.filter(tag => tag !== tagToRemove) }));
-  };
-
-  const addImage = () => {
-    if (imageUrl.trim() && !formData.images.includes(imageUrl.trim())) {
-      setFormData(prev => ({ ...prev, images: [...prev.images, imageUrl.trim()] }));
-      setImageUrl('');
-    }
   };
 
   const removeImage = (imageToRemove: string) => {
@@ -196,15 +248,21 @@ const AddProductForm = ({ onSuccess }: { onSuccess?: () => void }) => {
           <div>
             <Label className="text-copper-wood-400">Product Images</Label>
             <div className="flex gap-2 mb-2">
-              <Input
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="Image URL"
-                className="bg-dark-clay-50 border-copper-wood-600 text-soft-sand"
-              />
-              <Button type="button" onClick={addImage} variant="outline" className="border-copper-wood-600">
-                <Plus className="h-4 w-4" />
-              </Button>
+              <label className="flex-1">
+                <div className="flex items-center justify-center w-full h-10 px-4 transition bg-dark-clay-50 border border-copper-wood-600 border-dashed rounded-md appearance-none cursor-pointer hover:border-copper-wood-400 focus:outline-none">
+                  <span className="flex items-center space-x-2 text-copper-wood-400">
+                    <Upload className="w-5 h-5" />
+                    <span>{uploading ? 'Uploading...' : 'Upload Image'}</span>
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    disabled={uploading}
+                  />
+                </div>
+              </label>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {formData.images.map((image, index) => (
