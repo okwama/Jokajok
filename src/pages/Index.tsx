@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
+import HeroSection from '@/components/HeroSection';
 
 const Index = () => {
   const featuredProducts = [
@@ -222,6 +223,27 @@ const Index = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/40 to-transparent rounded-lg"></div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Original Hero Section with Leather Texture */}
+      <section 
+        className="py-20 relative overflow-hidden"
+        style={{
+          backgroundImage: `
+            linear-gradient(135deg, rgba(30, 27, 24, 0.8) 0%, rgba(47, 42, 33, 0.9) 100%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.03'%3E%3Cpath d='M0 0h100v100H0V0zm10 10v80h80V10H10zm5 5h70v70H15V15z'/%3E%3C/g%3E%3C/svg%3E")
+          `,
+          backgroundBlendMode: 'overlay',
+          backgroundSize: '50px 50px, cover',
+          backgroundPosition: '0 0, center'
+        }}
+      >
+        {/* Leather texture overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-dark-clay-100/30 via-transparent to-charred-wood/40"></div>
+        
+        <div className="relative z-10">
+          <HeroSection />
         </div>
       </section>
 
