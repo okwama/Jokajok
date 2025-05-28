@@ -55,7 +55,7 @@ const ImageVideoSlider: React.FC<ImageVideoSliderProps> = ({
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] overflow-hidden bg-charred-wood">
+    <div className="relative w-full h-full overflow-hidden bg-charred-wood">
       {/* Main slide */}
       <div className="relative w-full h-full">
         {currentSlide.type === 'image' ? (
@@ -80,14 +80,14 @@ const ImageVideoSlider: React.FC<ImageVideoSliderProps> = ({
         
         {/* Content overlay */}
         {(currentSlide.title || currentSlide.subtitle) && (
-          <div className="absolute bottom-8 left-8 text-soft-sand max-w-md">
+          <div className="absolute bottom-16 left-8 text-soft-sand max-w-2xl">
             {currentSlide.title && (
-              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-2">
+              <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 animate-fade-in">
                 {currentSlide.title}
-              </h2>
+              </h1>
             )}
             {currentSlide.subtitle && (
-              <p className="text-lg text-copper-wood-300">
+              <p className="text-xl md:text-2xl text-copper-wood-300 leading-relaxed animate-fade-in">
                 {currentSlide.subtitle}
               </p>
             )}
@@ -125,7 +125,7 @@ const ImageVideoSlider: React.FC<ImageVideoSliderProps> = ({
       </Button>
 
       {/* Dots indicator */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -137,6 +137,13 @@ const ImageVideoSlider: React.FC<ImageVideoSliderProps> = ({
             onClick={() => goToSlide(index)}
           />
         ))}
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-copper-wood-400 rounded-full flex justify-center mt-8">
+          <div className="w-1 h-3 bg-burnished-copper-500 rounded-full mt-2 animate-pulse"></div>
+        </div>
       </div>
     </div>
   );

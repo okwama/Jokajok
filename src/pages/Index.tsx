@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import HeroSection from '@/components/HeroSection';
 import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
 
@@ -57,16 +56,16 @@ const Index = () => {
       type: 'image' as const,
       src: '/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png',
       alt: 'African artisan at work',
-      title: 'Crafted with Heritage',
-      subtitle: 'Discover authentic African craftsmanship'
+      title: 'Discover Africa\'s Timeless Beauty',
+      subtitle: 'Where traditional craftsmanship meets contemporary style'
     },
     {
       id: 2,
       type: 'image' as const,
       src: '/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png',
       alt: 'Traditional African marketplace',
-      title: 'From Our Heart to Yours',
-      subtitle: 'Each piece tells a unique story'
+      title: 'Crafted with Heritage',
+      subtitle: 'Each piece carries the soul of Africa'
     },
     {
       id: 3,
@@ -104,15 +103,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-charred-wood">
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* Image/Video Slider Section */}
-      <section className="py-0">
+      {/* Full Screen Image/Video Slider as Hero */}
+      <section className="h-screen">
         <ImageVideoSlider slides={sliderItems} />
       </section>
 
-      {/* Category Grid */}
+      {/* Category Grid with new background */}
       <CategoryGrid />
 
       {/* Features Section */}
@@ -229,7 +225,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Navigation Cards Section - Moved to bottom */}
+      {/* Navigation Cards Section */}
       <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">

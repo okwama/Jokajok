@@ -44,8 +44,19 @@ const CategoryGrid = () => {
   ];
 
   return (
-    <section className="py-20 bg-dark-clay-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      className="py-20 relative"
+      style={{
+        backgroundImage: `url('/lovable-uploads/3f30eb21-7f54-4177-9803-22095fd9696f.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Background overlay to reduce opacity and add color blend */}
+      <div className="absolute inset-0 bg-dark-clay-100/85"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
             Shop by Category
@@ -58,7 +69,7 @@ const CategoryGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category, index) => (
             <Link key={index} to={category.link} className="group">
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800 copper-glow overflow-hidden sisal-texture">
+              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800/90 copper-glow overflow-hidden sisal-texture backdrop-blur-sm">
                 <div className="aspect-square overflow-hidden relative">
                   <img 
                     src={category.image} 
