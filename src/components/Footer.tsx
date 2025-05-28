@@ -42,10 +42,10 @@ const Footer = () => {
           <div>
             <h3 className="font-serif font-semibold text-lg mb-4">Customer Service</h3>
             <ul className="space-y-2">
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Shipping Info</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Returns</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Size Guide</Link></li>
-              <li><Link to="#" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Care Instructions</Link></li>
+              <li><Link to="/shipping-info" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Shipping Info</Link></li>
+              <li><Link to="/returns" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Returns</Link></li>
+              <li><Link to="/size-guide" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Size Guide</Link></li>
+              <li><Link to="/care-instructions" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Care Instructions</Link></li>
             </ul>
           </div>
 
