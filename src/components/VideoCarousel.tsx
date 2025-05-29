@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import NetflixStyleVideoCard from '@/components/NetflixStyleVideoCard';
 
 interface Video {
   id: string;
@@ -9,6 +10,7 @@ interface Video {
   thumbnail: string;
   duration: string;
   category: string;
+  description?: string;
 }
 
 interface VideoCarouselProps {
@@ -35,16 +37,16 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
   const visibleVideos = videos.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-serif font-bold text-swahili-dust-800">{title}</h2>
+    <div className="mb-12 relative">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-serif font-bold text-soft-sand">{title}</h2>
         <div className="flex space-x-2">
           <Button
             variant="outline"
             size="sm"
             onClick={prevSlide}
             disabled={currentIndex === 0}
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -53,7 +55,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
             size="sm"
             onClick={nextSlide}
             disabled={currentIndex + itemsPerView >= videos.length}
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -62,24 +64,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {visibleVideos.map((video) => (
-          <div key={video.id} className="group cursor-pointer">
-            <div className="relative aspect-video bg-swahili-dust-200 rounded-lg overflow-hidden">
-              <img 
-                src={video.thumbnail} 
-                alt={video.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                <Play className="h-12 w-12 text-swahili-dust-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-swahili-dust-50 text-xs px-2 py-1 rounded">
-                {video.duration}
-              </div>
-            </div>
-            <h3 className="mt-2 text-sm font-medium text-swahili-dust-800 group-hover:text-copper-wood-600 transition-colors">
-              {video.title}
-            </h3>
-          </div>
+          <NetflixStyleVideoCard key={video.id} video={video} />
         ))}
       </div>
     </div>

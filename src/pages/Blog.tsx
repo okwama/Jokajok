@@ -16,28 +16,32 @@ const Blog = () => {
           title: "Meet Maria: Master Leather Craftsperson",
           thumbnail: "/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png",
           duration: "8:24",
-          category: "artisan"
+          category: "artisan",
+          description: "Follow Maria through her daily routine as she transforms raw leather into beautiful, functional art pieces."
         },
         {
           id: "2",
           title: "The Art of Traditional Beadwork",
           thumbnail: "/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png",
           duration: "12:15",
-          category: "artisan"
+          category: "artisan",
+          description: "Dive deep into the colorful world of African beadwork, where each bead tells a story."
         },
         {
           id: "3",
           title: "From Raw Hide to Beautiful Bags",
           thumbnail: "/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png",
           duration: "15:30",
-          category: "artisan"
+          category: "artisan",
+          description: "Witness the complete transformation process from raw materials to finished products."
         },
         {
           id: "4",
           title: "Community Impact Stories",
           thumbnail: "/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png",
           duration: "6:45",
-          category: "artisan"
+          category: "artisan",
+          description: "See how our partnerships create positive change in local communities."
         }
       ]
     },
@@ -49,28 +53,32 @@ const Blog = () => {
           title: "Workshop Tour: Where Magic Happens",
           thumbnail: "/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png",
           duration: "10:22",
-          category: "behind-scenes"
+          category: "behind-scenes",
+          description: "Take an exclusive tour of our artisan workshops and see the craftsmanship up close."
         },
         {
           id: "6",
           title: "Quality Control Process",
           thumbnail: "/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png",
           duration: "7:18",
-          category: "behind-scenes"
+          category: "behind-scenes",
+          description: "Learn about our rigorous quality standards and testing procedures."
         },
         {
           id: "7",
           title: "Packaging with Love",
           thumbnail: "/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png",
           duration: "5:33",
-          category: "behind-scenes"
+          category: "behind-scenes",
+          description: "See how each product is carefully packaged with attention to every detail."
         },
         {
           id: "8",
           title: "Design Process Revealed",
           thumbnail: "/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png",
           duration: "13:45",
-          category: "behind-scenes"
+          category: "behind-scenes",
+          description: "Follow our design team as they create new products from concept to completion."
         }
       ]
     },
@@ -82,28 +90,32 @@ const Blog = () => {
           title: "The History of African Leather Work",
           thumbnail: "/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png",
           duration: "18:12",
-          category: "culture"
+          category: "culture",
+          description: "Explore the rich history and cultural significance of leather craftsmanship in Africa."
         },
         {
           id: "10",
           title: "Symbols and Meanings in African Art",
           thumbnail: "/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png",
           duration: "14:28",
-          category: "culture"
+          category: "culture",
+          description: "Understand the deep meanings behind traditional African symbols and patterns."
         },
         {
           id: "11",
           title: "Traditional vs Modern Techniques",
           thumbnail: "/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png",
           duration: "11:55",
-          category: "culture"
+          category: "culture",
+          description: "See how ancient techniques are being adapted for modern production."
         },
         {
           id: "12",
           title: "Preserving Ancient Crafts",
           thumbnail: "/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png",
           duration: "9:17",
-          category: "culture"
+          category: "culture",
+          description: "Learn about efforts to preserve traditional craftsmanship for future generations."
         }
       ]
     }
@@ -192,23 +204,28 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-swahili-dust-50">
+    <div 
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{
+        backgroundImage: `linear-gradient(rgba(30, 27, 24, 0.85), rgba(30, 27, 24, 0.9)), url('/lovable-uploads/7cc2147c-4961-4230-8e23-a8fd6d332ca6.png')`
+      }}
+    >
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-swahili-dust-800 to-copper-700 py-16">
+      <section className="py-16 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-swahili-dust-50 mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-soft-sand mb-4">
             Stories from Africa
           </h1>
-          <p className="text-xl text-swahili-dust-100 max-w-2xl mx-auto">
+          <p className="text-xl text-copper-wood-300 max-w-2xl mx-auto">
             Discover the rich culture, traditions, and stories behind every piece in our collection
           </p>
         </div>
       </section>
 
       {/* Video Content Section */}
-      <section className="py-12 bg-swahili-dust-100">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-serif font-bold text-swahili-dust-800 mb-8 text-center">
+          <h2 className="text-3xl font-serif font-bold text-soft-sand mb-8 text-center">
             Video Stories
           </h2>
           {videoCategories.map((category, index) => (
@@ -222,14 +239,14 @@ const Blog = () => {
       </section>
 
       {/* Categories Filter */}
-      <section className="py-8 bg-swahili-dust-200">
+      <section className="py-8 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap gap-2 justify-center">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant="outline"
-                className="hover:bg-copper-600 hover:text-swahili-dust-50"
+                className="border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
               >
                 {category}
               </Button>
@@ -241,12 +258,12 @@ const Blog = () => {
       {/* Blog Posts Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-serif font-bold text-swahili-dust-800 mb-8 text-center">
+          <h2 className="text-3xl font-serif font-bold text-soft-sand mb-8 text-center">
             Latest Articles
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
-              <Card key={post.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-100">
+              <Card key={post.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100/90 backdrop-blur-sm border border-copper-wood-700">
                 <div className="aspect-video overflow-hidden">
                   <img 
                     src={post.image} 
@@ -259,18 +276,18 @@ const Blog = () => {
                     <Badge className={getCategoryColor(post.category)}>
                       {post.category}
                     </Badge>
-                    <span className="text-sm text-swahili-dust-500">{post.readTime}</span>
+                    <span className="text-sm text-copper-wood-400">{post.readTime}</span>
                   </div>
                   
-                  <h3 className="text-xl font-serif font-bold text-swahili-dust-800 mb-3 group-hover:text-copper-600 transition-colors">
+                  <h3 className="text-xl font-serif font-bold text-soft-sand mb-3 group-hover:text-burnished-copper-300 transition-colors">
                     {post.title}
                   </h3>
                   
-                  <p className="text-swahili-dust-600 mb-4 line-clamp-3">
+                  <p className="text-copper-wood-300 mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
                   
-                  <div className="flex items-center justify-between text-sm text-swahili-dust-500 mb-4">
+                  <div className="flex items-center justify-between text-sm text-copper-wood-400 mb-4">
                     <div className="flex items-center space-x-2">
                       <User className="h-4 w-4" />
                       <span>{post.author}</span>
@@ -282,7 +299,7 @@ const Blog = () => {
                   </div>
                   
                   <Link to={`/blog/${post.slug}`}>
-                    <Button variant="ghost" className="p-0 h-auto text-copper-wood-600 hover:text-copper-wood-700 group">
+                    <Button variant="ghost" className="p-0 h-auto text-burnished-copper-300 hover:text-burnished-copper-200 group">
                       Read More
                       <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </Button>
@@ -295,21 +312,21 @@ const Blog = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-copper-50 to-swahili-dust-100">
+      <section className="py-16 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-serif font-bold text-swahili-dust-800 mb-4">
+          <h2 className="text-3xl font-serif font-bold text-soft-sand mb-4">
             Stay Connected with Our Stories
           </h2>
-          <p className="text-xl text-swahili-dust-600 mb-8">
+          <p className="text-xl text-copper-wood-300 mb-8">
             Subscribe to get the latest stories, cultural insights, and artisan spotlights delivered to your inbox
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border border-swahili-dust-300 focus:outline-none focus:ring-2 focus:ring-copper-600 bg-swahili-dust-50"
+              className="flex-1 px-4 py-3 rounded-lg border border-copper-wood-600 focus:outline-none focus:ring-2 focus:ring-burnished-copper-500 bg-dark-clay-100/80 text-soft-sand placeholder-copper-wood-400"
             />
-            <Button className="bg-copper-600 hover:bg-copper-700 px-8">
+            <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood px-8">
               Subscribe
             </Button>
           </div>

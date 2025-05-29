@@ -1,76 +1,75 @@
-
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CartProvider } from '@/contexts/CartContext';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CartProvider } from '@/contexts/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
-import Index from "./pages/Index";
-import Products from "./pages/Products";
-import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import Account from "./pages/Account";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import OrderTracking from "./pages/OrderTracking";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Admin from "./pages/Admin";
-import AdminLogin from "./pages/admin/login";
-import AdminRegister from "./pages/admin/register";
-import NotFound from "./pages/NotFound";
-import ShippingInfo from "./pages/ShippingInfo";
-import Returns from "./pages/Returns";
-import SizeGuide from "./pages/SizeGuide";
-import CareInstructions from "./pages/CareInstructions";
+import Index from '@/pages/Index';
+import Products from '@/pages/Products';
+import ProductDetail from '@/pages/ProductDetail';
+import Cart from '@/pages/Cart';
+import Checkout from '@/pages/Checkout';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import Account from '@/pages/Account';
+import Blog from '@/pages/Blog';
+import BlogPost from '@/pages/BlogPost';
+import VideoWatch from '@/pages/VideoWatch';
+import SizeGuide from '@/pages/SizeGuide';
+import CareInstructions from '@/pages/CareInstructions';
+import ShippingInfo from '@/pages/ShippingInfo';
+import Returns from '@/pages/Returns';
+import OrderTracking from '@/pages/OrderTracking';
+import NotFound from '@/pages/NotFound';
+import Admin from '@/pages/Admin';
+import AdminLogin from '@/pages/admin/login';
+import AdminRegister from '@/pages/admin/register';
+import AdminRoutes from '@/routes/AdminRoutes';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <CartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <div className="min-h-screen flex flex-col">
+          <Router>
+            <div className="min-h-screen bg-charred-wood">
               <Header />
-              <main className="flex-1">
+              <main>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:id" element={<ProductDetail />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/account" element={<Account />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:id" element={<BlogPost />} />
-                  <Route path="/orders/:id" element={<OrderTracking />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
-                  <Route path="/admin/login" element={<AdminLogin />} />
-                  <Route path="/admin/register" element={<AdminRegister />} />
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/shipping-info" element={<ShippingInfo />} />
-                  <Route path="/returns" element={<Returns />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/video/:id" element={<VideoWatch />} />
                   <Route path="/size-guide" element={<SizeGuide />} />
                   <Route path="/care-instructions" element={<CareInstructions />} />
+                  <Route path="/shipping" element={<ShippingInfo />} />
+                  <Route path="/returns" element={<Returns />} />
+                  <Route path="/order-tracking" element={<OrderTracking />} />
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route path="/admin/register" element={<AdminRegister />} />
+                  <Route path="/admin/*" element={<AdminRoutes />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
               <Footer />
             </div>
-          </BrowserRouter>
+            <Toaster />
+          </Router>
         </CartProvider>
       </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </QueryClientProvider>
+  );
+}
 
 export default App;
