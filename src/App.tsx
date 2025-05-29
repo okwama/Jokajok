@@ -23,7 +23,6 @@ import Register from "./pages/Register";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/admin/login";
 import AdminRegister from "./pages/admin/register";
-import AdminRoutes from "./routes/AdminRoutes";
 import NotFound from "./pages/NotFound";
 import ShippingInfo from "./pages/ShippingInfo";
 import Returns from "./pages/Returns";
@@ -57,7 +56,7 @@ const App = () => (
                   <Route path="/register" element={<Register />} />
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin/register" element={<AdminRegister />} />
-                  <Route path="/admin/*" element={<AdminRoutes />} />
+                  <Route path="/admin" element={<Admin />} />
                   <Route path="/shipping-info" element={<ShippingInfo />} />
                   <Route path="/returns" element={<Returns />} />
                   <Route path="/size-guide" element={<SizeGuide />} />
