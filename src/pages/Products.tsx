@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import EnhancedFilters from '@/components/EnhancedFilters';
 import MasonryGrid from '@/components/MasonryGrid';
 

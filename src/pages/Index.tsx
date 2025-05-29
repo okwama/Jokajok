@@ -6,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
 import JumbotronHero from '@/components/JumbotronHero';
-import HeroSection from '@/components/HeroSection';
 
 const Index = () => {
   const featuredProducts = [
