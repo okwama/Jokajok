@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -80,7 +79,7 @@ const ImageVideoSlider: React.FC<ImageVideoSliderProps> = ({
         
         {/* Content overlay */}
         {(currentSlide.title || currentSlide.subtitle) && (
-          <div className="absolute bottom-16 left-8 text-soft-sand max-w-2xl">
+          <div className="absolute top-1/3 left-8 text-soft-sand max-w-2xl">
             {currentSlide.title && (
               <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 animate-fade-in">
                 {currentSlide.title}

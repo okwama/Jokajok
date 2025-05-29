@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
@@ -55,7 +54,7 @@ const Index = () => {
     {
       id: 1,
       type: 'image' as const,
-      src: '/lovable-uploads/54ea69d9-3a59-46b5-8602-3d40a5c950ac.png',
+      src: '/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png',
       alt: 'African artisan at work',
       title: 'Discover Africa\'s Timeless Beauty',
       subtitle: 'Where traditional craftsmanship meets contemporary style'
@@ -63,195 +62,11 @@ const Index = () => {
     {
       id: 2,
       type: 'image' as const,
-      src: '/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png',
-      alt: 'Traditional African marketplace',
-      title: 'Crafted with Heritage',
-      subtitle: 'Each piece carries the soul of Africa'
-    },
-    {
-      id: 3,
-      type: 'image' as const,
-      src: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
-      alt: 'Handcrafted leather goods',
-      title: 'Premium Quality',
-      subtitle: 'Luxury meets tradition'
-    },
-    {
-      id: 4,
-      type: 'image' as const,
-      src: '/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png',
-      alt: 'Safari Messenger Bag',
-      title: 'Safari Collection',
-      subtitle: 'Adventure-ready leather companions'
-    },
-    {
-      id: 5,
-      type: 'image' as const,
-      src: '/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png',
-      alt: 'Adventure Crossbody',
-      title: 'Modern Explorer',
-      subtitle: 'Style meets functionality'
-    },
-    {
-      id: 6,
-      type: 'image' as const,
-      src: '/lovable-uploads/d9afcb00-459a-4fd9-8b86-bdaf96387375.png',
-      alt: 'Classic Red Safari Case',
-      title: 'Bold & Beautiful',
-      subtitle: 'Make a statement with premium leather'
-    },
-    {
-      id: 7,
-      type: 'image' as const,
-      src: '/lovable-uploads/6289278b-af9d-459f-8935-56edd26ba19e.png',
-      alt: 'Brown Safari Case',
-      title: 'Timeless Elegance',
-      subtitle: 'Classic design for the modern traveler'
-    },
-    {
-      id: 8,
-      type: 'image' as const,
-      src: '/lovable-uploads/5ac38c87-0f49-4436-9b40-a3c40ff414e8.png',
-      alt: 'Black Safari Case',
-      title: 'Professional Edge',
-      subtitle: 'Sophisticated style for business travel'
-    },
-    {
-      id: 9,
-      type: 'image' as const,
-      src: '/lovable-uploads/715a0862-43ec-43df-8fc0-5e66cb1fc359.png',
-      alt: 'Burgundy Safari Case',
-      title: 'Rich Heritage',
-      subtitle: 'Deep colors, deeper traditions'
-    },
-    {
-      id: 10,
-      type: 'image' as const,
-      src: '/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png',
-      alt: 'Safari landscape campfire',
-      title: 'Adventure Awaits',
-      subtitle: 'Gear up for your next journey'
-    },
-    {
-      id: 11,
-      type: 'image' as const,
-      src: '/lovable-uploads/2bee0ad2-62aa-4ae2-80f9-cbfd266658c3.png',
-      alt: 'Travel set with handbag',
-      title: 'Complete Travel Set',
-      subtitle: 'Everything you need for the perfect trip'
-    },
-    {
-      id: 12,
-      type: 'image' as const,
-      src: '/lovable-uploads/02774822-f3d3-4297-8264-b522d0986aa5.png',
-      alt: 'Travel companion set',
-      title: 'Perfect Companions',
-      subtitle: 'Matching sets for coordinated style'
-    },
-    {
-      id: 13,
-      type: 'image' as const,
       src: '/lovable-uploads/eaea5260-d612-4d26-9d9e-e8cb70850440.png',
       alt: 'Safari dining experience',
       title: 'Authentic Experiences',
       subtitle: 'Creating memories that last a lifetime'
     },
-    {
-      id: 14,
-      type: 'image' as const,
-      src: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
-      alt: 'Kente Messenger Bag',
-      title: 'Cultural Heritage',
-      subtitle: 'Celebrating African artistry'
-    },
-    {
-      id: 15,
-      type: 'image' as const,
-      src: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
-      alt: 'Sahara Crossbody',
-      title: 'Desert Dreams',
-      subtitle: 'Inspired by vast African landscapes'
-    },
-    {
-      id: 16,
-      type: 'image' as const,
-      src: '/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png',
-      alt: 'Crafted messenger bag detail',
-      title: 'Attention to Detail',
-      subtitle: 'Every stitch tells a story'
-    },
-    {
-      id: 17,
-      type: 'image' as const,
-      src: '/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png',
-      alt: 'Natural setting crossbody',
-      title: 'Nature Inspired',
-      subtitle: 'Designs that honor the earth'
-    },
-    {
-      id: 18,
-      type: 'image' as const,
-      src: '/lovable-uploads/d9afcb00-459a-4fd9-8b86-bdaf96387375.png',
-      alt: 'Vibrant red luggage',
-      title: 'Bold Statements',
-      subtitle: 'Stand out with confidence'
-    },
-    {
-      id: 19,
-      type: 'image' as const,
-      src: '/lovable-uploads/6289278b-af9d-459f-8935-56edd26ba19e.png',
-      alt: 'Rich brown luggage',
-      title: 'Earth Tones',
-      subtitle: 'Connected to our roots'
-    },
-    {
-      id: 20,
-      type: 'image' as const,
-      src: '/lovable-uploads/5ac38c87-0f49-4436-9b40-a3c40ff414e8.png',
-      alt: 'Sophisticated black luggage',
-      title: 'Urban Sophistication',
-      subtitle: 'City style meets safari spirit'
-    },
-    {
-      id: 21,
-      type: 'image' as const,
-      src: '/lovable-uploads/715a0862-43ec-43df-8fc0-5e66cb1fc359.png',
-      alt: 'Burgundy elegance',
-      title: 'Refined Luxury',
-      subtitle: 'Premium materials, premium experience'
-    },
-    {
-      id: 22,
-      type: 'image' as const,
-      src: '/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png',
-      alt: 'Campfire adventure scene',
-      title: 'Wild at Heart',
-      subtitle: 'For those who seek adventure'
-    },
-    {
-      id: 23,
-      type: 'image' as const,
-      src: '/lovable-uploads/2bee0ad2-62aa-4ae2-80f9-cbfd266658c3.png',
-      alt: 'Complete travel ensemble',
-      title: 'Travel in Style',
-      subtitle: 'Everything coordinated for your journey'
-    },
-    {
-      id: 24,
-      type: 'image' as const,
-      src: '/lovable-uploads/02774822-f3d3-4297-8264-b522d0986aa5.png',
-      alt: 'Matching travel set',
-      title: 'Perfect Harmony',
-      subtitle: 'When style meets functionality'
-    },
-    {
-      id: 25,
-      type: 'image' as const,
-      src: '/lovable-uploads/eaea5260-d612-4d26-9d9e-e8cb70850440.png',
-      alt: 'Authentic safari dining',
-      title: 'Authentic Moments',
-      subtitle: 'Living the African dream'
-    }
   ];
 
   const navigationCards = [
