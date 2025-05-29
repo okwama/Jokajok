@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Star } from 'lucide-react';
+import { Star, ShoppingCart, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import EnhancedFilters from '@/components/EnhancedFilters';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
+import QuickCheckout from '@/components/QuickCheckout';
 
 const Products = () => {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
+  const [showQuickCheckout, setShowQuickCheckout] = useState(false);
+  const { addItem } = useCart();
+  const { toast } = useToast();
   const [filters, setFilters] = useState({
     priceRange: [0, 200],
     categories: [],
@@ -92,6 +98,29 @@ const Products = () => {
     }
   ];
 
+  const handleAddToCart = (product: any) => {
+    addItem({
+      id: product.id.toString(),
+      name: product.name,
+      price: product.price,
+      image: product.image
+    });
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  const handleQuickCheckout = (product: any) => {
+    addItem({
+      id: product.id.toString(),
+      name: product.name,
+      price: product.price,
+      image: product.image
+    });
+    setShowQuickCheckout(true);
+  };
+
   const applyFilters = (productList: any[]) => {
     return productList
       .filter(product => {
@@ -137,101 +166,133 @@ const Products = () => {
   const filteredProducts = applyFilters(products);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
-            Our Collection
-          </h1>
-          <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
-            Discover authentic African craftsmanship in every piece
-          </p>
-        </div>
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
+              Our Collection
+            </h1>
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
+              Discover authentic African craftsmanship in every piece
+            </p>
+          </div>
 
-        {/* Enhanced Filters */}
-        <EnhancedFilters
-          onFilterChange={setFilters}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-        />
+          {/* Enhanced Filters */}
+          <EnhancedFilters
+            onFilterChange={setFilters}
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
 
-        {/* Results Summary */}
-        <div className="mb-6">
-          <p className="text-copper-wood-400">
-            Showing {filteredProducts.length} of {products.length} products
-          </p>
-        </div>
+          {/* Results Summary */}
+          <div className="mb-6">
+            <p className="text-copper-wood-400">
+              Showing {filteredProducts.length} of {products.length} products
+            </p>
+          </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((product) => (
-            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
-              <div className="aspect-square overflow-hidden relative">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {!product.inStock && (
-                  <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
-                    Out of Stock
-                  </div>
-                )}
-              </div>
-              <CardContent className="p-6">
-                <div className="flex items-center mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
-                    />
-                  ))}
-                  <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
+          {/* Products Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProducts.map((product) => (
+              <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
+                <div className="aspect-square overflow-hidden relative">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {!product.inStock && (
+                    <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
+                      Out of Stock
+                    </div>
+                  )}
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-copper-wood-400 mb-4">{product.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
-                  <Link to={`/products/${product.id}`}>
-                    <Button 
-                      className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0"
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
+                      />
+                    ))}
+                    <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
+                  </div>
+                  <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-copper-wood-400 mb-4">{product.description}</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => handleAddToCart(product)}
                       disabled={!product.inStock}
+                      className="flex-1 bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand border-0"
+                      size="sm"
                     >
-                      {product.inStock ? 'View Details' : 'Out of Stock'}
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      Add to Cart
+                    </Button>
+                    
+                    <Button
+                      onClick={() => handleQuickCheckout(product)}
+                      disabled={!product.inStock}
+                      className="flex-1 bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0"
+                      size="sm"
+                    >
+                      <Zap className="h-4 w-4 mr-2" />
+                      Quick Buy
+                    </Button>
+                  </div>
+                  
+                  <Link to={`/products/${product.id}`} className="block mt-2">
+                    <Button 
+                      variant="outline"
+                      className="w-full border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+                      size="sm"
+                    >
+                      View Details
                     </Button>
                   </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchTerm('');
-                setFilters({
-                  priceRange: [0, 200],
-                  categories: [],
-                  rating: 0,
-                  sortBy: 'name',
-                  inStock: false
-                });
-              }}
-              className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
-            >
-              Clear All Filters
-            </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
+
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchTerm('');
+                  setFilters({
+                    priceRange: [0, 200],
+                    categories: [],
+                    rating: 0,
+                    sortBy: 'name',
+                    inStock: false
+                  });
+                }}
+                className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+              >
+                Clear All Filters
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      <QuickCheckout
+        isOpen={showQuickCheckout}
+        onClose={() => setShowQuickCheckout(false)}
+      />
+    </>
   );
 };
 
