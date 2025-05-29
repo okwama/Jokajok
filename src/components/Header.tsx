@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, Menu, X, Search } from 'lucide-react';
@@ -6,8 +7,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import MegaMenu from '@/components/MegaMenu';
-import LanguageSelector from '@/components/LanguageSelector';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,48 +27,21 @@ const Header = () => {
     { name: 'Blog', href: '/blog' },
   ];
 
-  const megaMenus = [
-    {
-      title: 'Ladies',
-      categories: [
-        {
-          title: 'LADIES COLLECTION',
-          items: [
-            'AFRICAN SUMMER', 'MALKIA', 'TEKA', 'WENDO', 'WARIDI',
-            'KANINI KASEO', 'WANDERLUST', 'YASMINE'
-          ],
-          baseUrl: '/products?category=ladies'
-        }
-      ]
-    },
-    {
-      title: 'Men',
-      categories: [
-        {
-          title: 'MEN\'S COLLECTION',
-          items: [
-            'DOUBLE STRAP', 'CIGAR POUCH', 'DIGITAL NOMAD', 'DOUBLE STRAP NUBUCK',
-            'MAINEST SATCHEL', 'LAPTOP SLEEVE', 'WANDERLUST', 'URBAN NATIVE',
-            'SWOYO', 'RETRO SAFARI', 'NAYABINGI DRUM'
-          ],
-          baseUrl: '/products?category=men'
-        }
-      ]
-    },
-    {
-      title: 'Safari',
-      categories: [
-        {
-          title: 'SAFARI COLLECTION',
-          items: [
-            'THAYAH WEEKENDER', 'KIFARU 360', 'WARIDI', 'OTONGOLO MONEY MAKER',
-            'TEKA', 'WANDERLUST LADIES', 'YASMINE', 'KIFARU 360 LARGE CHECKIN',
-            'CAMACHO', 'CAMACHO SCORPION', 'DIGITAL NOMAD'
-          ],
-          baseUrl: '/products?category=safari'
-        }
-      ]
-    }
+  const menCollection = [
+    'DOUBLE STRAP', 'CIGAR POUCH', 'DIGITAL NOMAD', 'DOUBLE STRAP NUBUCK',
+    'MAINEST SATCHEL', 'LAPTOP SLEEVE', 'WANDERLUST', 'URBAN NATIVE',
+    'SWOYO', 'RETRO SAFARI', 'NAYABINGI DRUM'
+  ];
+
+  const ladiesCollection = [
+    'AFRICAN SUMMER', 'MALKIA', 'TEKA', 'WENDO', 'WARIDI',
+    'KANINI KASEO', 'WANDERLUST', 'YASMINE'
+  ];
+
+  const safariCollection = [
+    'THAYAH WEEKENDER', 'KIFARU 360', 'WARIDI', 'OTONGOLO MONEY MAKER',
+    'TEKA', 'WANDERLUST LADIES', 'YASMINE', 'KIFARU 360 LARGE CHECKIN',
+    'CAMACHO', 'CAMACHO SCORPION', 'DIGITAL NOMAD'
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -84,16 +63,84 @@ const Header = () => {
 
           {/* Navigation - Desktop */}
           <div className="hidden md:flex items-center space-x-8">
-            {megaMenus.map((menu, index) => (
-              <MegaMenu key={index} title={menu.title} categories={menu.categories} />
-            ))}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Ladies
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">LADIES COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {ladiesCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=ladies&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-            <Link
-              to="/products?category=redline"
-              className="text-copper-wood-400 hover:text-burnished-copper-500 font-medium transition-all duration-200 relative"
-            >
-              Redline
-            </Link>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Men
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">MEN'S COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {menCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=men&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-copper-wood-400 hover:text-burnished-copper-500 bg-transparent">
+                    Safari
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-80 p-4 bg-dark-clay-100 border border-copper-wood-700">
+                      <h3 className="font-serif font-semibold text-soft-sand mb-3">SAFARI COLLECTION</h3>
+                      <div className="grid grid-cols-1 gap-2">
+                        {safariCollection.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={`/products?category=safari&item=${encodeURIComponent(item)}`}
+                            className="text-copper-wood-400 hover:text-burnished-copper-500 text-sm py-1"
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link
+                    to="/products?category=redline"
+                    className="text-copper-wood-400 hover:text-burnished-copper-500 font-medium transition-all duration-200 relative"
+                  >
+                    Redline
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
             {navigation.map((item) => (
               <Link
@@ -128,15 +175,12 @@ const Header = () => {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            {/* Language Selector */}
-            <LanguageSelector />
-
             {user ? (
               <div className="flex items-center space-x-2">
                 <Link to="/account">
                   <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:text-burnished-copper-500 hover:bg-swahili-dust-700">
                     <User className="h-5 w-5" />
-                    <span className="hidden sm:inline ml-2">{user.email}</span>
+                    <span className="hidden sm:inline ml-2">{user.name}</span>
                   </Button>
                 </Link>
                 <Button 

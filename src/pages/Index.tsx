@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
@@ -5,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
-import JumbotronHero from '@/components/JumbotronHero';
 import HeroSection from '@/components/HeroSection';
 
 const Index = () => {
@@ -280,10 +280,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-charred-wood">
-      {/* New Jumbotron Hero Section */}
-      <JumbotronHero />
-
-      {/* Full Screen Image/Video Slider as Secondary Hero */}
+      {/* Full Screen Image/Video Slider as Hero */}
       <section className="h-screen">
         <ImageVideoSlider slides={sliderItems} />
       </section>

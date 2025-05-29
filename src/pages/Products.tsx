@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import EnhancedFilters from '@/components/EnhancedFilters';
-import MasonryGrid from '@/components/MasonryGrid';
 
 const Products = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +31,7 @@ const Products = () => {
       image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       rating: 4.8,
       category: 'ladies',
-      description: 'Handcrafted by Maasai artisans with traditional techniques passed down through generations',
+      description: 'Handcrafted by Maasai artisans',
       inStock: true,
       tags: ['leather', 'handmade']
     },
@@ -40,7 +42,7 @@ const Products = () => {
       image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       rating: 4.9,
       category: 'ladies',
-      description: 'Perfect for daily adventures, combining style with functionality',
+      description: 'Perfect for daily adventures',
       inStock: true,
       tags: ['crossbody', 'adventure']
     },
@@ -51,7 +53,7 @@ const Products = () => {
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.7,
       category: 'men',
-      description: 'Traditional patterns meet modern design in this unique messenger bag',
+      description: 'Traditional patterns meet modern design',
       inStock: false,
       tags: ['messenger', 'traditional']
     },
@@ -62,7 +64,7 @@ const Products = () => {
       image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
       rating: 4.6,
       category: 'accessories',
-      description: 'Compact and stylish wallet featuring authentic African prints',
+      description: 'Compact and stylish',
       inStock: true,
       tags: ['wallet', 'print']
     },
@@ -73,7 +75,7 @@ const Products = () => {
       image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
       rating: 4.8,
       category: 'accessories',
-      description: 'Handmade with love, featuring traditional African beadwork',
+      description: 'Handmade with love',
       inStock: true,
       tags: ['jewelry', 'beaded']
     },
@@ -84,7 +86,7 @@ const Products = () => {
       image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
       rating: 4.5,
       category: 'safari',
-      description: 'Eco-friendly elegance crafted from sustainable African wood',
+      description: 'Eco-friendly elegance',
       inStock: true,
       tags: ['clutch', 'wooden']
     }
@@ -161,8 +163,51 @@ const Products = () => {
           </p>
         </div>
 
-        {/* Masonry Grid */}
-        <MasonryGrid products={filteredProducts} />
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProducts.map((product) => (
+            <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
+              <div className="aspect-square overflow-hidden relative">
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                {!product.inStock && (
+                  <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
+                    Out of Stock
+                  </div>
+                )}
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
+                    />
+                  ))}
+                  <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
+                  {product.name}
+                </h3>
+                <p className="text-copper-wood-400 mb-4">{product.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
+                  <Link to={`/products/${product.id}`}>
+                    <Button 
+                      className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0"
+                      disabled={!product.inStock}
+                    >
+                      {product.inStock ? 'View Details' : 'Out of Stock'}
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">

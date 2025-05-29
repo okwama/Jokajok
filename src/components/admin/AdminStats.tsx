@@ -26,62 +26,38 @@ const AdminStats = ({ onNavigate }: AdminStatsProps) => {
 
   const fetchStats = async () => {
     try {
-      console.log('Fetching admin stats...');
-      
       // Fetch products count
-      const { count: productsCount, error: productsError } = await supabase
+      const { count: productsCount } = await supabase
         .from('products')
         .select('*', { count: 'exact', head: true });
 
-      if (productsError) {
-        console.error('Error fetching products count:', productsError);
-      }
+      // Fetch orders count
+      const { count: ordersCount } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true });
 
-      // Fetch orders count - temporarily disable to avoid type errors
-      let ordersCount = 0;
-      try {
-        const { count, error } = await supabase
-          .from('orders')
-          .select('*', { count: 'exact', head: true });
-        if (!error) ordersCount = count || 0;
-      } catch (err) {
-        console.log('Orders table not accessible, using default value');
-      }
+      // Fetch total revenue
+      const { data: revenueData } = await supabase
+        .from('financial_transactions')
+        .select('amount')
+        .eq('transaction_type', 'sale');
 
-      // Fetch total revenue - temporarily disable to avoid type errors
-      let totalRevenue = 0;
-      try {
-        const { data: revenueData, error } = await supabase
-          .from('financial_transactions')
-          .select('amount')
-          .eq('transaction_type', 'sale');
-        
-        if (!error && revenueData) {
-          totalRevenue = revenueData.reduce((sum: number, transaction: any) => sum + Number(transaction.amount), 0);
-        }
-      } catch (err) {
-        console.log('Financial transactions table not accessible, using default value');
-      }
+      const totalRevenue = revenueData?.reduce((sum, transaction) => sum + Number(transaction.amount), 0) || 0;
 
       // Fetch low stock products (less than 10 items)
-      const { count: lowStockCount, error: lowStockError } = await supabase
+      const { count: lowStockCount } = await supabase
         .from('products')
         .select('*', { count: 'exact', head: true })
         .lt('stock', 10);
 
-      if (lowStockError) {
-        console.error('Error fetching low stock count:', lowStockError);
-      }
-
       setStats({
         totalProducts: productsCount || 0,
-        totalOrders: ordersCount,
+        totalOrders: ordersCount || 0,
         totalRevenue,
         lowStockProducts: lowStockCount || 0
       });
     } catch (error: any) {
-      console.error('Error in fetchStats:', error);
-      toast({ title: 'Error', description: 'Failed to fetch some stats', variant: 'destructive' });
+      toast({ title: 'Error', description: 'Failed to fetch stats', variant: 'destructive' });
     } finally {
       setLoading(false);
     }
