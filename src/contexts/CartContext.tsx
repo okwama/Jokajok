@@ -13,6 +13,7 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
+  cartItems: CartItem[]; // Add alias for backward compatibility
   addItem: (item: Omit<CartItem, 'quantity'> & { quantity?: number }) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
@@ -86,6 +87,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <CartContext.Provider value={{
       items,
+      cartItems: items, // Provide alias for backward compatibility
       addItem,
       removeItem,
       updateQuantity,

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
@@ -8,16 +7,16 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { cartItems } = useCart();
-  const { user, signOut } = useAuth();
+  const { items: cartItems } = useCart();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await signOut();
+    await logout();
     navigate('/');
   };
 
-  const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartItemsCount = cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
 
   return (
     <header className="bg-charred-wood border-b border-copper-wood-700 sticky top-0 z-50">
