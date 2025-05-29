@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -22,6 +23,7 @@ import CareInstructions from '@/pages/CareInstructions';
 import ShippingInfo from '@/pages/ShippingInfo';
 import Returns from '@/pages/Returns';
 import OrderTracking from '@/pages/OrderTracking';
+import WorkAtJokaJok from '@/pages/WorkAtJokaJok';
 import NotFound from '@/pages/NotFound';
 import Admin from '@/pages/Admin';
 import AdminLogin from '@/pages/admin/login';
@@ -56,6 +58,7 @@ function App() {
                   <Route path="/shipping" element={<ShippingInfo />} />
                   <Route path="/returns" element={<Returns />} />
                   <Route path="/order-tracking" element={<OrderTracking />} />
+                  <Route path="/work-at-jokajok" element={<WorkAtJokaJok />} />
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin/register" element={<AdminRegister />} />
                   <Route path="/admin/*" element={<AdminRoutes />} />

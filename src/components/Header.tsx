@@ -1,7 +1,16 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -17,6 +26,13 @@ const Header = () => {
   };
 
   const cartItemsCount = cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+
+  const categories = [
+    { name: 'Men', href: '/products?category=men' },
+    { name: 'Ladies', href: '/products?category=ladies' },
+    { name: 'Safari', href: '/products?category=safari' },
+    { name: 'Redline', href: '/products?category=redline' },
+  ];
 
   return (
     <header className="bg-charred-wood border-b border-copper-wood-700 sticky top-0 z-50">
@@ -35,12 +51,38 @@ const Header = () => {
             <Link to="/" className="text-copper-wood-400 hover:text-copper-wood-300 transition-colors">
               Home
             </Link>
-            <Link to="/products" className="text-copper-wood-400 hover:text-copper-wood-300 transition-colors">
-              Products
-            </Link>
+            
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-copper-wood-400 hover:text-copper-wood-300 hover:bg-copper-wood-800/20">
+                    Products
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-charred-wood border border-copper-wood-700">
+                      {categories.map((category) => (
+                        <NavigationMenuLink key={category.name} asChild>
+                          <Link
+                            to={category.href}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-copper-wood-800/20 hover:text-copper-wood-300 focus:bg-copper-wood-800/20 focus:text-copper-wood-300 text-copper-wood-400"
+                          >
+                            <div className="text-sm font-medium leading-none">{category.name}</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-copper-wood-500">
+                              Explore our {category.name.toLowerCase()} collection
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             <Link to="/blog" className="text-copper-wood-400 hover:text-copper-wood-300 transition-colors">
               Stories
             </Link>
+            
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
                 <Search className="h-5 w-5" />
@@ -117,13 +159,21 @@ const Header = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/products"
-                className="block px-3 py-2 text-copper-wood-400 hover:text-copper-wood-300 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Products
-              </Link>
+              <div className="px-3 py-2">
+                <div className="text-copper-wood-400 font-medium mb-2">Products</div>
+                <div className="pl-4 space-y-1">
+                  {categories.map((category) => (
+                    <Link
+                      key={category.name}
+                      to={category.href}
+                      className="block py-1 text-copper-wood-500 hover:text-copper-wood-300 transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
               <Link
                 to="/blog"
                 className="block px-3 py-2 text-copper-wood-400 hover:text-copper-wood-300 transition-colors"
