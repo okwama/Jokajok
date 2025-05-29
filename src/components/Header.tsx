@@ -180,7 +180,7 @@ const Header = () => {
                 <Link to="/account">
                   <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:text-burnished-copper-500 hover:bg-swahili-dust-700">
                     <User className="h-5 w-5" />
-                    <span className="hidden sm:inline ml-2">{user.name}</span>
+                    <span className="hidden sm:inline ml-2">{user.email}</span>
                   </Button>
                 </Link>
                 <Button 
