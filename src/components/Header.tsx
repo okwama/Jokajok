@@ -40,10 +40,10 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/jk.png" alt="JokaJok" className="h-8 w-8" />
-            <span className="text-2xl font-serif font-bold text-soft-sand">
-              JokaJok
-            </span>
+            <img src="../logo.png" alt="JokaJok" className="h-10 w-50" />
+            {/* <span className="text-2xl font-serif font-bold text-soft-sand">
+            
+            </span> */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -55,7 +55,7 @@ const Header = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-copper-wood-400 hover:text-copper-wood-300 hover:bg-copper-wood-800/20">
+                  <NavigationMenuTrigger className="bg-transparent text-copper-wood-400 hover:text-soft-sand-300 hover:bg-soft-sand-800/20">
                     Products
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
