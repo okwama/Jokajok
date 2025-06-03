@@ -61,39 +61,55 @@ const Products = () => {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <ProductsHeader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-          <FilterSection
-            filters={filters}
-            onFilterChange={setFilters}
-            filteredCount={filteredProducts.length}
-            totalCount={products.length}
-          />
+          <div className="flex gap-8">
+            {/* Desktop Sidebar Filter */}
+            <div className="hidden lg:block flex-shrink-0 w-80">
+              <FilterSection
+                filters={filters}
+                onFilterChange={setFilters}
+                filteredCount={filteredProducts.length}
+                totalCount={products.length}
+                showOnlyFilter={true}
+              />
+            </div>
 
-          {/* Products Grid Content */}
-          <div className="flex-1 max-w-none lg:ml-88">
-            <Suspense fallback={<ProductGridSkeleton />}>
-              {isLoading ? (
-                <ProductGridSkeleton />
-              ) : (
-                <ProductGrid
-                  products={filteredProducts}
-                  onAddToCart={handleAddToCart}
-                  onQuickCheckout={handleQuickCheckout}
-                />
+            {/* Main Content */}
+            <div className="flex-1 max-w-none">
+              {/* Mobile Filter Button - only show filter button on mobile */}
+              <FilterSection
+                filters={filters}
+                onFilterChange={setFilters}
+                filteredCount={filteredProducts.length}
+                totalCount={products.length}
+                showOnlyMobile={true}
+              />
+
+              {/* Products Grid */}
+              <Suspense fallback={<ProductGridSkeleton />}>
+                {isLoading ? (
+                  <ProductGridSkeleton />
+                ) : (
+                  <ProductGrid
+                    products={filteredProducts}
+                    onAddToCart={handleAddToCart}
+                    onQuickCheckout={handleQuickCheckout}
+                  />
+                )}
+              </Suspense>
+
+              {filteredProducts.length === 0 && !isLoading && (
+                <div className="text-center py-12">
+                  <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
+                  <Button
+                    variant="outline"
+                    onClick={clearAllFilters}
+                    className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+                  >
+                    Clear All Filters
+                  </Button>
+                </div>
               )}
-            </Suspense>
-
-            {filteredProducts.length === 0 && !isLoading && (
-              <div className="text-center py-12">
-                <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
-                <Button
-                  variant="outline"
-                  onClick={clearAllFilters}
-                  className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
-                >
-                  Clear All Filters
-                </Button>
-              </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

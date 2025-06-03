@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -38,7 +37,7 @@ export const useProductFilters = () => {
       id: 1,
       name: 'Maasai Leather Tote',
       price: 89,
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+      image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=400&fit=crop',
       rating: 4.8,
       category: 'bags',
       description: 'Handcrafted by Maasai artisans',
@@ -49,7 +48,7 @@ export const useProductFilters = () => {
       id: 2,
       name: 'Sahara Crossbody',
       price: 65,
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
+      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=400&fit=crop',
       rating: 4.9,
       category: 'bags',
       description: 'Perfect for daily adventures',
@@ -60,7 +59,7 @@ export const useProductFilters = () => {
       id: 3,
       name: 'Kente Messenger Bag',
       price: 125,
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop',
       rating: 4.7,
       category: 'men',
       description: 'Traditional patterns meet modern design',
@@ -71,7 +70,7 @@ export const useProductFilters = () => {
       id: 4,
       name: 'African Print Wallet',
       price: 35,
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop',
       rating: 4.6,
       category: 'wallets',
       description: 'Compact and stylish',
@@ -82,7 +81,7 @@ export const useProductFilters = () => {
       id: 5,
       name: 'Beaded Jewelry Set',
       price: 55,
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
+      image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop',
       rating: 4.8,
       category: 'accessories',
       description: 'Handmade with love',
@@ -93,7 +92,7 @@ export const useProductFilters = () => {
       id: 6,
       name: 'Wooden Clutch',
       price: 75,
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
+      image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=400&fit=crop',
       rating: 4.5,
       category: 'safari',
       description: 'Eco-friendly elegance',
