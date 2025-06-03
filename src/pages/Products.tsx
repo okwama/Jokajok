@@ -17,8 +17,8 @@ const Products = () => {
   const { addItem } = useCart();
   const { toast } = useToast();
   const [filters, setFilters] = useState({
-    priceRange: [0, 200],
-    categories: [],
+    priceRange: [0, 200] as [number, number],
+    categories: [] as string[],
     rating: 0,
     sortBy: 'name',
     inStock: false
@@ -320,8 +320,8 @@ const Products = () => {
                     onClick={() => {
                       setSearchTerm('');
                       setFilters({
-                        priceRange: [0, 200],
-                        categories: [],
+                        priceRange: [0, 200] as [number, number],
+                        categories: [] as string[],
                         rating: 0,
                         sortBy: 'name',
                         inStock: false
