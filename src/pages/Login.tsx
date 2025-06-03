@@ -85,32 +85,35 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    style={{
+      backgroundImage: `linear-gradient(rgba(30, 27, 24, 0.85), rgba(30, 27, 24, 0.9)), url('/lovable-uploads/7cc2147c-4961-4230-8e23-a8fd6d332ca6.png')`
+    }}>
       <div className="max-w-md w-full space-y-8">
         {/* Logo and Header */}
         <div className="text-center">
           <div className="flex justify-center">
-            <div className="w-16 h-16 bg-burnished-copper-500 rounded-full flex items-center justify-center">
-              <span className="text-charred-wood font-bold text-2xl font-serif">JJ</span>
+            <div className="w-16 h-16  flex items-center justify-center">
+            <img src="/lovable-uploads/logo_clean.png" alt="" />
             </div>
           </div>
-          <h2 className="mt-6 text-3xl font-serif font-bold text-soft-sand">
+          {/* <h2 className="mt-6 text-3xl font-serif font-bold text-soft-sand">
             Welcome Back
           </h2>
           <p className="mt-2 text-sm text-copper-wood-400">
             Sign in to your JokaJok account
-          </p>
+          </p> */}
         </div>
 
         {/* Login Form */}
-        <Card className="bg-dark-clay-100 shadow-xl border-copper-wood-700">
+        <Card className="bg-swahili-dust-200 shadow-xl border-copper-wood-700">
           <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="text-2xl font-serif text-center text-soft-sand">Sign In</CardTitle>
+            <CardTitle className="text-2xl font-serif text-center text-white">Sign In</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <Label htmlFor="email" className="text-copper-wood-400">
+                <Label htmlFor="email" className="text-swahili-dust-900 font-semibold">
                   Email Address
                 </Label>
                 <div className="relative mt-1">
@@ -124,7 +127,7 @@ const Login = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`pl-10 bg-swahili-dust-700 border-copper-wood-600 text-soft-sand focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                    className={`pl-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
                       errors.email ? 'border-red-500' : ''
                     }`}
                     placeholder="Enter your email"
@@ -136,7 +139,7 @@ const Login = () => {
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-copper-wood-400">
+                <Label htmlFor="password" className="text-swahili-dust-900 font-semibold">
                   Password
                 </Label>
                 <div className="relative mt-1">
@@ -150,7 +153,7 @@ const Login = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className={`pl-10 pr-10 bg-swahili-dust-700 border-copper-wood-600 text-soft-sand focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                    className={`pl-10 pr-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
                       errors.password ? 'border-red-500' : ''
                     }`}
                     placeholder="Enter your password"
@@ -178,9 +181,9 @@ const Login = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-burnished-copper-500 focus:ring-burnished-copper-500 border-copper-wood-600 rounded bg-swahili-dust-700"
+                    className="h-4 w-4 text-burnished-copper-100 focus:ring-burnished-copper-100 border-copper-wood-600 rounded bg-swahili-dust-100"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-copper-wood-400">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-swahili-dust-900 font-semibold">
                     Remember me
                   </label>
                 </div>
@@ -203,7 +206,7 @@ const Login = () => {
 
             {/* Sign Up Link */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-copper-wood-400">
+              <p className="text-sm text-swahili-dust-900 font-semibold text-copper-wood-400">
                 Don't have an account?{' '}
                 <Link to="/register" className="font-medium text-burnished-copper-500 hover:text-burnished-copper-400">
                   Sign up here

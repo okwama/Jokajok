@@ -6,15 +6,15 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Twitter } from 'lucide-react'
 const Footer = () => {
   return (
     <footer className="bg-swahili-dust-800 text-swahili-dust-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-copper-600 rounded-full flex items-center justify-center">
-                <span className="text-swahili-dust-50 font-bold text-lg font-serif">JJ</span>
+              <img src="/lovable-uploads/logo_clean.png" alt="" />
               </div>
-              <span className="text-xl font-serif font-bold">JokaJok</span>
+              {/* <span className="text-xl font-serif font-bold">JokaJok</span> */}
             </div>
             <p className="text-swahili-dust-300 text-sm leading-relaxed">
               Celebrating African heritage through authentic craftsmanship. 
@@ -35,7 +35,7 @@ const Footer = () => {
               <li><Link to="/products" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Products</Link></li>
               <li><Link to="/blog" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Blog</Link></li>
               <li><Link to="/account" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">My Account</Link></li>
-              <li><Link to="/work-at-jokajok" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Work at JokaJok</Link></li>
+              {/* <li><Link to="/work-at-jokajok" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Work at JokaJok</Link></li> */}
             </ul>
           </div>
 
@@ -45,8 +45,8 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><Link to="/shipping" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Shipping Info</Link></li>
               <li><Link to="/returns" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Returns</Link></li>
-              <li><Link to="/size-guide" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Size Guide</Link></li>
-              <li><Link to="/care-instructions" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Care Instructions</Link></li>
+              {/* <li><Link to="/size-guide" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Size Guide</Link></li> */}
+              {/* <li><Link to="/care-instructions" className="text-swahili-dust-300 hover:text-copper-wood-400 transition-colors">Care Instructions</Link></li> */}
             </ul>
           </div>
 
@@ -72,7 +72,7 @@ const Footer = () => {
 
         <div className="border-t border-swahili-dust-700 mt-8 pt-8 text-center">
           <p className="text-swahili-dust-400 text-sm">
-            © 2024 JokaJok. All rights reserved. Made with ❤️ in Africa.
+            © 2024 JokaJok. All rights reserved. Made with love in Africa.
           </p>
         </div>
       </div>

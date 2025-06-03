@@ -44,7 +44,7 @@ const HeroSection = () => {
             <div 
               className="w-full h-full bg-cover bg-center animate-float"
               style={{
-                backgroundImage: `url('/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png')`,
+                backgroundImage: `url('/lovable-uploads/42.jpg')`,
                 filter: 'sepia(20%) saturate(120%)'
               }}
             />

@@ -6,38 +6,38 @@ import { Card, CardContent } from '@/components/ui/card';
 const CategoryGrid = () => {
   const categories = [
     {
-      name: 'Belts',
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+      name: 'Bags',
+      image: '/lovable-uploads/4.jpg',
       link: '/products?category=belts',
-      description: 'Handcrafted leather belts'
+      description: 'Handcrafted leather bags'
     },
     {
       name: 'Suitcases',
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
+      image: '/lovable-uploads/n.jpg',
       link: '/products?category=suitcases',
       description: 'Premium travel companions'
     },
     {
       name: 'Wallets',
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
+      image: '/lovable-uploads/36.jpg',
       link: '/products?category=wallets',
       description: 'Elegant leather wallets'
     },
     {
       name: 'Backpacks',
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+      image: '/lovable-uploads/100.jpeg',
       link: '/products?category=backpacks',
       description: 'Adventure-ready packs'
     },
     {
       name: 'Handbags',
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
+      image: '/lovable-uploads/29.jpg',
       link: '/products?category=handbags',
       description: 'Sophisticated carriers'
     },
     {
       name: 'Sleeves',
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
+      image: '/lovable-uploads/200.webp',
       link: '/products?category=sleeves',
       description: 'Protective covers'
     }
@@ -78,7 +78,7 @@ const CategoryGrid = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="inline-block text-xl font-serif font-semibold bg-red-600 rounded-lg px-2 py-0.5 text-soft-sand">
+                    <h3 className="inline-block text-lg font-serif font-semibold bg-burnished-copper-500 rounded-lg px-2 py-0.5 text-soft-sand">
                       {category.name}
                     </h3>
                     <p className="text-soft-sand-dark text-sm">
@@ -92,6 +92,8 @@ const CategoryGrid = () => {
         </div>
       </div>
     </section>
+
+    
   );
 };
 

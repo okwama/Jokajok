@@ -66,7 +66,7 @@ const Header = () => {
                             to={category.href}
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-copper-wood-800/20 hover:text-copper-wood-300 focus:bg-copper-wood-800/20 focus:text-copper-wood-300 text-copper-wood-400"
                           >
-                            <div className="text-sm font-medium leading-none">{category.name}</div>
+                            <div className="text-sm font-bold leading-none">{category.name}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-copper-wood-500">
                               Explore our {category.name.toLowerCase()} collection
                             </p>
