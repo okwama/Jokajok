@@ -59,19 +59,22 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-swahili-dust-100 to-copper-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-swahili-dust-100 to-copper-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    style={{
+      backgroundImage: `linear-gradient(rgba(30, 27, 24, 0.85), rgba(30, 27, 24, 0.9)), url('/lovable-uploads/7cc2147c-4961-4230-8e23-a8fd6d332ca6.png')`
+    }}>
       <div className="max-w-md w-full space-y-8">
         {/* Logo and Header */}
         <div className="text-center">
           <div className="flex justify-center">
             <div className="w-16 h-16 bg-copper-600 rounded-full flex items-center justify-center">
-              <span className="text-swahili-dust-50 font-bold text-2xl font-serif">JJ</span>
+              <img src="/lovable-uploads/logo_clean.png" alt="" />
             </div>
           </div>
-          <h2 className="mt-6 text-3xl font-serif font-bold text-swahili-dust-800">
+          <h2 className="mt-6 text-3xl font-serif font-bold text-swahili-dust-100">
             Join JokaJok
           </h2>
-          <p className="mt-2 text-sm text-swahili-dust-600">
+          <p className="mt-2 text-sm text-swahili-dust-100">
             Create your account to start your African fashion journey
           </p>
         </div>

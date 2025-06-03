@@ -194,10 +194,10 @@ const Blog = () => {
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
-      'Culture': 'bg-copper-100 text-copper-800',
-      'Sustainability': 'bg-green-100 text-green-800',
-      'Stories': 'bg-blue-100 text-blue-800',
-      'Care Guide': 'bg-purple-100 text-purple-800',
+      'Culture': 'bg-orange-100 text-orange-800',
+      'Sustainability': 'bg-orange-100 text-orange-800',
+      'Stories': 'bg-orange-100 text-orange-800',
+      'Care Guide': 'bg-orange-100 text-orange-800',
       'Behind the Scenes': 'bg-orange-100 text-orange-800'
     };
     return colors[category] || 'bg-swahili-dust-100 text-swahili-dust-800';
