@@ -1,0 +1,91 @@
+
+{
+  "categories": [
+    {
+      "id": "bags",
+      "name": "Bags",
+      "description": "Handcrafted leather bags",
+      "image": "/lovable-uploads/4.jpg",
+      "link": "/products?category=bags",
+      "featured": true
+    },
+    {
+      "id": "suitcases",
+      "name": "Suitcases",
+      "description": "Premium travel companions",
+      "image": "/lovable-uploads/n.jpg",
+      "link": "/products?category=suitcases",
+      "featured": true
+    },
+    {
+      "id": "wallets",
+      "name": "Wallets",
+      "description": "Elegant leather wallets",
+      "image": "/lovable-uploads/36.jpg",
+      "link": "/products?category=wallets",
+      "featured": true
+    },
+    {
+      "id": "backpacks",
+      "name": "Backpacks",
+      "description": "Adventure-ready packs",
+      "image": "/lovable-uploads/100.jpeg",
+      "link": "/products?category=backpacks",
+      "featured": true
+    },
+    {
+      "id": "handbags",
+      "name": "Handbags",
+      "description": "Sophisticated carriers",
+      "image": "/lovable-uploads/29.jpg",
+      "link": "/products?category=handbags",
+      "featured": true
+    },
+    {
+      "id": "sleeves",
+      "name": "Sleeves",
+      "description": "Protective covers",
+      "image": "/lovable-uploads/200.webp",
+      "link": "/products?category=sleeves",
+      "featured": true
+    }
+  ],
+  "newReleases": [
+    {
+      "id": 7,
+      "name": "Heritage Duffel Bag",
+      "price": 195,
+      "image": "/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png",
+      "rating": 4.9,
+      "category": "bags",
+      "description": "Limited edition heritage collection",
+      "inStock": true,
+      "tags": ["new", "limited", "heritage"],
+      "isNew": true
+    },
+    {
+      "id": 8,
+      "name": "Urban Explorer Pack",
+      "price": 145,
+      "image": "/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png",
+      "rating": 4.8,
+      "category": "backpacks",
+      "description": "Modern city adventurer's companion",
+      "inStock": true,
+      "tags": ["new", "urban", "explorer"],
+      "isNew": true
+    },
+    {
+      "id": 9,
+      "name": "Artisan Laptop Case",
+      "price": 89,
+      "image": "/lovable-uploads/d9afcb00-459a-4fd9-8b86-bdaf96387375.png",
+      "rating": 4.7,
+      "category": "sleeves",
+      "description": "Handcrafted protection for your tech",
+      "inStock": true,
+      "tags": ["new", "laptop", "artisan"],
+      "isNew": true
+    }
+  ]
+}

@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import CategoryGrid from '@/components/CategoryGrid';
+import { ProductGridSkeleton } from '@/components/ui/product-skeleton';
+import LazyImage from '@/components/LazyImage';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
 import HeroSection from '@/components/HeroSection';
-import VideoCarousel from '@/components/VideoCarousel';
+
+// Lazy load heavy components
+const CategoryGrid = lazy(() => import('@/components/CategoryGrid'));
+const VideoCarousel = lazy(() => import('@/components/VideoCarousel'));
+const NewReleasesSection = lazy(() => import('@/components/NewReleasesSection'));
 
 const Index = () => {
   const featuredProducts = [
@@ -179,8 +184,15 @@ const Index = () => {
         <ImageVideoSlider slides={sliderItems} />
       </section>
 
-      {/* Category Grid with new background */}
-      <CategoryGrid />
+      {/* Category Grid with lazy loading */}
+      <Suspense fallback={<div className="h-96 bg-charred-wood" />}>
+        <CategoryGrid />
+      </Suspense>
+
+      {/* New Releases Section */}
+      <Suspense fallback={<ProductGridSkeleton count={3} />}>
+        <NewReleasesSection />
+      </Suspense>
 
       {/* Netflix-style Video Carousels */}
       <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
@@ -194,13 +206,15 @@ const Index = () => {
             </p>
           </div>
           
-          {videoCarousels.map((carousel, index) => (
-            <VideoCarousel
-              key={index}
-              title={carousel.title}
-              videos={carousel.videos}
-            />
-          ))}
+          <Suspense fallback={<div className="h-64 bg-copper-wood-800 rounded-lg animate-pulse" />}>
+            {videoCarousels.map((carousel, index) => (
+              <VideoCarousel
+                key={index}
+                title={carousel.title}
+                videos={carousel.videos}
+              />
+            ))}
+          </Suspense>
         </div>
       </section>
 
@@ -236,13 +250,16 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProducts.map((product) => (
+            {featuredProducts.map((product, index) => (
               <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
                 <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={product.image} 
+                  <LazyImage
+                    src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    priority={index < 2}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <CardContent className="p-6">
@@ -308,10 +325,12 @@ const Index = () => {
               </Link>
             </div>
             <div className="relative">
-              <img 
-                src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png" 
-                alt="African craftsmanship" 
+              <LazyImage
+                src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png"
+                alt="African craftsmanship"
                 className="rounded-lg shadow-2xl"
+                loading="lazy"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/40 to-transparent rounded-lg"></div>
             </div>
@@ -332,7 +351,6 @@ const Index = () => {
           backgroundPosition: '0 0, center'
         }}
       >
-        {/* Leather texture overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-dark-clay-100/30 via-transparent to-charred-wood/40"></div>
         
         <div className="relative z-10">
