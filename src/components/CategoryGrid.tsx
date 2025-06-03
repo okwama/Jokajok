@@ -8,7 +8,7 @@ const CategoryGrid = () => {
     {
       name: 'Bags',
       image: '/lovable-uploads/4.jpg',
-      link: '/products?category=belts',
+      link: '/products?category=bags',
       description: 'Handcrafted leather bags'
     },
     {
@@ -92,8 +92,6 @@ const CategoryGrid = () => {
         </div>
       </div>
     </section>
-
-    
   );
 };
 

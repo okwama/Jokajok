@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
 import HeroSection from '@/components/HeroSection';
+import VideoCarousel from '@/components/VideoCarousel';
 
 const Index = () => {
   const featuredProducts = [
@@ -93,6 +94,84 @@ const Index = () => {
     }
   ];
 
+  // Video carousel data
+  const videoCarousels = [
+    {
+      title: 'Craftsmanship Stories',
+      videos: [
+        {
+          id: '1',
+          title: 'The Art of Leather Crafting',
+          thumbnail: '/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png',
+          duration: '3:24',
+          category: 'Behind the Scenes',
+          description: 'Watch our master craftsmen at work'
+        },
+        {
+          id: '2',
+          title: 'Safari Adventures',
+          thumbnail: '/lovable-uploads/eaea5260-d612-4d26-9d9e-e8cb70850440.png',
+          duration: '5:12',
+          category: 'Travel',
+          description: 'Experience the wild with JokaJok'
+        },
+        {
+          id: '3',
+          title: 'Heritage Collection',
+          thumbnail: '/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png',
+          duration: '2:45',
+          category: 'Products',
+          description: 'Discover our heritage pieces'
+        },
+        {
+          id: '4',
+          title: 'Artisan Portraits',
+          thumbnail: '/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png',
+          duration: '4:18',
+          category: 'People',
+          description: 'Meet the faces behind our brand'
+        }
+      ]
+    },
+    {
+      title: 'Product Showcases',
+      videos: [
+        {
+          id: '5',
+          title: 'Bag Collection 2024',
+          thumbnail: '/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png',
+          duration: '6:30',
+          category: 'Collection',
+          description: 'Our latest bag designs'
+        },
+        {
+          id: '6',
+          title: 'Leather Care Guide',
+          thumbnail: '/lovable-uploads/d9afcb00-459a-4fd9-8b86-bdaf96387375.png',
+          duration: '3:45',
+          category: 'Tutorial',
+          description: 'How to care for your leather goods'
+        },
+        {
+          id: '7',
+          title: 'Safari Essentials',
+          thumbnail: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
+          duration: '4:22',
+          category: 'Travel',
+          description: 'Must-have items for your safari'
+        },
+        {
+          id: '8',
+          title: 'Custom Orders',
+          thumbnail: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
+          duration: '2:58',
+          category: 'Services',
+          description: 'Create your personalized piece'
+        }
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-charred-wood">
       {/* Full Screen Image/Video Slider as Hero */}
@@ -102,6 +181,28 @@ const Index = () => {
 
       {/* Category Grid with new background */}
       <CategoryGrid />
+
+      {/* Netflix-style Video Carousels */}
+      <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
+              Our Stories
+            </h2>
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
+              Dive into the world of African craftsmanship through our video stories
+            </p>
+          </div>
+          
+          {videoCarousels.map((carousel, index) => (
+            <VideoCarousel
+              key={index}
+              title={carousel.title}
+              videos={carousel.videos}
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="py-20 bg-charred-wood">
