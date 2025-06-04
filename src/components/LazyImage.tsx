@@ -22,20 +22,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // Generate WebP/AVIF srcset for modern browsers
-  const generateSrcSet = (originalSrc: string) => {
-    const basePath = originalSrc.replace(/\.[^/.]+$/, '');
-    const ext = originalSrc.split('.').pop();
-    
-    return {
-      webp: `${basePath}.webp`,
-      avif: `${basePath}.avif`,
-      original: originalSrc
-    };
-  };
-
-  const srcSet = generateSrcSet(src);
-
   const handleLoad = () => {
     setIsLoading(false);
   };
@@ -58,20 +44,16 @@ const LazyImage: React.FC<LazyImageProps> = ({
       {isLoading && (
         <Skeleton className="absolute inset-0 bg-copper-wood-700" />
       )}
-      <picture>
-        <source srcSet={srcSet.avif} type="image/avif" />
-        <source srcSet={srcSet.webp} type="image/webp" />
-        <img
-          src={srcSet.original}
-          alt={alt}
-          className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-          loading={priority ? 'eager' : loading}
-          onLoad={handleLoad}
-          onError={handleError}
-          sizes={sizes}
-          decoding={priority ? 'sync' : 'async'}
-        />
-      </picture>
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+        loading={priority ? 'eager' : loading}
+        onLoad={handleLoad}
+        onError={handleError}
+        sizes={sizes}
+        decoding={priority ? 'sync' : 'async'}
+      />
     </div>
   );
 };
