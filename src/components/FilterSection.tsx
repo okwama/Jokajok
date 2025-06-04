@@ -35,7 +35,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     return (
       <div className="space-y-6">
         <div className="mb-6">
-          <p className="text-copper-wood-400">
+          <p className="text-copper-wood-400 text-sm">
             Showing {filteredCount} of {totalCount} products
           </p>
         </div>
@@ -51,7 +51,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     // Mobile filter button only
     return (
       <div className="lg:hidden mb-6 flex justify-between items-center">
-        <p className="text-copper-wood-400">
+        <p className="text-copper-wood-400 text-sm">
           Showing {filteredCount} of {totalCount} products
         </p>
         <Sheet>

@@ -58,12 +58,12 @@ const Products = () => {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <ProductsHeader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-          <div className="flex gap-8">
-            {/* Desktop Sidebar Filter */}
-            <div className="hidden lg:block flex-shrink-0 w-80">
+          <div className="flex gap-6">
+            {/* Desktop Sidebar Filter - Made narrower */}
+            <div className="hidden lg:block flex-shrink-0 w-64">
               <FilterSection
                 filters={filters}
                 onFilterChange={setFilters}
@@ -73,9 +73,9 @@ const Products = () => {
               />
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1 max-w-none">
-              {/* Mobile Filter Button - only show filter button on mobile */}
+            {/* Main Content - More space for products */}
+            <div className="flex-1 min-w-0">
+              {/* Mobile Filter Button */}
               <FilterSection
                 filters={filters}
                 onFilterChange={setFilters}
