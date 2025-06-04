@@ -20,6 +20,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Check for existing session
     const checkSession = async () => {
       try {
+        // Only run in browser environment
+        if (typeof window === 'undefined') {
+          setIsLoading(false);
+          return;
+        }
+
         const { data: { session }, error } = await supabase.auth.getSession();
         if (error) throw error;
         console.log('Session check result:', { session });
@@ -34,15 +40,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     checkSession();
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth state changed:', { event: _event, session });
-      setUser(session?.user ?? null);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    // Only set up auth state listener in browser environment
+    try {
+      if (typeof window !== 'undefined') {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+          console.log('Auth state changed:', { event: _event, session });
+          setUser(session?.user ?? null);
+        });
+        
+        return () => {
+          subscription.unsubscribe();
+        };
+      }
+    } catch (error) {
+      console.error('Error setting up auth state listener:', error);
+    }
+    
+    // Cleanup function in case we didn't set up a subscription
+    return () => {};
   }, []);
 
   const login = async (email: string, password: string) => {

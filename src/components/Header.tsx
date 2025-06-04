@@ -48,14 +48,14 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-copper-wood-400 hover:text-copper-wood-300 transition-colors">
+            <Link to="/" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors px-3 py-2 rounded-md">
               Home
             </Link>
             
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-copper-wood-400 hover:text-soft-sand-300 hover:bg-soft-sand-800/20">
+                  <NavigationMenuTrigger className="bg-transparent text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors">
                     Products
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -64,7 +64,7 @@ const Header = () => {
                         <NavigationMenuLink key={category.name} asChild>
                           <Link
                             to={category.href}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-copper-wood-800/20 hover:text-copper-wood-300 focus:bg-copper-wood-800/20 focus:text-copper-wood-300 text-copper-wood-400"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-charred-wood-700/50 hover:text-copper-wood-300 focus:bg-charred-wood-700/50 focus:text-copper-wood-300 text-copper-wood-400"
                           >
                             <div className="text-sm font-bold leading-none">{category.name}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-copper-wood-500">
@@ -79,21 +79,21 @@ const Header = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link to="/blog" className="text-copper-wood-400 hover:text-copper-wood-300 transition-colors">
+            <Link to="/blog" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors px-3 py-2 rounded-md">
               Stories
             </Link>
             
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+              <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                 <Search className="h-5 w-5" />
               </Button>
               <Link to="/wishlist">
-                <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+                <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                   <Heart className="h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/cart" className="relative">
-                <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+                <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                   <ShoppingCart className="h-5 w-5" />
                   {cartItemsCount > 0 && (
                     <span className="absolute -top-1 -right-1 bg-burnished-copper-500 text-charred-wood text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -105,7 +105,7 @@ const Header = () => {
               {user ? (
                 <div className="flex items-center space-x-2">
                   <Link to="/account">
-                    <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+                    <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                       <User className="h-5 w-5" />
                     </Button>
                   </Link>
@@ -121,7 +121,7 @@ const Header = () => {
               ) : (
                 <div className="flex items-center space-x-2">
                   <Link to="/login">
-                    <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:text-copper-wood-300">
+                    <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                       Sign In
                     </Button>
                   </Link>
@@ -141,7 +141,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-copper-wood-400 hover:text-copper-wood-300"
+              className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -154,19 +154,19 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 bg-charred-wood border-t border-copper-wood-700">
               <Link
                 to="/"
-                className="block px-3 py-2 text-copper-wood-400 hover:text-copper-wood-300 transition-colors"
+                className="block px-3 py-2 text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors rounded-md"
                 onClick={() => setIsOpen(false)}
               >
                 Home
               </Link>
               <div className="px-3 py-2">
-                <div className="text-copper-wood-400 font-medium mb-2">Products</div>
+                <div className="text-burnished-copper-400 font-medium mb-2">Products</div>
                 <div className="pl-4 space-y-1">
                   {categories.map((category) => (
                     <Link
                       key={category.name}
                       to={category.href}
-                      className="block py-1 text-copper-wood-500 hover:text-copper-wood-300 transition-colors"
+                      className="block py-1 px-2 text-copper-wood-500 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors rounded-md"
                       onClick={() => setIsOpen(false)}
                     >
                       {category.name}
@@ -176,14 +176,14 @@ const Header = () => {
               </div>
               <Link
                 to="/blog"
-                className="block px-3 py-2 text-copper-wood-400 hover:text-copper-wood-300 transition-colors"
+                className="block px-3 py-2 text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood transition-colors rounded-md"
                 onClick={() => setIsOpen(false)}
               >
                 Stories
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Link to="/cart" className="relative">
-                  <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+                  <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                     <ShoppingCart className="h-5 w-5" />
                     {cartItemsCount > 0 && (
                       <span className="absolute -top-1 -right-1 bg-burnished-copper-500 text-charred-wood text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -195,7 +195,7 @@ const Header = () => {
                 {user ? (
                   <>
                     <Link to="/account">
-                      <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:text-copper-wood-300">
+                      <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                         <User className="h-5 w-5" />
                       </Button>
                     </Link>
@@ -203,7 +203,7 @@ const Header = () => {
                       variant="ghost" 
                       size="sm" 
                       onClick={handleSignOut}
-                      className="text-copper-wood-400 hover:text-copper-wood-300"
+                      className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood"
                     >
                       Sign Out
                     </Button>
@@ -211,7 +211,7 @@ const Header = () => {
                 ) : (
                   <>
                     <Link to="/login">
-                      <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:text-copper-wood-300">
+                      <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                         Sign In
                       </Button>
                     </Link>

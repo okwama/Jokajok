@@ -1,0 +1,153 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "THAYAH WEEKENDER",
+      "price": "29,500",
+      "image": "/lovable-uploads/18.jpg",
+      "images": [
+        "/lovable-uploads/weekender-1.webp",
+        "/lovable-uploads/weekender-2.webp",
+        "/lovable-uploads/weekender-3.jpeg"
+      ],
+      "rating": 4.8,
+      "reviews": 124,
+      "description": "When it comes iconic travel and an outdoor experience what matters is simplicity style and convenience. Meet our Limited Edition Thayah with special vintage leather to give it that classic traveler look. THIS ITEM IS ONLY AVALIABLE ON PRE ORDER.",
+      "inStock": true,
+      "tags": ["leather", "handmade", "weekender", "travel", "bag"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Natural Brown", "value": "#8B4513", "available": true },
+        { "name": "Dark Walnut", "value": "#654321", "available": true },
+        { "name": "Cognac", "value": "#A0522D", "available": true }
+      ],
+      "features": [
+        "Handcrafted by Maasai artisans",
+        "Premium quality leather",
+        "Traditional African patterns",
+        "Spacious interior with pockets",
+        "Adjustable straps"
+      ],
+      "materials": "Genuine leather, cotton lining, brass hardware",
+      "dimensions": "40cm x 35cm x 15cm"
+    },
+    {
+      "id": 2,
+      "name": "YASMINE",
+      "price": "14,500",
+      "image": "/lovable-uploads/17.jpg",
+      "images": [
+        "/lovable-uploads/ya.jpeg",
+        "/lovable-uploads/ya1.webp",
+        "/lovable-uploads/17.jpg"
+      ],
+      "rating": 4.6,
+      "reviews": 92,
+      "description": "Our collection just got a beautiful new addition! 😍 the Yasmine ladies sling in the midnight sky looks breathtaking. Our NEW Yasmine sling bag is functional but very very classy in its look. Fits your phone, Wallet, iPad mini, and other bits easily.",
+      "inStock": true,
+      "tags": ["bag", "sling", "travel"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Multicolor", "value": "#E67E22", "available": true },
+        { "name": "Gold", "value": "#F1C40F", "available": true },
+        { "name": "Red", "value": "#E74C3C", "available": true }
+      ],
+      "features": [
+        "100% leather",
+        "Handwoven",
+        "Versatile styling",
+        "Lightweight and breathable"
+      ],
+      "materials": "100% premium leather",
+      "dimensions": "180cm x 60cm"
+    },
+    {
+      "id": 3,
+      "name": "NYAYABINGI DRUM",
+      "price": "29,500",
+      "image": "/lovable-uploads/1.jpg",
+      "images": [
+        "/lovable-uploads/a.webp",
+        "/lovable-uploads/b.webp",
+        "/lovable-uploads/1.jpg"
+      ],
+      "rating": 4.9,
+      "reviews": 156,
+      "description": "Beautiful handcrafted Nyayabingi drum, perfect for traditional music and home decor. Made from sustainable wood and natural materials.",
+      "inStock": true,
+      "tags": ["drum", "nyayabingi", "music"],
+      "category": "bags",
+      "colors": [
+        { "name": "Natural Wood", "value": "#8B4513", "available": true },
+        { "name": "Dark Stain", "value": "#3E2723", "available": true }
+      ],
+      "features": [
+        "Hand-carved from sustainable wood",
+        "Authentic Nyayabingi design",
+        "Perfect for music and decor",
+        "Makes a great gift"
+      ],
+      "materials": "Sustainably sourced wood, natural oils",
+      "dimensions": "25cm x 40cm (diameter)"
+    },
+    {
+      "id": 4,
+      "name": "WARIDI",
+      "price": "19,500",
+      "image": "/lovable-uploads/30.jpg",
+      "images": [
+        "/lovable-uploads/30.jpg",
+        "/lovable-uploads/30.jpg"
+      ],
+      "rating": 4.5,
+      "reviews": 89,
+      "description": "Waridi (ROSE) tote bag by JOKAJOK is a stylish and functional ladies' leather Tote bag. Made from pure Kenyan leather, designed and crafted by Kenyans for the modern African lady who understands and appreciates the beauty of a well-cut pure leather bag.",
+      "inStock": true,
+      "tags": ["bags", "tote", "leather"],
+      "category": "bags",
+      "colors": [
+        { "name": "Multi-color", "value": "#FF5733", "available": true },
+        { "name": "Blue", "value": "#3498DB", "available": true },
+        { "name": "Red", "value": "#E74C3C", "available": true }
+      ],
+      "features": [
+        "100% leather",
+        "Handmade fabric",
+        "Comfortable fit",
+        "Vibrant colors",
+        "Handmade fabric"
+      ],
+      "materials": "100% leather",
+      "dimensions": "Length: 100cm, Waist: Adjustable"
+    },
+    {
+      "id": 5,
+      "name": "Beaded Leather Sandals",
+      "price": "55",
+      "image": "/lovable-uploads/1.jpg",
+      "images": [
+        "/lovable-uploads/1.jpg",
+        "/lovable-uploads/1.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 134,
+      "description": "Handmade leather sandals with traditional African beadwork.",
+      "inStock": true,
+      "tags": ["footwear", "leather", "handmade"],
+      "category": "accessories",
+      "colors": [
+        { "name": "Brown", "value": "#8B4513", "available": true },
+        { "name": "Black", "value": "#000000", "available": true },
+        { "name": "Tan", "value": "#D2B48C", "available": true }
+      ],
+      "features": [
+        "Genuine leather",
+        "Hand-beaded details",
+        "Comfortable footbed",
+        "Adjustable straps"
+      ],
+      "materials": "Genuine leather, glass beads",
+      "dimensions": "Available in sizes 5-12"
+    }
+  ]
+}

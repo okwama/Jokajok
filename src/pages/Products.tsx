@@ -1,20 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { Star, ShoppingCart, Zap, Filter } from 'lucide-react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { Search, Filter, Star, ShoppingCart, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
-import SidebarFilter, { ProductFilters } from '@/components/SidebarFilter';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/components/ui/use-toast';
 import { useCart } from '@/contexts/CartContext';
-import { useToast } from '@/hooks/use-toast';
+import { getProducts, getCategories, searchProducts } from '@/services/dataService';
+import type { Product, Category } from '@/services/dataService';
 import QuickCheckout from '@/components/QuickCheckout';
+import SidebarFilter from '@/components/SidebarFilter';
 
+interface ProductFilters {
+  priceRange: [number, number];
+  categories: string[];
+  rating: number;
+  sortBy: string;
+  inStock: boolean;
+}
+
+interface QuickCheckoutState {
+  isOpen: boolean;
+  product: Product | null;
+}
 
 const Products = () => {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
-  const [showQuickCheckout, setShowQuickCheckout] = useState(false);
+  const [quickCheckout, setQuickCheckout] = useState<QuickCheckoutState>({
+    isOpen: false,
+    product: null
+  });
+  
+  const [expandedCategories, setExpandedCategories] = useState<{[key: string]: boolean}>({});
+  
   const { addItem } = useCart();
   const { toast } = useToast();
   const [filters, setFilters] = useState<ProductFilters>({
@@ -24,6 +45,12 @@ const Products = () => {
     sortBy: 'name',
     inStock: false
   });
+  
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const search = searchParams.get('search');
@@ -41,141 +68,223 @@ const Products = () => {
     }
   }, [searchParams]);
 
-  const products = [
-    {
-      id: 1,
-      name: 'Maasai Leather Tote',
-      price: 89,
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
-      rating: 4.8,
-      category: 'bags',
-      description: 'Handcrafted by Maasai artisans',
-      inStock: true,
-      tags: ['leather', 'handmade']
-    },
-    {
-      id: 2,
-      name: 'Sahara Crossbody',
-      price: 65,
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
-      rating: 4.9,
-      category: 'bags',
-      description: 'Perfect for daily adventures',
-      inStock: true,
-      tags: ['crossbody', 'adventure']
-    },
-    {
-      id: 3,
-      name: 'Kente Messenger Bag',
-      price: 125,
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
-      rating: 4.7,
-      category: 'men',
-      description: 'Traditional patterns meet modern design',
-      inStock: false,
-      tags: ['messenger', 'traditional']
-    },
-    {
-      id: 4,
-      name: 'African Print Wallet',
-      price: 35,
-      image: '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
-      rating: 4.6,
-      category: 'wallets',
-      description: 'Compact and stylish',
-      inStock: true,
-      tags: ['wallet', 'print']
-    },
-    {
-      id: 5,
-      name: 'Beaded Jewelry Set',
-      price: 55,
-      image: '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
-      rating: 4.8,
-      category: 'accessories',
-      description: 'Handmade with love',
-      inStock: true,
-      tags: ['jewelry', 'beaded']
-    },
-    {
-      id: 6,
-      name: 'Wooden Clutch',
-      price: 75,
-      image: '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png',
-      rating: 4.5,
-      category: 'safari',
-      description: 'Eco-friendly elegance',
-      inStock: true,
-      tags: ['clutch', 'wooden']
-    }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        console.log('  // Fetch categories and products');
+        const [productsData, categoriesData] = await Promise.all([
+          getProducts(),
+          getCategories() // This now only returns main categories
+        ]);
+        
+        // Debug: Log the raw data
+        console.log('Raw products data:', productsData);
+        console.log('Main categories data:', categoriesData);
+        
+        // Validate products data
+        productsData.forEach((product: Product) => {
+          console.log('Product data:', {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            hasRequiredFields: product && product.id !== undefined && product.name && product.price !== undefined
+          });
+        });
+        
+        // Ensure all products have required fields
+        const validProducts = productsData.filter(product => {
+          const isValid = product && 
+            product.id !== undefined && 
+            product.name && 
+            product.price !== undefined &&
+            product.category !== undefined;
+          
+          if (!isValid) {
+            console.warn('Invalid product skipped:', product);
+          }
+          
+          return isValid;
+        });
+        
+        if (validProducts.length !== productsData.length) {
+          console.warn(`Filtered out ${productsData.length - validProducts.length} invalid products`);
+        }
+        
+        console.log(`Setting ${validProducts.length} valid products to state`);
+        setProducts(validProducts);
+        setCategories(categoriesData || []);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load products. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleAddToCart = (product: any) => {
+    fetchData();
+  }, []);
+
+  // Debug: Log initial state
+  console.log('Initial filters state:', {
+    searchTerm,
+    filters,
+    productsCount: products.length
+  });
+
+  const filteredProducts = React.useMemo(() => {
+    console.log('Running filter...');
+    return products.filter((product: Product) => {
+      try {
+        // Debug log for each product being filtered
+        console.log(`\nFiltering product: ${product.name} (ID: ${product.id})`);
+        
+        // Check if any filters are active (other than default values)
+        const isFilterActive = 
+          searchTerm !== '' ||
+          filters.priceRange[0] !== 0 ||
+          filters.priceRange[1] < 1000 || // Only active if max price is less than default 1000
+          filters.categories.length > 0 ||
+          filters.rating > 0 ||
+          filters.inStock === true;
+        
+        // If no filters are active, include all products
+        if (!isFilterActive) {
+          console.log('  No filters active, including product');
+          return true;
+        }
+        
+        // Search filter
+        const matchesSearch = searchTerm === '' || 
+          (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (product.tags && product.tags.some(tag => tag && tag.toLowerCase().includes(searchTerm.toLowerCase())));
+        
+        // Price filter - ensure price is a number
+        const productPrice = typeof product.price === 'number' ? product.price : 0;
+        const minPrice = typeof filters.priceRange[0] === 'number' ? filters.priceRange[0] : 0;
+        const maxPrice = typeof filters.priceRange[1] === 'number' ? filters.priceRange[1] : 1000; // Default max price
+        
+        const matchesPrice = productPrice >= minPrice && productPrice <= maxPrice;
+        
+        // Category filter - only match main categories (first part before any hyphen)
+        const matchesCategory = filters.categories.length === 0 || 
+          (product.category && filters.categories.some(cat => {
+            // Get the main category ID (part before any hyphen)
+            const productMainCategory = typeof product.category === 'string' ? 
+              product.category.split('-')[0].trim().toLowerCase() : '';
+            const filterMainCategory = typeof cat === 'string' ? 
+              cat.split('-')[0].trim().toLowerCase() : '';
+              
+            return productMainCategory === filterMainCategory;
+          }));
+        
+        // Rating filter - ensure rating is a number
+        const productRating = typeof product.rating === 'number' ? product.rating : 0;
+        const matchesRating = productRating >= (filters.rating || 0);
+        
+        // Stock filter - handle different inStock formats
+        const stockValue = typeof product.inStock === 'boolean' ? 
+          (product.inStock ? 1 : 0) : 
+          (typeof product.inStock === 'number' ? product.inStock : 0);
+        const matchesStock = !filters.inStock || stockValue > 0;
+        
+        const isIncluded = matchesSearch && matchesPrice && matchesCategory && matchesRating && matchesStock;
+        
+        // Log why a product might be excluded
+        if (!isIncluded) {
+          console.log('  Product excluded due to:', {
+            matchesSearch,
+            matchesPrice,
+            matchesCategory,
+            matchesRating,
+            matchesStock,
+            searchTerm,
+            price: productPrice,
+            priceRange: [minPrice, maxPrice],
+            category: product.category,
+            selectedCategories: filters.categories,
+            rating: productRating,
+            minRating: filters.rating,
+            inStock: product.inStock,
+            stockFilter: filters.inStock
+          });
+        } else {
+          console.log('  Product included');
+        }
+        
+        return isIncluded;
+      } catch (error) {
+        console.error('Error filtering product:', error, product);
+        return true; // Include products that cause errors to be safe
+      }
+    });
+  }, [products, searchTerm, filters]);
+  
+  console.log(`\nFiltering results: ${filteredProducts.length} of ${products.length} products match the criteria`);
+
+  const sortedProducts = [...filteredProducts].sort((a: Product, b: Product) => {
+    switch(filters.sortBy) {
+      case 'price-asc':
+        return parseFloat(a.price) - parseFloat(b.price);
+      case 'price-desc':
+        return parseFloat(b.price) - parseFloat(a.price);
+      case 'rating':
+        return b.rating - a.rating;
+      case 'name':
+      default:
+        return a.name.localeCompare(b.name);
+    }
+  });
+
+  const handleAddToCart = (product: Product) => {
     addItem({
       id: product.id.toString(),
       name: product.name,
       price: product.price,
-      image: product.image
+      image: product.images[0] || ''
     });
     toast({
-      title: "Added to Cart",
+      title: 'Added to Cart',
       description: `${product.name} has been added to your cart.`,
     });
   };
 
-  const handleQuickCheckout = (product: any) => {
-    addItem({
-      id: product.id.toString(),
-      name: product.name,
-      price: product.price,
-      image: product.image
-    });
-    setShowQuickCheckout(true);
+  const handleQuickCheckout = (product: Product) => {
+    setQuickCheckout({ isOpen: true, product });
+    handleQuickBuy(product);
   };
 
-  const applyFilters = (productList: any[]) => {
-    return productList
-      .filter(product => {
-        // Search filter
-        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             product.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-        
-        // Category filter
-        const matchesCategory = filters.categories.length === 0 || filters.categories.includes(product.category);
-        
-        // Price filter
-        const matchesPrice = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
-        
-        // Rating filter
-        const matchesRating = filters.rating === 0 || product.rating >= filters.rating;
-        
-        // Stock filter
-        const matchesStock = !filters.inStock || product.inStock;
-        
-        return matchesSearch && matchesCategory && matchesPrice && matchesRating && matchesStock;
-      })
-      .sort((a, b) => {
-        switch (filters.sortBy) {
-          case 'name_desc':
-            return b.name.localeCompare(a.name);
-          case 'price_asc':
-            return a.price - b.price;
-          case 'price_desc':
-            return b.price - a.price;
-          case 'rating':
-            return b.rating - a.rating;
-          case 'newest':
-            return b.id - a.id;
-          case 'popular':
-            return b.rating - a.rating;
-          default:
-            return a.name.localeCompare(b.name);
-        }
-      });
+  const closeQuickCheckout = () => {
+    setQuickCheckout({ isOpen: false, product: null });
+  };
+  
+  const handleQuickBuy = (product: Product) => {
+    handleQuickCheckout(product);
   };
 
-  const filteredProducts = applyFilters(products);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-copper-wood-600" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto p-8 text-center">
+        <p className="text-red-500">{error}</p>
+        <Button 
+          onClick={() => window.location.reload()} 
+          className="mt-4"
+        >
+          Retry
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -191,96 +300,125 @@ const Products = () => {
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="mb-6 max-w-md mx-auto">
-            <Input
-              type="search"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-dark-clay-100 border-copper-wood-700 text-soft-sand placeholder:text-copper-wood-400"
-            />
-          </div>
-
-          <div className="flex gap-8">
-            {/* Desktop Sidebar */}
-            <div className="hidden lg:block w-30 flex-shrink-0">
-              <SidebarFilter
-                filters={filters}
-                onFilterChange={setFilters}
+          {/* Search and Filters */}
+          <div className="mb-6 max-w-4xl mx-auto px-4">
+            {/* Search Bar */}
+            <div className="relative mb-4">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-copper-wood-400" />
+              <Input
+                type="search"
+                placeholder="Search products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-dark-clay-100 border-copper-wood-700 text-soft-sand placeholder:text-copper-wood-400 h-12 text-base"
               />
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1">
-              {/* Mobile Filter Button */}
-              <div className="lg:hidden mb-6 flex justify-between items-center">
-                <p className="text-copper-wood-400">
-                  Showing {filteredProducts.length} of {products.length} products
-                </p>
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="border-copper-wood-600 text-copper-wood-400">
-                      <Filter className="h-4 w-4 mr-2" />
-                      Filters
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="right" className="bg-charred-wood w-full sm:w-80 p-6">
-                    <SidebarFilter
-                      filters={filters}
-                      onFilterChange={setFilters}
-                      isMobile={true}
-                    />
-                  </SheetContent>
-                </Sheet>
+            {/* Category Filters */}
+            <div className="w-full">
+              <div className="flex flex-wrap gap-2">
+                {/* All Products Button */}
+                <button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setFilters(prev => ({
+                      ...prev,
+                      categories: [],
+                      priceRange: [0, 1000],
+                      inStock: false
+                    }));
+                  }}
+                  className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
+                    filters.categories.length === 0
+                      ? 'bg-burnished-copper-600 text-white shadow-lg'
+                      : 'bg-dark-clay-100 text-copper-wood-400 hover:bg-dark-clay-200 border border-copper-wood-700 hover:shadow-md'
+                  }`}
+                >
+                  All Products
+                </button>
+                
+                {/* Category Buttons */}
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => {
+                      setSearchTerm('');
+                      setFilters(prev => ({
+                        ...prev,
+                        categories: prev.categories.includes(category.id) 
+                          ? [] 
+                          : [category.id],
+                        priceRange: [0, 1000],
+                        inStock: false
+                      }));
+                    }}
+                    className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
+                      filters.categories.includes(category.id)
+                        ? 'bg-burnished-copper-600 text-white shadow-lg'
+                        : 'bg-dark-clay-100 text-copper-wood-400 hover:bg-dark-clay-200 border border-copper-wood-700 hover:shadow-md'
+                    }`}
+                  >
+                    {category.name}
+                    {category.productCount !== undefined && (
+                      <span className="text-xs bg-copper-wood-700 text-soft-sand rounded-full h-5 w-5 flex-shrink-0 flex items-center justify-center">
+                        {category.productCount}
+                      </span>
+                    )}
+                  </button>
+                ))}
               </div>
+            </div>
+          </div>
 
-              {/* Desktop Results Summary */}
-              <div className="hidden lg:block mb-6">
-                <p className="text-copper-wood-400">
-                  Showing {filteredProducts.length} of {products.length} products
-                </p>
-              </div>
-
-              {/* Products Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
-                {filteredProducts.map((product) => (
-                  <Card key={product.id} className="group h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700 w-full">
-                    <div className="aspect-[4/5] overflow-hidden relative">
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      {!product.inStock && (
-                        <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
-                          Out of Stock
+          {/* Products Grid */}
+          <div className="w-full px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+              {sortedProducts.map((product: Product) => (
+                <Card key={product.id} className="group h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700 w-full">
+                  <div className="flex-1 flex flex-col">
+                    <Link 
+                      to={`/products/${product.id}`}
+                      state={{ product }}
+                      className="block flex-1"
+                    >
+                      <div className="aspect-[4/5] overflow-hidden relative">
+                        <img 
+                          src={product.images?.[0] || ''} 
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        {!product.inStock && (
+                          <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
+                            Out of Stock
+                          </div>
+                        )}
+                      </div>
+                      <CardContent className="p-4">
+                        <div className="flex items-center mb-2">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
+                            />
+                          ))}
+                          <span className="ml-2 text-sm text-copper-wood-400">({product.rating.toFixed(1)})</span>
                         </div>
-                      )}
-                    </div>
-                    <CardContent className="p-4 flex-1 flex flex-col">
-                      <div className="flex items-center mb-2">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
-                          />
-                        ))}
-                        <span className="ml-2 text-sm text-copper-wood-400">({product.rating})</span>
-                      </div>
-                      <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-copper-wood-400 mb-4">{product.description}</p>
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold text-soft-sand">Ksh{product.price}</span>
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex-1"></div>
-                      <div className="flex gap-2 mt-auto">
+                        <h3 className="text-sm font-serif font-semibold text-soft-sand mb-2">
+                          {product.name}
+                        </h3>
+                        <p className="text-copper-wood-400 mb-4 line-clamp-2">{product.description}</p>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-xl font-bold text-soft-sand">Ksh {product.price.toLocaleString()}</span>
+                        </div>
+                      </CardContent>
+                    </Link>
+                    <div className="p-4 pt-0">
+                      <div className="flex gap-2">
                         <Button
-                          onClick={() => handleAddToCart(product)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAddToCart(product);
+                          }}
                           disabled={!product.inStock}
                           className="flex-1 bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand border-0"
                           size="sm"
@@ -288,19 +426,24 @@ const Products = () => {
                           <ShoppingCart className="h-4 w-4 mr-2" />
                           Add to Cart
                         </Button>
-                        
                         <Button
-                          onClick={() => handleQuickCheckout(product)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleQuickCheckout(product);
+                          }}
                           disabled={!product.inStock}
                           className="flex-1 bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood border-0"
                           size="sm"
                         >
-                          <Zap className="h-4 w-4 mr-2" />
+                          <ChevronDown className="h-4 w-4 mr-2" />
                           Quick Buy
                         </Button>
                       </div>
-                      
-                      <Link to={`/products/${product.id}`} className="block mt-2">
+                      <Link 
+                        to={`/products/${product.id}`} 
+                        state={{ product }}
+                        className="block mt-2"
+                      >
                         <Button 
                           variant="outline"
                           className="w-full border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
@@ -309,41 +452,43 @@ const Products = () => {
                           View Details
                         </Button>
                       </Link>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {filteredProducts.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSearchTerm('');
-                      setFilters({
-                        priceRange: [0, 200],
-                        categories: [],
-                        rating: 0,
-                        sortBy: 'name',
-                        inStock: false
-                      });
-                    }}
-                    className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
-                  >
-                    Clear All Filters
-                  </Button>
-                </div>
-              )}
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
+
+            {sortedProducts.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-xl text-copper-wood-400">No products found matching your criteria.</p>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSearchTerm('');
+                    setFilters({
+                      priceRange: [0, 200],
+                      categories: [],
+                      rating: 0,
+                      sortBy: 'name',
+                      inStock: false
+                    });
+                  }}
+                  className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+                >
+                  Clear All Filters
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <QuickCheckout
-        isOpen={showQuickCheckout}
-        onClose={() => setShowQuickCheckout(false)}
-      />
+      {quickCheckout.isOpen && quickCheckout.product && (
+       <QuickCheckout 
+         isOpen={quickCheckout.isOpen}
+         onClose={closeQuickCheckout} 
+       />
+      )}
     </>
   );
 };

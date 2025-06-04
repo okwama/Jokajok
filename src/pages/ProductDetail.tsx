@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Star, Plus, Minus, Heart, Share2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import { getProductById } from '@/services/dataService';
+import { ArrowLeft, Star, Plus, Minus, Heart, Share2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
+
+interface ProductColor {
+  name: string;
+  value: string;
+  available: boolean;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+  images: string[];
+  rating: number;
+  reviews: number;
+  description: string;
+  inStock: boolean;
+  tags: string[];
+  category: string;
+  colors: ProductColor[];
+  features: string[];
+  materials: string;
+  dimensions: string;
+}
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -13,54 +38,137 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState('Natural Brown');
+  const location = useLocation();
 
-  // Mock product data - in real app, this would come from API
-  const product = {
-    id: id || '1', // Keep as string to match useParams
-    name: 'Maasai Leather Tote',
-    price: 89,
-    images: [
-      '/lovable-uploads/0daed206-b752-41cd-801e-f2504ba1502b.png',
-      '/lovable-uploads/d19cae6b-1ba4-4ca4-8f45-8fd9e217779c.png',
-      '/lovable-uploads/673850a9-e5eb-4247-ad41-baa3193363fb.png'
-    ],
-    colors: [
-      { name: 'Natural Brown', value: '#8B4513', available: true },
-      { name: 'Dark Walnut', value: '#654321', available: true },
-      { name: 'Cognac', value: '#A0522D', available: true },
-      { name: 'Black Coffee', value: '#3C2414', available: false },
-      { name: 'Caramel', value: '#C19A6B', available: true }
-    ],
-    rating: 4.8,
-    reviews: 124,
-    description: 'This stunning Maasai leather tote is handcrafted by skilled artisans using traditional techniques passed down through generations. Made from premium quality leather and featuring authentic African patterns.',
-    features: [
-      'Handcrafted by Maasai artisans',
-      'Premium quality leather',
-      'Traditional African patterns',
-      'Spacious interior with pockets',
-      'Adjustable straps',
-      'Eco-friendly production'
-    ],
-    materials: 'Genuine leather, cotton lining, brass hardware',
-    dimensions: '40cm x 35cm x 15cm',
-    inStock: true
-  };
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // Check if product data was passed in the route state or fetch it by ID
+  useEffect(() => {
+    if (location.state?.product) {
+      setProduct(location.state.product);
+      setLoading(false);
+    } else if (id) {
+      // Fetch product by ID if no product data was passed
+      const fetchProduct = async () => {
+        try {
+          const productData = await getProductById(id);
+          if (productData) {
+            setProduct(productData);
+          } else {
+            console.error('Product not found');
+            // Optionally redirect to products page or show error
+            // navigate('/products');
+          }
+        } catch (error) {
+          console.error('Error fetching product:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProduct();
+    } else {
+      setLoading(false);
+    }
+  }, [id, location.state]);
+
+
+
+  useEffect(() => {
+    console.log('ProductDetail mounted with ID:', id);
+    
+    const fetchProduct = async () => {
+      setLoading(true);
+      
+      try {
+        // Log the current path
+        console.log('Current path:', window.location.pathname);
+        
+        // Check if ID is available
+        if (!id) {
+          console.error('No product ID provided in URL');
+          navigate('/products', { replace: true });
+          return;
+        }
+        
+        console.log('Looking for product with ID:', id, 'Type:', typeof id);
+        
+        // Get the product from the data service
+        const foundProduct = await getProductById(id);
+        
+        if (foundProduct) {
+          console.log('Found product:', foundProduct);
+          setProduct(foundProduct);
+        } else {
+          console.error('Product not found. Searched ID:', id);
+          // Show a toast before redirecting
+          toast({
+            title: 'Product not found',
+            description: 'The requested product could not be found.',
+            variant: 'destructive',
+          });
+          navigate('/products', { replace: true });
+        }
+      } catch (error) {
+        console.error('Error in fetchProduct:', error);
+        toast({
+          title: 'Error',
+          description: 'An error occurred while loading the product.',
+          variant: 'destructive',
+        });
+        navigate('/products', { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id, navigate, toast]);
 
   const handleAddToCart = () => {
+    if (!product) return;
+    
+    // Convert price string to number (remove commas and parse)
+    const price = parseFloat(product.price.replace(/,/g, ''));
+    
     addItem({
-      id: product.id,
+      id: product.id.toString(),
       name: product.name,
-      price: product.price,
+      price: price,
       image: product.images[0],
       quantity: quantity
     });
     
     toast({
       title: "Added to cart",
-      description: `${quantity} x ${product.name} in ${selectedColor} added to your cart.`,
+      description: `${quantity} x ${product.name} added to your cart.`,
     });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-12 w-12 animate-spin text-copper-wood-600" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-charred-wood">Product not found</h2>
+          <Link to="/products" className="mt-4 inline-block">
+            <Button variant="outline" className="border-copper-wood-600">
+              Back to Products
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-swahili-dust-50 py-8">
@@ -75,12 +183,12 @@ const ProductDetail = () => {
           {/* Images */}
           <div className="space-y-4">
             <div className="aspect-square overflow-hidden rounded-lg bg-swahili-dust-100">
-              <img 
-                src={product.images[selectedImage]} 
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img 
+              src={product.images[selectedImage]} 
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
             <div className="grid grid-cols-3 gap-4">
               {product.images.map((image, index) => (
                 <button
@@ -202,7 +310,9 @@ const ProductDetail = () => {
                   size="lg"
                 >
                   <span>Add to Cart</span>
-                  <span className="ml-4 border-l border-charred-wood/20 pl-4">Ksh{(product.price * quantity).toFixed(2)}</span>
+                  <span className="ml-4 border-l border-charred-wood/20 pl-4">
+                    Ksh{(parseFloat(product.price.replace(/,/g, '')) * quantity).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </span>
                 </Button>
                 <Button variant="outline" size="lg" className="border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800">
                   <Heart className="h-5 w-5" />

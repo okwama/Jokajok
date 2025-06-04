@@ -1,0 +1,172 @@
+{
+  "mainCategories": [
+    {
+      "id": "men",
+      "name": "Mens Collection",
+      "description": "Handcrafted bags and accessories",
+      "image": "/categories/bags.jpg",
+      "subcategories": [
+        {
+          "id": "backpacks",
+          "name": "Backpacks",
+          "productCount": 5
+        },
+        {
+          "id": "suitcases",
+          "name": "Suitcases",
+          "productCount": 3
+        },
+        {
+          "id": "sleeves",
+          "name": "Sleeves",
+          "productCount": 2
+        },
+        {
+          "id": "travel-bags",
+          "name": "Travel Bags",
+          "productCount": 4
+        },
+        {
+          "id": "kapochi",
+          "name": "Kapochi",
+          "productCount": 6
+        },
+        {
+          "id": "wallets",
+          "name": "Wallets",
+          "productCount": 6
+        }
+      ]
+    },
+    {
+      "id": "womens-collection",
+      "name": "Womens Collection",
+      "description": "Traditional and modern African clothing",
+      "image": "/categories/clothing.jpg",
+      "subcategories": [
+        {
+          "id": "sling-bags",
+          "name": "Sling Bags",
+          "productCount": 12
+        },
+        {
+          "id": "handbags",
+          "name": "Handbags",
+          "productCount": 8
+        },
+        {
+          "id": "travel-bags",
+          "name": "Travel Bags",
+          "productCount": 5
+        },
+        {
+          "id": "tote-bags",
+          "name": "Tote Bags",
+          "productCount": 5
+        },
+        {
+          "id": "backpacks",
+          "name": "Backpacks",
+          "productCount": 5
+        }
+      ]
+    },
+    {
+      "id": "safari-collection",
+      "name": "Safari Collection",
+      "description": "Decorative items for your home",
+      "image": "/categories/home.jpg",
+      "subcategories": [
+        {
+          "id": "textiles",
+          "name": "Textiles",
+          "productCount": 7
+        },
+        {
+          "id": "decorative-accents",
+          "name": "Decorative Accents",
+          "productCount": 4
+        },
+        {
+          "id": "kitchen-dining",
+          "name": "Kitchen & Dining",
+          "productCount": 3
+        }
+      ]
+    },
+    {
+      "id": "jewelry",
+      "name": "Jewelry",
+      "description": "Handcrafted jewelry pieces",
+      "image": "/categories/jewelry.jpg",
+      "subcategories": [
+        {
+          "id": "necklaces",
+          "name": "Necklaces",
+          "productCount": 9
+        },
+        {
+          "id": "bracelets",
+          "name": "Bracelets",
+          "productCount": 6
+        },
+        {
+          "id": "earrings",
+          "name": "Earrings",
+          "productCount": 8
+        },
+        {
+          "id": "rings",
+          "name": "Rings",
+          "productCount": 4
+        }
+      ]
+    },
+    {
+      "id": "art-collectibles",
+      "name": "Art & Collectibles",
+      "description": "Handmade art and craft items",
+      "image": "/categories/art.jpg",
+      "subcategories": [
+        {
+          "id": "paintings",
+          "name": "Paintings",
+          "productCount": 5
+        },
+        {
+          "id": "sculptures",
+          "name": "Sculptures",
+          "productCount": 3
+        },
+        {
+          "id": "pottery",
+          "name": "Pottery",
+          "productCount": 4
+        }
+      ]
+    },
+    {
+      "id": "beauty-wellness",
+      "name": "Beauty & Wellness",
+      "description": "Natural beauty and wellness products",
+      "image": "/categories/beauty.jpg",
+      "subcategories": [
+        {
+          "id": "skincare",
+          "name": "Skincare",
+          "productCount": 7
+        },
+        {
+          "id": "haircare",
+          "name": "Haircare",
+          "productCount": 5
+        },
+        {
+          "id": "fragrances",
+          "name": "Fragrances",
+          "productCount": 3
+        }
+      ]
+    }
+  ]
+}
