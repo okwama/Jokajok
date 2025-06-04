@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
-import SidebarFilter from '@/components/SidebarFilter';
+import SidebarFilter, { ProductFilters } from '@/components/SidebarFilter';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import QuickCheckout from '@/components/QuickCheckout';
+
 
 const Products = () => {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,7 @@ const Products = () => {
   const [showQuickCheckout, setShowQuickCheckout] = useState(false);
   const { addItem } = useCart();
   const { toast } = useToast();
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<ProductFilters>({
     priceRange: [0, 200],
     categories: [],
     rating: 0,
@@ -179,7 +180,7 @@ const Products = () => {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">
@@ -203,7 +204,7 @@ const Products = () => {
 
           <div className="flex gap-8">
             {/* Desktop Sidebar */}
-            <div className="hidden lg:block flex-shrink-0">
+            <div className="hidden lg:block w-30 flex-shrink-0">
               <SidebarFilter
                 filters={filters}
                 onFilterChange={setFilters}
@@ -242,10 +243,10 @@ const Products = () => {
               </div>
 
               {/* Products Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
                 {filteredProducts.map((product) => (
-                  <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
-                    <div className="aspect-square overflow-hidden relative">
+                  <Card key={product.id} className="group h-full flex flex-col overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700 w-full">
+                    <div className="aspect-[4/5] overflow-hidden relative">
                       <img 
                         src={product.image} 
                         alt={product.name}
@@ -257,7 +258,7 @@ const Products = () => {
                         </div>
                       )}
                     </div>
-                    <CardContent className="p-6">
+                    <CardContent className="p-4 flex-1 flex flex-col">
                       <div className="flex items-center mb-2">
                         {[...Array(5)].map((_, i) => (
                           <Star 
@@ -276,7 +277,8 @@ const Products = () => {
                       </div>
                       
                       {/* Action Buttons */}
-                      <div className="flex gap-2">
+                      <div className="flex-1"></div>
+                      <div className="flex gap-2 mt-auto">
                         <Button
                           onClick={() => handleAddToCart(product)}
                           disabled={!product.inStock}

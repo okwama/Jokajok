@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,15 +5,17 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Star, X } from 'lucide-react';
 
+export interface ProductFilters {
+  priceRange: [number, number];
+  categories: string[];
+  rating: number;
+  sortBy: string;
+  inStock: boolean;
+}
+
 interface SidebarFilterProps {
-  filters: {
-    priceRange: [number, number];
-    categories: string[];
-    rating: number;
-    sortBy: string;
-    inStock: boolean;
-  };
-  onFilterChange: (filters: any) => void;
+  filters: ProductFilters;
+  onFilterChange: (filters: ProductFilters) => void;
   onClose?: () => void;
   isMobile?: boolean;
 }
