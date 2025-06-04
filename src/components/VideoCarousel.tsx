@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NetflixStyleVideoCard from '@/components/NetflixStyleVideoCard';
@@ -19,52 +19,60 @@ interface VideoCarouselProps {
 }
 
 const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerView = 4;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => 
-      prev + itemsPerView >= videos.length ? 0 : prev + itemsPerView
-    );
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 400; // Adjust scroll distance
+      const currentScroll = scrollContainerRef.current.scrollLeft;
+      const targetScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+
+      scrollContainerRef.current.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
   };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? Math.max(videos.length - itemsPerView, 0) : prev - itemsPerView
-    );
-  };
-
-  const visibleVideos = videos.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
-    <div className="mb-12 relative">
+    <div className="mb-16 relative group">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-serif font-bold text-soft-sand">{title}</h2>
-        <div className="flex space-x-2">
+        <h2 className="text-3xl font-serif font-bold text-soft-sand">{title}</h2>
+        <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Button
             variant="outline"
             size="sm"
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-            className="h-8 w-8 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
+            onClick={() => scroll('left')}
+            className="h-10 w-10 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800 bg-dark-clay-100/80 backdrop-blur-sm"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={nextSlide}
-            disabled={currentIndex + itemsPerView >= videos.length}
-            className="h-8 w-8 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
+            onClick={() => scroll('right')}
+            className="h-10 w-10 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800 bg-dark-clay-100/80 backdrop-blur-sm"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {visibleVideos.map((video) => (
-          <NetflixStyleVideoCard key={video.id} video={video} />
+      <div 
+        ref={scrollContainerRef}
+        className="flex space-x-4 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitScrollbar: { display: 'none' }
+        }}
+      >
+        {videos.map((video) => (
+          <div key={video.id} className="flex-none w-80">
+            <NetflixStyleVideoCard video={video} isLarge={true} />
+          </div>
         ))}
       </div>
     </div>

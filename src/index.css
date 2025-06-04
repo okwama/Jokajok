@@ -85,47 +85,26 @@
       repeating-linear-gradient(0deg, rgba(184, 115, 51, 0.1), rgba(184, 115, 51, 0.1) 2px, transparent 2px, transparent 10px),
       repeating-linear-gradient(90deg, rgba(167, 138, 127, 0.1), rgba(167, 138, 127, 0.1) 2px, transparent 2px, transparent 10px);
   }
-  
-  /* .btn-primary {
-    @apply bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-sm border border-burnished-copper-600;
-  }
-  
-  .btn-secondary {
-    @apply bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand font-medium px-6 py-3 rounded-md transition-all duration-300 shadow-sm border border-copper-wood-700;
-  } */
-
-  /* .copper-glow {
-    box-shadow: 0 0 15px rgba(184, 115, 51, 0.2);
-  } */
-
-  /* .copper-glow:hover {
-    box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
-  } */
-
-  /* .flat-button {
-    @apply 
-      bg-burnished-copper-500 
-      hover:bg-burnished-copper-600 
-      text-charred-wood 
-      font-medium 
-      px-6 py-3 
-      rounded-md 
-      transition-colors duration-200 
-      border border-burnished-copper-600 
-      shadow-none 
-      focus:outline-none 
-      focus:ring-0;
-  }
-  
-
-  .flat-button-secondary {
-    @apply bg-copper-wood-600 hover:bg-copper-wood-700 text-soft-sand font-medium px-6 py-3 rounded-md transition-colors duration-200 border border-copper-wood-700;
-  } */
 
   .page-background {
     @apply bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900;
     background-image: 
       url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill=""%23A78A7F"" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  }
+
+  /* Hide scrollbars for video carousel */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom scrolling behavior */
+  .scroll-smooth {
+    scroll-behavior: smooth;
   }
 }
 
