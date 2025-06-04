@@ -5,7 +5,7 @@
       "id": "bags",
       "name": "Bags",
       "description": "Handcrafted leather bags",
-      "image": "/lovable-uploads/4.jpg",
+      "image": "/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png",
       "link": "/products?category=bags",
       "featured": true
     },
@@ -13,7 +13,7 @@
       "id": "suitcases",
       "name": "Suitcases",
       "description": "Premium travel companions",
-      "image": "/lovable-uploads/n.jpg",
+      "image": "/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png",
       "link": "/products?category=suitcases",
       "featured": true
     },
@@ -21,7 +21,7 @@
       "id": "wallets",
       "name": "Wallets",
       "description": "Elegant leather wallets",
-      "image": "/lovable-uploads/36.jpg",
+      "image": "/lovable-uploads/d9afcb00-459a-4fd9-8b86-bdaf96387375.png",
       "link": "/products?category=wallets",
       "featured": true
     },
@@ -29,7 +29,7 @@
       "id": "backpacks",
       "name": "Backpacks",
       "description": "Adventure-ready packs",
-      "image": "/lovable-uploads/100.jpeg",
+      "image": "/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png",
       "link": "/products?category=backpacks",
       "featured": true
     },
@@ -37,7 +37,7 @@
       "id": "handbags",
       "name": "Handbags",
       "description": "Sophisticated carriers",
-      "image": "/lovable-uploads/29.jpg",
+      "image": "/lovable-uploads/eaea5260-d612-4d26-9d9e-e8cb70850440.png",
       "link": "/products?category=handbags",
       "featured": true
     },
@@ -45,7 +45,7 @@
       "id": "sleeves",
       "name": "Sleeves",
       "description": "Protective covers",
-      "image": "/lovable-uploads/200.webp",
+      "image": "/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png",
       "link": "/products?category=sleeves",
       "featured": true
     }
