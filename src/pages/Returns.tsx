@@ -6,7 +6,10 @@ import { Button } from '@/components/ui/button';
 
 const Returns = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 py-8"
+    style={{
+      backgroundImage: `linear-gradient(rgba(30, 27, 24, 0.85), rgba(30, 27, 24, 0.9)), url('/lovable-uploads/7cc2147c-4961-4230-8e23-a8fd6d332ca6.png')`
+    }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-serif font-bold text-soft-sand mb-4">Return Policy</h1>

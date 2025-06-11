@@ -7,6 +7,7 @@ import CategoryGrid from '@/components/CategoryGrid';
 import ImageVideoSlider from '@/components/ImageVideoSlider';
 import HeroSection from '@/components/HeroSection';
 import VideoCarousel from '@/components/VideoCarousel';
+import MasonryGallery from '../components/galleryGrid';
 
 const Index = () => {
   const featuredProducts = [
@@ -96,43 +97,7 @@ const Index = () => {
 
   // Video carousel data
   const videoCarousels = [
-    {
-      title: 'Craftsmanship Stories',
-      videos: [
-        {
-          id: '1',
-          title: 'The Art of Leather Crafting',
-          thumbnail: '/lovable-uploads/b248e647-f0a9-4ed5-a326-00cec924ce86.png',
-          duration: '3:24',
-          category: 'Behind the Scenes',
-          description: 'Watch our master craftsmen at work'
-        },
-        {
-          id: '2',
-          title: 'Safari Adventures',
-          thumbnail: '/lovable-uploads/eaea5260-d612-4d26-9d9e-e8cb70850440.png',
-          duration: '5:12',
-          category: 'Travel',
-          description: 'Experience the wild with JokaJok'
-        },
-        {
-          id: '3',
-          title: 'Heritage Collection',
-          thumbnail: '/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png',
-          duration: '2:45',
-          category: 'Products',
-          description: 'Discover our heritage pieces'
-        },
-        {
-          id: '4',
-          title: 'Artisan Portraits',
-          thumbnail: '/lovable-uploads/6ed930a1-71ac-49fd-b106-141b7d78b22d.png',
-          duration: '4:18',
-          category: 'People',
-          description: 'Meet the faces behind our brand'
-        }
-      ]
-    },
+   
     {
       title: 'Product Showcases',
       videos: [
@@ -183,8 +148,8 @@ const Index = () => {
       <CategoryGrid />
 
       {/* Netflix-style Video Carousels */}
-      <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-10 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
               Our Stories
@@ -282,41 +247,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-20 bg-gradient-to-r from-swahili-dust-800 to-burnished-copper-900"
+      {/* Gallery Section */}
+      <section className="w-full bg-gradient-to-r from-swahili-dust-800 to-burnished-copper-900"
       style={{ background:'color: #2c2a25' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-serif font-bold text-soft-sand mb-6">
-                Crafted with Heritage, Designed for Today
-              </h2>
-              <p className="text-lg text-copper-wood-400 mb-6 leading-relaxed">
-                Every JokaJok piece is a celebration of African artisanship. Our skilled craftspeople 
-                blend traditional techniques passed down through generations with contemporary design 
-                sensibilities.
-              </p>
-              <p className="text-lg text-copper-wood-400 mb-8 leading-relaxed">
-                From the bustling markets of Nairobi to the leather workshops of Morocco, 
-                we source and create products that honor our heritage while embracing the future.
-              </p>
-              <Link to="/blog">
-                <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
-                  Read Our Story
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-            <div className="relative">
-              <img 
-                src="/lovable-uploads/1f2da5fd-3141-4cf1-bd07-05ce4871338d.png" 
-                alt="African craftsmanship" 
-                className="rounded-lg shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/40 to-transparent rounded-lg"></div>
-            </div>
-          </div>
-        </div>
+        <MasonryGallery />
       </section>
 
       {/* Original Hero Section with Leather Texture */}

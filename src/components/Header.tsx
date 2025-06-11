@@ -122,7 +122,7 @@ const Header = () => {
                 <div className="flex items-center space-x-2">
                   <Link to="/login">
                     <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
-                      Sign In
+                      Log In
                     </Button>
                   </Link>
                   <Link to="/register">
@@ -212,7 +212,7 @@ const Header = () => {
                   <>
                     <Link to="/login">
                       <Button variant="ghost" size="sm" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
-                        Sign In
+                        Log In
                       </Button>
                     </Link>
                     <Link to="/register">
