@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, startTransition } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ const Wishlist = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      startTransition(() => navigate('/login'));
     }
   }, [user, navigate]);
 
@@ -25,7 +25,7 @@ const Wishlist = () => {
           Save items you love by clicking the heart icon on any product.
         </p>
         <Button 
-          onClick={() => navigate('/products')}
+          onClick={() => startTransition(() => navigate('/products'))}
           className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood"
         >
           <ShoppingBag className="h-5 w-5 mr-2" />

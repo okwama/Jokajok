@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, startTransition } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,9 @@ const Header = () => {
 
   const handleSignOut = async () => {
     await logout();
-    navigate('/');
+    startTransition(() => {
+      navigate('/');
+    });
   };
 
   const cartItemsCount = cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;

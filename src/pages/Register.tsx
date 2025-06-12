@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, startTransition } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -48,7 +47,7 @@ const Register = () => {
         title: "Account created!",
         description: "Welcome to JokaJok! Your account has been created successfully.",
       });
-      navigate('/');
+      startTransition(() => navigate('/'));
     } catch (error) {
       toast({
         title: "Registration failed",

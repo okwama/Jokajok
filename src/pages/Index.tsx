@@ -257,20 +257,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Video Carousels */}
-      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
-        <VideoCarousel />
-      </Suspense>
+      {/* Video Carousels Section - visually separated */}
+      <section className="py-12 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
+        <div className="max-w-70% mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
+              Our Stories
+            </h2>
+            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
+              Dive into the world of African craftsmanship through our video stories
+            </p>
+          </div>
+          {videoCarousels.map((carousel, idx) => (
+            <Suspense key={idx} fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
+              <VideoCarousel title={carousel.title} videos={carousel.videos} />
+            </Suspense>
+          ))}
+        </div>
+      </section>
 
       {/* Gallery Section */}
-      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
-        <MasonryGallery />
-      </Suspense>
-
-      {/* Hero Section */}
-      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
-        <HeroSection />
-      </Suspense>
+      <section className="py-20 bg-gradient-to-r from-swahili-dust-800 to-burnished-copper-900">
+        <div className="text-center py-12">
+          <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
+            Work at JokaJok
+          </h2>
+          <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto mb-8">
+            Supporting African Families, One Handcrafted Leather Bag at a Time
+          </p>
+        </div>
+        <Suspense fallback={<div className="py-20 w-7xl mx-auto h-96 bg-dark-clay-100 animate-pulse" />}>
+          <MasonryGallery />
+        </Suspense>
+      </section>
 
       {/* Features Section */}
       <section className="py-20 bg-charred-wood">
