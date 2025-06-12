@@ -30,9 +30,10 @@ const Header = () => {
 
   const categories = [
     { name: 'Men', href: '/products?category=men' },
-    { name: 'Ladies', href: '/products?category=ladies' },
-    { name: 'Safari', href: '/products?category=safari' },
-    { name: 'Redline', href: '/products?category=redline' },
+    { name: 'Women', href: '/products?category=womens-collection' },
+    { name: 'Safari', href: '/products?category=safari-collection' },
+    { name: 'Accessories', href: '/products?category=accessories' },
+    { name: 'New Releases', href: '/products?category=new-releases' },
   ];
 
   return (

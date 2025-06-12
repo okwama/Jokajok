@@ -9,36 +9,48 @@ const CategoryGrid = () => {
     {
       name: 'Bags',
       image: '/lovable-uploads/4.jpg',
+      webp400: '/lovable-uploads/4-400w.webp',
+      webp800: '/lovable-uploads/4-800w.webp',
       link: '/products?category=bags',
       description: 'Handcrafted leather bags'
     },
     {
       name: 'Suitcases',
       image: '/lovable-uploads/n.jpg',
+      webp400: '/lovable-uploads/n-400w.webp',
+      webp800: '/lovable-uploads/n-800w.webp',
       link: '/products?category=suitcases',
       description: 'Premium travel companions'
     },
     {
       name: 'Wallets',
       image: '/lovable-uploads/36.jpg',
+      webp400: '/lovable-uploads/36-400w.webp',
+      webp800: '/lovable-uploads/36-800w.webp',
       link: '/products?category=wallets',
       description: 'Elegant leather wallets'
     },
     {
       name: 'Backpacks',
       image: '/lovable-uploads/100.jpeg',
+      webp400: '/lovable-uploads/100-400w.webp',
+      webp800: '/lovable-uploads/100-800w.webp',
       link: '/products?category=backpacks',
       description: 'Adventure-ready packs'
     },
     {
       name: 'Handbags',
       image: '/lovable-uploads/29.jpg',
+      webp400: '/lovable-uploads/29-400w.webp',
+      webp800: '/lovable-uploads/29-800w.webp',
       link: '/products?category=handbags',
       description: 'Sophisticated carriers'
     },
     {
       name: 'Sleeves',
       image: '/lovable-uploads/200.webp',
+      webp400: '/lovable-uploads/200-400w.webp',
+      webp800: '/lovable-uploads/200-800w.webp',
       link: '/products?category=sleeves',
       description: 'Protective covers'
     }
@@ -83,6 +95,10 @@ const CategoryGrid = () => {
                     alt={category.name}
                     className="group-hover:scale-105 transition-transform duration-300"
                     priority={index < 3} // Prioritize loading for first 3 categories
+                    width={400}
+                    height={400}
+                    srcSet={`${category.webp400} 400w, ${category.webp800} 800w`}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">

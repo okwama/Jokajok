@@ -108,7 +108,7 @@ const Login = () => {
         {/* Login Form */}
         <Card className="bg-swahili-dust-200 shadow-xl border-copper-wood-700">
           <CardHeader className="space-y-1 pb-6">
-            <CardTitle className="text-2xl font-serif text-center text-white">Sign In</CardTitle>
+            <CardTitle className="text-2xl font-serif text-center text-white">Log In</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">

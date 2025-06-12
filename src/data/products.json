@@ -43,7 +43,7 @@
       ],
       "rating": 4.6,
       "reviews": 92,
-      "description": "Our collection just got a beautiful new addition! 😍 the Yasmine ladies sling in the midnight sky looks breathtaking. Our NEW Yasmine sling bag is functional but very very classy in its look. Fits your phone, Wallet, iPad mini, and other bits easily.",
+      "description": "Our collection just got a beautiful new addition! the Yasmine ladies sling in the midnight sky looks breathtaking. Our NEW Yasmine sling bag is functional but very very classy in its look. Fits your phone, Wallet, iPad mini, and other bits easily.",
       "inStock": true,
       "tags": ["bag", "sling", "travel"],
       "category": "womens-collection",
@@ -76,7 +76,7 @@
       "description": "Beautiful handcrafted Nyayabingi drum, perfect for traditional music and home decor. Made from sustainable wood and natural materials.",
       "inStock": true,
       "tags": ["drum", "nyayabingi", "music"],
-      "category": "bags",
+      "category": "accessories",
       "colors": [
         { "name": "Natural Wood", "value": "#8B4513", "available": true },
         { "name": "Dark Stain", "value": "#3E2723", "available": true }
@@ -104,7 +104,7 @@
       "description": "Waridi (ROSE) tote bag by JOKAJOK is a stylish and functional ladies' leather Tote bag. Made from pure Kenyan leather, designed and crafted by Kenyans for the modern African lady who understands and appreciates the beauty of a well-cut pure leather bag.",
       "inStock": true,
       "tags": ["bags", "tote", "leather"],
-      "category": "bags",
+      "category": "womens-collection",
       "colors": [
         { "name": "Multi-color", "value": "#FF5733", "available": true },
         { "name": "Blue", "value": "#3498DB", "available": true },
@@ -151,13 +151,13 @@
     },
     {
       "id": 6,
-      "name": "Safari Explorer Backpack",
-      "price": "32,500",
-      "image": "/lovable-uploads/backpack-1.webp",
+      "name": "Tye and Dye Canvas Backpack",
+      "price": "20,500",
+      "image": "/img/lad.jpeg",
       "images": [
-        "/lovable-uploads/backpack-1.webp",
-        "/lovable-uploads/backpack-2.webp",
-        "/lovable-uploads/backpack-3.webp"
+        "/img/lad2.jpeg",
+        "/img/lad.jpeg",
+        "/img/lad.jpeg"
       ],
       "rating": 4.9,
       "reviews": 45,
@@ -166,8 +166,8 @@
       "tags": ["new-release", "backpack", "leather", "safari"],
       "category": "new-releases",
       "colors": [
-        { "name": "Safari Brown", "value": "#8B4513", "available": true },
-        { "name": "Desert Tan", "value": "#D2B48C", "available": true }
+        { "name": "desert green", "value": "#2A4427FF", "available": true },
+        { "name": "jungle green", "value": "#022E0CFF", "available": true }
       ],
       "features": [
         "Premium full-grain leather",
@@ -183,11 +183,11 @@
       "id": 7,
       "name": "Maasai Heritage Tote",
       "price": "24,500",
-      "image": "/lovable-uploads/tote-1.webp",
+      "image": "/img/wn.webp",
       "images": [
-        "/lovable-uploads/tote-1.webp",
-        "/lovable-uploads/tote-2.webp",
-        "/lovable-uploads/tote-3.webp"
+        "/img/rr.webp",
+        "/img/wn.webp",
+        "/img/tt.webp"
       ],
       "rating": 4.8,
       "reviews": 32,
@@ -208,6 +208,623 @@
       ],
       "materials": "Premium leather, glass beads, cotton lining",
       "dimensions": "40cm x 35cm x 12cm"
+    },
+    {
+      "id": 8,
+      "name": "Safari Explorer Messenger Bag",
+      "price": "18,500",
+      "image": "/lovable-uploads/4.jpg",
+      "images": [
+        "/lovable-uploads/4.jpg",
+        "/lovable-uploads/5.jpg",
+        "/lovable-uploads/8.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 67,
+      "description": "The perfect companion for your safari adventures. This rugged messenger bag features weather-resistant leather and multiple compartments for all your essentials. Designed to withstand the African wilderness while maintaining style.",
+      "inStock": true,
+      "tags": ["safari", "messenger", "leather", "adventure"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Safari Tan", "value": "#D2B48C", "available": true },
+        { "name": "Bush Brown", "value": "#8B4513", "available": true },
+        { "name": "Khaki", "value": "#C3B091", "available": true }
+      ],
+      "features": [
+        "Weather-resistant leather",
+        "Adjustable shoulder strap",
+        "Multiple interior pockets",
+        "Secure magnetic closure",
+        "Reinforced corners"
+      ],
+      "materials": "Weather-treated leather, brass hardware, canvas lining",
+      "dimensions": "35cm x 28cm x 10cm"
+    },
+    {
+      "id": 9,
+      "name": "Savanna Travel Duffel",
+      "price": "32,000",
+      "image": "/lovable-uploads/n.jpg",
+      "images": [
+        "/lovable-uploads/n.jpg",
+        "/lovable-uploads/12.jpg",
+        "/lovable-uploads/15.jpg"
+      ],
+      "rating": 4.9,
+      "reviews": 43,
+      "description": "A spacious and durable travel duffel inspired by the vast African savanna. Perfect for extended safari trips, this bag combines traditional craftsmanship with modern travel needs.",
+      "inStock": true,
+      "tags": ["safari", "duffel", "travel", "leather"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Acacia Brown", "value": "#8B4513", "available": true },
+        { "name": "Sunset Orange", "value": "#D2691E", "available": true }
+      ],
+      "features": [
+        "Large capacity design",
+        "Reinforced leather handles",
+        "Detachable shoulder strap",
+        "Interior organization pockets",
+        "Dust-resistant zippers"
+      ],
+      "materials": "Full-grain leather, heavy-duty zippers, cotton canvas lining",
+      "dimensions": "55cm x 30cm x 25cm"
+    },
+    {
+      "id": 10,
+      "name": "Bush Ranger Crossbody",
+      "price": "15,500",
+      "image": "/lovable-uploads/36.jpg",
+      "images": [
+        "/lovable-uploads/36.jpg",
+        "/lovable-uploads/29.jpg",
+        "/lovable-uploads/38.jpg"
+      ],
+      "rating": 4.6,
+      "reviews": 89,
+      "description": "Compact yet functional, this crossbody bag is perfect for day safaris and bush walks. Features quick-access pockets for your camera, phone, and other essentials.",
+      "inStock": true,
+      "tags": ["safari", "crossbody", "compact", "adventure"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Desert Sand", "value": "#F4A460", "available": true },
+        { "name": "Forest Green", "value": "#228B22", "available": true },
+        { "name": "Earth Brown", "value": "#8B4513", "available": true }
+      ],
+      "features": [
+        "Quick-access front pocket",
+        "Adjustable crossbody strap",
+        "Water-resistant coating",
+        "Secure zip closure",
+        "Lightweight design"
+      ],
+      "materials": "Treated leather, water-resistant coating, nylon lining",
+      "dimensions": "25cm x 20cm x 8cm"
+    },
+    {
+      "id": 11,
+      "name": "Safari Guide Portfolio",
+      "price": "12,500",
+      "image": "/lovable-uploads/100.jpeg",
+      "images": [
+        "/lovable-uploads/100.jpeg",
+        "/lovable-uploads/42.jpg",
+        "/lovable-uploads/35.jpg"
+      ],
+      "rating": 4.8,
+      "reviews": 56,
+      "description": "Professional portfolio case designed for safari guides and wildlife photographers. Features dedicated compartments for documents, tablets, and photography equipment.",
+      "inStock": true,
+      "tags": ["safari", "portfolio", "professional", "leather"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Classic Brown", "value": "#8B4513", "available": true },
+        { "name": "Mahogany", "value": "#C04000", "available": true }
+      ],
+      "features": [
+        "Tablet compartment",
+        "Document organizer",
+        "Pen holders",
+        "Business card slots",
+        "Magnetic closure"
+      ],
+      "materials": "Premium leather, felt lining, magnetic clasps",
+      "dimensions": "32cm x 25cm x 3cm"
+    },
+    {
+      "id": 12,
+      "name": "Wilderness Camera Bag",
+      "price": "22,000",
+      "image": "/lovable-uploads/200.webp",
+      "images": [
+        "/lovable-uploads/200.webp",
+        "/lovable-uploads/26.jpg",
+        "/lovable-uploads/27.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 74,
+      "description": "Protect your valuable camera equipment during safari adventures. This specialized bag features padded compartments and weather protection for professional photography gear.",
+      "inStock": true,
+      "tags": ["safari", "camera", "photography", "protective"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Olive Green", "value": "#808000", "available": true },
+        { "name": "Tan", "value": "#D2B48C", "available": true }
+      ],
+      "features": [
+        "Padded camera compartments",
+        "Lens storage pockets",
+        "Weather-resistant exterior",
+        "Adjustable dividers",
+        "Quick-access side pocket"
+      ],
+      "materials": "Weather-resistant leather, foam padding, waterproof lining",
+      "dimensions": "30cm x 22cm x 18cm"
+    },
+    {
+      "id": 13,
+      "name": "Acacia Field Journal Cover",
+      "price": "8,500",
+      "image": "/lovable-uploads/33.jpg",
+      "images": [
+        "/lovable-uploads/33.jpg",
+        "/lovable-uploads/34.jpg",
+        "/lovable-uploads/31.jpg"
+      ],
+      "rating": 4.5,
+      "reviews": 92,
+      "description": "Document your safari experiences in style with this handcrafted leather journal cover. Features traditional African patterns and includes a refillable notebook.",
+      "inStock": true,
+      "tags": ["safari", "journal", "writing", "leather"],
+      "category": "safari-collection",
+      "colors": [
+        { "name": "Natural Tan", "value": "#D2B48C", "available": true },
+        { "name": "Rich Brown", "value": "#8B4513", "available": true },
+        { "name": "Burnt Orange", "value": "#CC5500", "available": true }
+      ],
+      "features": [
+        "Refillable notebook included",
+        "Pen holder loop",
+        "Traditional African patterns",
+        "Elastic closure band",
+        "Pocket for business cards"
+      ],
+      "materials": "Vegetable-tanned leather, elastic band, cotton paper",
+      "dimensions": "22cm x 15cm x 2cm"
+    },
+    {
+      "id": 14,
+      "name": "Executive Briefcase",
+      "price": "35,000",
+      "image": "/lovable-uploads/16.jpg",
+      "images": [
+        "/lovable-uploads/16.jpg",
+        "/lovable-uploads/17.jpg",
+        "/lovable-uploads/18.jpg"
+      ],
+      "rating": 4.8,
+      "reviews": 78,
+      "description": "A sophisticated briefcase designed for the modern African gentleman. Handcrafted from premium leather with traditional touches, perfect for business meetings and professional settings.",
+      "inStock": true,
+      "tags": ["mens", "briefcase", "business", "professional"],
+      "category": "men",
+      "colors": [
+        { "name": "Classic Black", "value": "#000000", "available": true },
+        { "name": "Rich Brown", "value": "#8B4513", "available": true },
+        { "name": "Cognac", "value": "#A0522D", "available": true }
+      ],
+      "features": [
+        "Premium full-grain leather",
+        "Laptop compartment (15 inch)",
+        "Document organizer",
+        "Combination lock",
+        "Reinforced corners"
+      ],
+      "materials": "Full-grain leather, brass hardware, felt lining",
+      "dimensions": "42cm x 32cm x 12cm"
+    },
+    {
+      "id": 15,
+      "name": "Gentleman's Messenger",
+      "price": "24,500",
+      "image": "/lovable-uploads/19.jpg",
+      "images": [
+        "/lovable-uploads/19.jpg",
+        "/lovable-uploads/20.jpg",
+        "/lovable-uploads/21.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 95,
+      "description": "A versatile messenger bag that transitions seamlessly from office to casual settings. Features traditional African leather craftsmanship with modern functionality.",
+      "inStock": true,
+      "tags": ["mens", "messenger", "versatile", "leather"],
+      "category": "men",
+      "colors": [
+        { "name": "Mahogany", "value": "#C04000", "available": true },
+        { "name": "Dark Tan", "value": "#8B4513", "available": true },
+        { "name": "Charcoal", "value": "#36454F", "available": true }
+      ],
+      "features": [
+        "Adjustable shoulder strap",
+        "Multiple interior pockets",
+        "Magnetic flap closure",
+        "Pen holders",
+        "Phone pocket"
+      ],
+      "materials": "Premium leather, cotton canvas lining, magnetic closures",
+      "dimensions": "38cm x 28cm x 10cm"
+    },
+    {
+      "id": 16,
+      "name": "Urban Explorer Backpack",
+      "price": "28,000",
+      "image": "/lovable-uploads/22.jpg",
+      "images": [
+        "/lovable-uploads/22.jpg",
+        "/lovable-uploads/23.jpg",
+        "/lovable-uploads/24.jpg"
+      ],
+      "rating": 4.9,
+      "reviews": 67,
+      "description": "A rugged yet refined backpack for the modern man who values both style and functionality. Perfect for urban adventures and weekend getaways.",
+      "inStock": true,
+      "tags": ["mens", "backpack", "urban", "travel"],
+      "category": "men",
+      "colors": [
+        { "name": "Vintage Brown", "value": "#8B4513", "available": true },
+        { "name": "Forest Green", "value": "#228B22", "available": true },
+        { "name": "Navy Blue", "value": "#000080", "available": true }
+      ],
+      "features": [
+        "Laptop compartment",
+        "Water bottle holder",
+        "Hidden back pocket",
+        "Padded shoulder straps",
+        "Top handle"
+      ],
+      "materials": "Waxed leather, heavy-duty zippers, padded interior",
+      "dimensions": "45cm x 32cm x 18cm"
+    },
+    {
+      "id": 17,
+      "name": "Classic Leather Wallet",
+      "price": "8,500",
+      "image": "/lovable-uploads/25.jpg",
+      "images": [
+        "/lovable-uploads/25.jpg",
+        "/lovable-uploads/26.jpg",
+        "/lovable-uploads/27.jpg"
+      ],
+      "rating": 4.6,
+      "reviews": 156,
+      "description": "A timeless bi-fold wallet crafted from premium African leather. Features traditional hand-stitching and modern card organization.",
+      "inStock": true,
+      "tags": ["mens", "wallet", "classic", "everyday"],
+      "category": "men",
+      "colors": [
+        { "name": "Black", "value": "#000000", "available": true },
+        { "name": "Brown", "value": "#8B4513", "available": true },
+        { "name": "Tan", "value": "#D2B48C", "available": true }
+      ],
+      "features": [
+        "8 card slots",
+        "Bill compartment",
+        "ID window",
+        "Coin pocket",
+        "RFID blocking"
+      ],
+      "materials": "Premium leather, RFID blocking material",
+      "dimensions": "11cm x 9cm x 2cm"
+    },
+    {
+      "id": 18,
+      "name": "Professional Laptop Sleeve",
+      "price": "12,000",
+      "image": "/lovable-uploads/28.jpg",
+      "images": [
+        "/lovable-uploads/28.jpg",
+        "/lovable-uploads/29.jpg",
+        "/lovable-uploads/30.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 89,
+      "description": "Protect your laptop in style with this handcrafted leather sleeve. Features traditional African patterns and modern protection technology.",
+      "inStock": true,
+      "tags": ["mens", "laptop", "protection", "professional"],
+      "category": "men",
+      "colors": [
+        { "name": "Espresso", "value": "#3C2415", "available": true },
+        { "name": "Camel", "value": "#C19A6B", "available": true }
+      ],
+      "features": [
+        "Fits 13-15 inch laptops",
+        "Padded interior",
+        "Magnetic closure",
+        "Document pocket",
+        "Slim profile"
+      ],
+      "materials": "Premium leather, foam padding, magnetic closure",
+      "dimensions": "38cm x 27cm x 3cm"
+    },
+    {
+      "id": 19,
+      "name": "Beaded Leather Bracelet",
+      "price": "3,500",
+      "image": "/lovable-uploads/37.jpg",
+      "images": [
+        "/lovable-uploads/37.jpg",
+        "/lovable-uploads/38.jpg",
+        "/lovable-uploads/39.jpg"
+      ],
+      "rating": 4.5,
+      "reviews": 234,
+      "description": "Handcrafted leather bracelet featuring traditional Maasai beadwork. A perfect accessory to showcase African heritage and craftsmanship.",
+      "inStock": true,
+      "tags": ["accessories", "bracelet", "beaded", "traditional"],
+      "category": "accessories",
+      "colors": [
+        { "name": "Red & Black", "value": "#E74C3C", "available": true },
+        { "name": "Blue & White", "value": "#3498DB", "available": true },
+        { "name": "Green & Yellow", "value": "#27AE60", "available": true }
+      ],
+      "features": [
+        "Adjustable size",
+        "Hand-beaded design",
+        "Genuine leather",
+        "Traditional patterns",
+        "Unisex design"
+      ],
+      "materials": "Genuine leather, glass beads, cotton thread",
+      "dimensions": "Adjustable 16-22cm circumference"
+    },
+    {
+      "id": 20,
+      "name": "Leather Key Holder",
+      "price": "4,500",
+      "image": "/lovable-uploads/40.jpg",
+      "images": [
+        "/lovable-uploads/40.jpg",
+        "/lovable-uploads/41.jpg",
+        "/lovable-uploads/42.jpg"
+      ],
+      "rating": 4.4,
+      "reviews": 167,
+      "description": "Elegant leather key holder with traditional African motifs. Keeps your keys organized while adding a touch of African style to your everyday carry.",
+      "inStock": true,
+      "tags": ["accessories", "keys", "organization", "leather"],
+      "category": "accessories",
+      "colors": [
+        { "name": "Natural Brown", "value": "#8B4513", "available": true },
+        { "name": "Black", "value": "#000000", "available": true },
+        { "name": "Burgundy", "value": "#800020", "available": true }
+      ],
+      "features": [
+        "Holds 6-8 keys",
+        "Snap closure",
+        "Belt loop attachment",
+        "Embossed patterns",
+        "Compact design"
+      ],
+      "materials": "Premium leather, metal hardware, cotton stitching",
+      "dimensions": "12cm x 7cm x 2cm"
+    },
+    {
+      "id": 21,
+      "name": "African Print Headwrap",
+      "price": "2,500",
+      "image": "/lovable-uploads/ii.png",
+      "images": [
+        "/lovable-uploads/ii.png",
+        "/lovable-uploads/this.png",
+        "/lovable-uploads/logo_clean.png"
+      ],
+      "rating": 4.6,
+      "reviews": 198,
+      "description": "Vibrant African print headwrap made from premium cotton fabric. Perfect for adding a pop of color and cultural flair to any outfit.",
+      "inStock": true,
+      "tags": ["accessories", "headwrap", "african-print", "cotton"],
+      "category": "accessories",
+      "colors": [
+        { "name": "Ankara Blue", "value": "#1E3A8A", "available": true },
+        { "name": "Kente Gold", "value": "#F59E0B", "available": true },
+        { "name": "Wax Red", "value": "#DC2626", "available": true },
+        { "name": "Safari Green", "value": "#059669", "available": true }
+      ],
+      "features": [
+        "100% cotton fabric",
+        "Vibrant colors",
+        "Versatile styling",
+        "Machine washable",
+        "Traditional patterns"
+      ],
+      "materials": "100% premium cotton, traditional dyes",
+      "dimensions": "180cm x 60cm"
+    },
+    {
+      "id": 22,
+      "name": "Wooden Bead Necklace",
+      "price": "6,000",
+      "image": "/lovable-uploads/7.jpg",
+      "images": [
+        "/lovable-uploads/7.jpg",
+        "/lovable-uploads/8.jpg",
+        "/lovable-uploads/9.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 143,
+      "description": "Handcrafted wooden bead necklace featuring traditional African wood types. Each piece is unique and tells a story of African craftsmanship.",
+      "inStock": true,
+      "tags": ["accessories", "necklace", "wooden", "handcrafted"],
+      "category": "accessories",
+      "colors": [
+        { "name": "Natural Wood", "value": "#8B4513", "available": true },
+        { "name": "Dark Ebony", "value": "#3C3C3C", "available": true },
+        { "name": "Mahogany", "value": "#C04000", "available": true }
+      ],
+      "features": [
+        "Sustainable wood sources",
+        "Hand-carved beads",
+        "Adjustable length",
+        "Natural finish",
+        "Unisex design"
+      ],
+      "materials": "Sustainable African wood, natural oils, cotton cord",
+      "dimensions": "Adjustable 45-60cm length"
+    },
+    {
+      "id": 23,
+      "name": "Wendo Tote Bag",
+      "price": "15,500",
+      "image": "/lovable-uploads/2.jpg",
+      "images": [
+        "/lovable-uploads/2.jpg",
+        "/lovable-uploads/3.jpg",
+        "/lovable-uploads/5.jpg"
+      ],
+      "rating": 4.6,
+      "reviews": 87,
+      "description": "The Wendo tote bag combines traditional African craftsmanship with contemporary design. Perfect for the modern woman who appreciates authentic leather goods with cultural heritage.",
+      "inStock": true,
+      "tags": ["womens", "tote", "leather", "traditional"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Caramel Brown", "value": "#8B4513", "available": true },
+        { "name": "Deep Mahogany", "value": "#C04000", "available": true },
+        { "name": "Natural Tan", "value": "#D2B48C", "available": true }
+      ],
+      "features": [
+        "Handcrafted premium leather",
+        "Spacious interior",
+        "Reinforced handles",
+        "Interior zip pocket",
+        "Traditional African patterns"
+      ],
+      "materials": "Premium leather, cotton lining, brass hardware",
+      "dimensions": "38cm x 32cm x 12cm"
+    },
+    {
+      "id": 24,
+      "name": "Malkia Handbag",
+      "price": "18,500",
+      "image": "/lovable-uploads/13.jpg",
+      "images": [
+        "/lovable-uploads/13.jpg",
+        "/lovable-uploads/14.jpg",
+        "/lovable-uploads/15.jpg"
+      ],
+      "rating": 4.8,
+      "reviews": 124,
+      "description": "Malkia, meaning 'Queen' in Swahili, is a regal handbag designed for the sophisticated African woman. Features exquisite beadwork and premium leather construction.",
+      "inStock": true,
+      "tags": ["womens", "handbag", "luxury", "beaded"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Royal Black", "value": "#000000", "available": true },
+        { "name": "Burgundy", "value": "#800020", "available": true },
+        { "name": "Golden Brown", "value": "#B8860B", "available": true }
+      ],
+      "features": [
+        "Hand-beaded details",
+        "Premium leather construction",
+        "Multiple compartments",
+        "Adjustable shoulder strap",
+        "Magnetic closure"
+      ],
+      "materials": "Premium leather, glass beads, silk lining",
+      "dimensions": "35cm x 25cm x 15cm"
+    },
+    {
+      "id": 25,
+      "name": "Teka Tote Bag",
+      "price": "20,500",
+      "image": "/lovable-uploads/6.jpg",
+      "images": [
+        "/lovable-uploads/6.jpg",
+        "/lovable-uploads/9.jpg",
+        "/lovable-uploads/11.jpg"
+      ],
+      "rating": 4.7,
+      "reviews": 96,
+      "description": "The Teka tote bag is a versatile companion for work and leisure. Crafted with attention to detail, it features traditional African motifs and modern functionality.",
+      "inStock": true,
+      "tags": ["womens", "tote", "versatile", "work"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Espresso", "value": "#3C2415", "available": true },
+        { "name": "Cognac", "value": "#A0522D", "available": true },
+        { "name": "Olive Green", "value": "#808000", "available": true }
+      ],
+      "features": [
+        "Large capacity design",
+        "Laptop compartment",
+        "Multiple interior pockets",
+        "Comfortable handles",
+        "Professional appearance"
+      ],
+      "materials": "Full-grain leather, canvas lining, metal hardware",
+      "dimensions": "42cm x 35cm x 14cm"
+    },
+    {
+      "id": 26,
+      "name": "Wanderlust Ladies Bag",
+      "price": "20,500",
+      "image": "/lovable-uploads/10.jpg",
+      "images": [
+        "/lovable-uploads/10.jpg",
+        "/lovable-uploads/12.jpg",
+        "/lovable-uploads/16.jpg"
+      ],
+      "rating": 4.5,
+      "reviews": 78,
+      "description": "For the adventurous spirit, the Wanderlust ladies bag combines style with functionality. Perfect for travel, work, or everyday adventures with African-inspired design elements.",
+      "inStock": true,
+      "tags": ["womens", "travel", "adventure", "crossbody"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Safari Tan", "value": "#D2B48C", "available": true },
+        { "name": "Forest Green", "value": "#228B22", "available": true },
+        { "name": "Sunset Orange", "value": "#FF8C00", "available": true }
+      ],
+      "features": [
+        "Convertible straps",
+        "Water-resistant coating",
+        "Multiple carrying options",
+        "Secure zip closures",
+        "Travel-friendly design"
+      ],
+      "materials": "Treated leather, water-resistant coating, nylon lining",
+      "dimensions": "32cm x 28cm x 10cm"
+    },
+    {
+      "id": 27,
+      "name": "Kanini Kaseo",
+      "price": "12,500",
+      "image": "/img/kan.webp",
+      "images": [
+        "/img/kan1.webp",
+        "/img/kan2.webp",
+        "/img/kan.webp"
+      ],
+      "rating": 4.4,
+      "reviews": 112,
+      "description": "Kanini Kaseo is a charming compact bag that embodies traditional African elegance. Perfect for evening outings or as a stylish everyday companion.",
+      "inStock": true,
+      "tags": ["womens", "compact", "evening", "traditional"],
+      "category": "womens-collection",
+      "colors": [
+        { "name": "Classic Black", "value": "#000000", "available": true },
+        { "name": "Rich Brown", "value": "#8B4513", "available": true },
+        { "name": "Coral Red", "value": "#FF7F50", "available": true }
+      ],
+      "features": [
+        "Compact elegant design",
+        "Traditional African patterns",
+        "Chain shoulder strap",
+        "Interior card slots",
+        "Evening-appropriate size"
+      ],
+      "materials": "Premium leather, metal chain, cotton lining",
+      "dimensions": "25cm x 18cm x 8cm"
     }
   ]
 }

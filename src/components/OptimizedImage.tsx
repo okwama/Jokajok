@@ -7,6 +7,8 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   priority?: boolean;
+  srcSet?: string;
+  sizes?: string;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -15,19 +17,50 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   className = '',
   width,
   height,
-  priority = false
+  priority = false,
+  srcSet,
+  sizes
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
 
+  // Add cache busting for development
+  const cacheBustingSrc = process.env.NODE_ENV === 'development' 
+    ? `${src}?v=${Date.now()}` 
+    : src;
+  
+  const cacheBustingSrcSet = process.env.NODE_ENV === 'development' && srcSet
+    ? srcSet.split(',').map(s => {
+        const [url, descriptor] = s.trim().split(' ');
+        return `${url}?v=${Date.now()} ${descriptor}`;
+      }).join(', ')
+    : srcSet;
+
+  const [currentSrc, setCurrentSrc] = useState(cacheBustingSrc);
+
   useEffect(() => {
     if (priority) {
       const img = new Image();
-      img.src = src;
+      img.src = cacheBustingSrc;
       img.onload = () => setIsLoaded(true);
       img.onerror = () => setError(true);
     }
-  }, [src, priority]);
+  }, [cacheBustingSrc, priority]);
+
+  const handleError = () => {
+    // If srcSet fails, fallback to the main src
+    if (srcSet && currentSrc === cacheBustingSrc) {
+      setCurrentSrc(cacheBustingSrc);
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+    setError(false);
+  };
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
@@ -44,13 +77,15 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       
       {/* Main image */}
       <img
-        src={src}
+        src={currentSrc}
         alt={alt}
         width={width}
         height={height}
         loading={priority ? 'eager' : 'lazy'}
-        onLoad={() => setIsLoaded(true)}
-        onError={() => setError(true)}
+        srcSet={cacheBustingSrcSet}
+        sizes={sizes}
+        onLoad={handleLoad}
+        onError={handleError}
         className={`
           w-full h-full object-cover transition-opacity duration-300
           ${isLoaded ? 'opacity-100' : 'opacity-0'}

@@ -96,93 +96,70 @@
       "image": "/categories/home.jpg",
       "subcategories": [
         {
-          "id": "textiles",
-          "name": "Textiles",
+          "id": "retro-safari",
+          "name": "Retro Safari",
           "productCount": 7
         },
         {
-          "id": "decorative-accents",
-          "name": "Decorative Accents",
+          "id": "kifaru",
+          "name": "Kifaru travel",
           "productCount": 4
         },
         {
-          "id": "kitchen-dining",
-          "name": "Kitchen & Dining",
+          "id": "cigar-pouch",
+          "name": "Cigar Pouch",
           "productCount": 3
         }
       ]
     },
     {
-      "id": "jewelry",
-      "name": "Jewelry",
-      "description": "Handcrafted jewelry pieces",
+      "id": "redline",
+      "name": "Redline",
+      "description": "Handcrafted leather bags",
       "image": "/categories/jewelry.jpg",
       "subcategories": [
         {
-          "id": "necklaces",
-          "name": "Necklaces",
+          "id": "redline-backpacks",
+          "name": "Redline Backpacks",
           "productCount": 9
         },
         {
-          "id": "bracelets",
-          "name": "Bracelets",
+          "id": "redline-travel-bags",
+          "name": "Redline Travel Bags",
           "productCount": 6
         },
         {
-          "id": "earrings",
-          "name": "Earrings",
+          "id": "redline-sling-bags",
+          "name": "Redline Sling Bags",
           "productCount": 8
         },
         {
-          "id": "rings",
-          "name": "Rings",
+          "id": "redline-handbags",
+          "name": "Redline Handbags",
           "productCount": 4
         }
       ]
     },
     {
-      "id": "art-collectibles",
-      "name": "Art & Collectibles",
-      "description": "Handmade art and craft items",
+      "id": "accessories",
+      "name": "Accessories",
+      "description": "Handmade accessories",
       "image": "/categories/art.jpg",
       "subcategories": [
         {
-          "id": "paintings",
-          "name": "Paintings",
+          "id": "belts",
+          "name": "Belts",
           "productCount": 5
         },
         {
-          "id": "sculptures",
-          "name": "Sculptures",
+          "id": "wallets",
+          "name": "Wallets",
           "productCount": 3
         },
         {
-          "id": "pottery",
-          "name": "Pottery",
+          "id": "keychains",
+          "name": "Keychains",
           "productCount": 4
-        }
-      ]
-    },
-    {
-      "id": "beauty-wellness",
-      "name": "Beauty & Wellness",
-      "description": "Natural beauty and wellness products",
-      "image": "/categories/beauty.jpg",
-      "subcategories": [
-        {
-          "id": "skincare",
-          "name": "Skincare",
-          "productCount": 7
-        },
-        {
-          "id": "haircare",
-          "name": "Haircare",
-          "productCount": 5
-        },
-        {
-          "id": "fragrances",
-          "name": "Fragrances",
-          "productCount": 3
         }
       ]
     }

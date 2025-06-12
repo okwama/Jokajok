@@ -41,7 +41,7 @@ const Products = () => {
   const { addItem } = useCart();
   const { toast } = useToast();
   const [filters, setFilters] = useState<ProductFilters>({
-    priceRange: [0, 200],
+    priceRange: [0, 50000],
     categories: [],
     rating: 0,
     sortBy: 'name',
@@ -95,32 +95,20 @@ const Products = () => {
     fetchData();
   }, []);
 
-  // Debug: Log initial state
-  console.log('Initial filters state:', {
-    searchTerm,
-    filters,
-    productsCount: products.length
-  });
-
   const filteredProducts = React.useMemo(() => {
-    console.log('Running filter...');
     return products.filter((product: Product) => {
       try {
-        // Debug log for each product being filtered
-        console.log(`\nFiltering product: ${product.name} (ID: ${product.id})`);
-        
         // Check if any filters are active (other than default values)
         const isFilterActive = 
           searchTerm !== '' ||
           filters.priceRange[0] !== 0 ||
-          filters.priceRange[1] < 1000 || // Only active if max price is less than default 1000
+          filters.priceRange[1] < 50000 || // Only active if max price is less than default 50000
           filters.categories.length > 0 ||
           filters.rating > 0 ||
           filters.inStock === true;
         
         // If no filters are active, include all products
         if (!isFilterActive) {
-          console.log('  No filters active, including product');
           return true;
         }
         
@@ -130,10 +118,12 @@ const Products = () => {
           (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
           (product.tags && product.tags.some(tag => tag && tag.toLowerCase().includes(searchTerm.toLowerCase())));
         
-        // Price filter - ensure price is a number
-        const productPrice = typeof product.price === 'number' ? product.price : 0;
+        // Price filter - parse price strings by removing commas
+        const productPrice = typeof product.price === 'string' ? 
+          parseFloat(product.price.replace(/,/g, '')) : 
+          (typeof product.price === 'number' ? product.price : 0);
         const minPrice = typeof filters.priceRange[0] === 'number' ? filters.priceRange[0] : 0;
-        const maxPrice = typeof filters.priceRange[1] === 'number' ? filters.priceRange[1] : 1000; // Default max price
+        const maxPrice = typeof filters.priceRange[1] === 'number' ? filters.priceRange[1] : 50000; // Updated max price
         
         const matchesPrice = productPrice >= minPrice && productPrice <= maxPrice;
         
@@ -159,46 +149,26 @@ const Products = () => {
           (typeof product.inStock === 'number' ? product.inStock : 0);
         const matchesStock = !filters.inStock || stockValue > 0;
         
-        const isIncluded = matchesSearch && matchesPrice && matchesCategory && matchesRating && matchesStock;
-        
-        // Log why a product might be excluded
-        if (!isIncluded) {
-          console.log('  Product excluded due to:', {
-            matchesSearch,
-            matchesPrice,
-            matchesCategory,
-            matchesRating,
-            matchesStock,
-            searchTerm,
-            price: productPrice,
-            priceRange: [minPrice, maxPrice],
-            category: product.category,
-            selectedCategories: filters.categories,
-            rating: productRating,
-            minRating: filters.rating,
-            inStock: product.inStock,
-            stockFilter: filters.inStock
-          });
-        } else {
-          console.log('  Product included');
-        }
-        
-        return isIncluded;
+        return matchesSearch && matchesPrice && matchesCategory && matchesRating && matchesStock;
       } catch (error) {
         console.error('Error filtering product:', error, product);
         return true; // Include products that cause errors to be safe
       }
     });
   }, [products, searchTerm, filters]);
-  
-  console.log(`\nFiltering results: ${filteredProducts.length} of ${products.length} products match the criteria`);
 
   const sortedProducts = [...filteredProducts].sort((a: Product, b: Product) => {
     switch(filters.sortBy) {
       case 'price-asc':
-        return parseFloat(a.price) - parseFloat(b.price);
+        // Parse price strings by removing commas and converting to number
+        const priceA = parseFloat(a.price.replace(/,/g, ''));
+        const priceB = parseFloat(b.price.replace(/,/g, ''));
+        return priceA - priceB;
       case 'price-desc':
-        return parseFloat(b.price) - parseFloat(a.price);
+        // Parse price strings by removing commas and converting to number
+        const priceA2 = parseFloat(a.price.replace(/,/g, ''));
+        const priceB2 = parseFloat(b.price.replace(/,/g, ''));
+        return priceB2 - priceA2;
       case 'rating':
         return b.rating - a.rating;
       case 'name':
@@ -235,22 +205,37 @@ const Products = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-copper-wood-600" />
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
+        <Loader2 className="h-12 w-12 animate-spin text-copper-wood-600 mb-4" />
+        <p className="text-copper-wood-400 text-lg">Loading products...</p>
+        <p className="text-copper-wood-500 text-sm mt-2">Please wait while we fetch your items</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto p-8 text-center">
-        <p className="text-red-500">{error}</p>
-        <Button 
-          onClick={() => window.location.reload()} 
-          className="mt-4"
-        >
-          Retry
-        </Button>
+      <div className="min-h-screen bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900 flex items-center justify-center">
+        <div className="container mx-auto p-8 text-center max-w-md">
+          <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-serif font-bold text-soft-sand mb-4">Oops! Something went wrong</h2>
+          <p className="text-red-400 mb-6">{error}</p>
+          <div className="space-y-3">
+            <Button 
+              onClick={() => window.location.reload()} 
+              className="w-full bg-copper-wood-600 hover:bg-copper-wood-700"
+            >
+              Try Again
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/')} 
+              className="w-full border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"
+            >
+              Go Home
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -293,7 +278,7 @@ const Products = () => {
                     setFilters(prev => ({
                       ...prev,
                       categories: [],
-                      priceRange: [0, 1000],
+                      priceRange: [0, 50000],
                       inStock: false
                     }));
                   }}
@@ -317,7 +302,7 @@ const Products = () => {
                         categories: prev.categories.includes(category.id) 
                           ? [] 
                           : [category.id],
-                        priceRange: [0, 1000],
+                        priceRange: [0, 50000],
                         inStock: false
                       }));
                     }}
@@ -436,7 +421,7 @@ const Products = () => {
                   onClick={() => {
                     setSearchTerm('');
                     setFilters({
-                      priceRange: [0, 200],
+                      priceRange: [0, 50000],
                       categories: [],
                       rating: 0,
                       sortBy: 'name',
