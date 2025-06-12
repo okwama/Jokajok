@@ -737,11 +737,11 @@
       "id": 25,
       "name": "Teka Tote Bag",
       "price": "20,500",
-      "image": "/lovable-uploads/6.jpg",
+      "image": "/img/tek.webp",
       "images": [
-        "/lovable-uploads/6.jpg",
-        "/lovable-uploads/9.jpg",
-        "/lovable-uploads/11.jpg"
+        "/img/tek.webp",
+        "/img/tek1.webp",
+        "/img/tek2.webp"
       ],
       "rating": 4.7,
       "reviews": 96,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
@@ -29,10 +29,16 @@ import AdminLogin from '@/pages/admin/login';
 import AdminRegister from '@/pages/admin/register';
 import AdminRoutes from '@/routes/AdminRoutes';
 import Wishlist from '@/pages/Wishlist';
+import { preloadCriticalAppImages } from '@/utils/criticalImagePreload';
 
 const queryClient = new QueryClient();
 
 function App() {
+  // Preload critical images on app start
+  useEffect(() => {
+    preloadCriticalAppImages();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

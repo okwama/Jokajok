@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { Search, Filter, Star, ShoppingCart, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
-import { prefetchProductImages } from '@/utils/imagePrefetch';
+import { prefetchProductImages, prefetchCategoryImages, prefetchVisibleImages } from '@/utils/imagePrefetch';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -53,6 +54,13 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  
+  // Progressive loading trigger
+  const { targetRef: loadMoreRef, isIntersecting: shouldLoadMore } = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '100px',
+    triggerOnce: false
+  });
 
   useEffect(() => {
     const search = searchParams.get('search');
@@ -79,8 +87,12 @@ const Products = () => {
           getCategories()
         ]);
         
-        // Prefetch images for all products
-        prefetchProductImages(productsData);
+        // Smart prefetching: Priority images first, then regular images
+        prefetchProductImages(productsData, {
+          priorityCount: 6, // First 6 products get high priority
+          includeAllImages: false, // Only main images initially
+          responsive: true // Include responsive WebP versions
+        });
         
         setProducts(productsData);
         setCategories(categoriesData || []);
@@ -157,6 +169,14 @@ const Products = () => {
     });
   }, [products, searchTerm, filters]);
 
+  // Progressive image loading when user scrolls near bottom
+  useEffect(() => {
+    if (shouldLoadMore && filteredProducts.length > 12) {
+      const visibleCount = Math.min(filteredProducts.length, 24);
+      prefetchVisibleImages(filteredProducts, 12, visibleCount - 12);
+    }
+  }, [shouldLoadMore, filteredProducts]);
+
   const sortedProducts = [...filteredProducts].sort((a: Product, b: Product) => {
     switch(filters.sortBy) {
       case 'price-asc':
@@ -181,7 +201,7 @@ const Products = () => {
     addItem({
       id: product.id.toString(),
       name: product.name,
-      price: product.price,
+      price: parseFloat(product.price.replace(/,/g, '')),
       image: product.images[0] || ''
     });
     toast({
@@ -297,14 +317,18 @@ const Products = () => {
                     key={category.id}
                     onClick={() => {
                       setSearchTerm('');
+                      const isCurrentlySelected = filters.categories.includes(category.id);
                       setFilters(prev => ({
                         ...prev,
-                        categories: prev.categories.includes(category.id) 
-                          ? [] 
-                          : [category.id],
+                        categories: isCurrentlySelected ? [] : [category.id],
                         priceRange: [0, 50000],
                         inStock: false
                       }));
+                      
+                      // Prefetch images for this category when selected
+                      if (!isCurrentlySelected && products.length > 0) {
+                        prefetchCategoryImages(products, category.id);
+                      }
                     }}
                     className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
                       filters.categories.includes(category.id)
@@ -412,6 +436,11 @@ const Products = () => {
                 </Card>
               ))}
             </div>
+
+            {/* Progressive loading trigger */}
+            {sortedProducts.length > 12 && (
+              <div ref={loadMoreRef} className="w-full h-4" />
+            )}
 
             {sortedProducts.length === 0 && (
               <div className="text-center py-12">
