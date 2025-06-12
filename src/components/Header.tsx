@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
@@ -182,6 +181,11 @@ const Header = () => {
                 Stories
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
+                <Link to="/wishlist">
+                  <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
+                    <Heart className="h-5 w-5" />
+                  </Button>
+                </Link>
                 <Link to="/cart" className="relative">
                   <Button variant="ghost" size="icon" className="text-copper-wood-400 hover:bg-burnished-copper-500 hover:text-charred-wood">
                     <ShoppingCart className="h-5 w-5" />

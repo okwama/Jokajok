@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/client" />
+/// <reference lib="webworker" />
 
 import { registerSW } from 'virtual:pwa-register';
 
@@ -82,3 +83,69 @@ if (typeof window !== 'undefined') {
   // Clean up on unload
   window.addEventListener('unload', cleanup);
 }
+
+const CACHE_NAME = 'jokajok-image-cache-v1';
+const IMAGE_CACHE_NAME = 'jokajok-images-v1';
+
+// List of image paths to cache immediately
+const IMAGES_TO_CACHE = [
+  '/lovable-uploads/backpack-1.webp',
+  '/lovable-uploads/backpack-2.webp',
+  '/lovable-uploads/backpack-3.webp',
+  '/lovable-uploads/tote-1.webp',
+  '/lovable-uploads/tote-2.webp',
+  '/lovable-uploads/tote-3.webp',
+  
+  // Add more critical images here
+];
+
+self.addEventListener('install', (event: ExtendableMessageEvent) => {
+  event.waitUntil(
+    Promise.all([
+      caches.open(CACHE_NAME),
+      caches.open(IMAGE_CACHE_NAME).then(cache => 
+        cache.addAll(IMAGES_TO_CACHE)
+      )
+    ])
+  );
+});
+
+self.addEventListener('fetch', (event: FetchEvent) => {
+  // Check if the request is for an image
+  if (event.request.destination === 'image') {
+    event.respondWith(
+      caches.match(event.request).then(response => {
+        // Return cached image if found
+        if (response) {
+          return response;
+        }
+
+        // If not in cache, fetch from network
+        return fetch(event.request).then(networkResponse => {
+          // Cache the new image
+          const responseToCache = networkResponse.clone();
+          caches.open(IMAGE_CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+
+          return networkResponse;
+        });
+      })
+    );
+  }
+});
+
+// Clean up old caches
+self.addEventListener('activate', (event: ExtendableMessageEvent) => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME && cacheName !== IMAGE_CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});

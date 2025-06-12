@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,22 +18,23 @@ interface VideoCarouselProps {
 }
 
 const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
+  const safeVideos = videos || [];
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerView = 4;
 
   const nextSlide = () => {
     setCurrentIndex((prev) => 
-      prev + itemsPerView >= videos.length ? 0 : prev + itemsPerView
+      prev + itemsPerView >= safeVideos.length ? 0 : prev + itemsPerView
     );
   };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => 
-      prev === 0 ? Math.max(videos.length - itemsPerView, 0) : prev - itemsPerView
+      prev === 0 ? Math.max(safeVideos.length - itemsPerView, 0) : prev - itemsPerView
     );
   };
 
-  const visibleVideos = videos.slice(currentIndex, currentIndex + itemsPerView);
+  const visibleVideos = safeVideos.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
     <div className="mb-12 relative">
@@ -54,7 +54,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
             variant="outline"
             size="sm"
             onClick={nextSlide}
-            disabled={currentIndex + itemsPerView >= videos.length}
+            disabled={currentIndex + itemsPerView >= safeVideos.length}
             className="h-8 w-8 p-0 border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
           >
             <ChevronRight className="h-4 w-4" />

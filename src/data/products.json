@@ -148,6 +148,66 @@
       ],
       "materials": "Genuine leather, glass beads",
       "dimensions": "Available in sizes 5-12"
+    },
+    {
+      "id": 6,
+      "name": "Safari Explorer Backpack",
+      "price": "32,500",
+      "image": "/lovable-uploads/backpack-1.webp",
+      "images": [
+        "/lovable-uploads/backpack-1.webp",
+        "/lovable-uploads/backpack-2.webp",
+        "/lovable-uploads/backpack-3.webp"
+      ],
+      "rating": 4.9,
+      "reviews": 45,
+      "description": "Our newest addition to the Safari Collection. This premium leather backpack combines traditional African craftsmanship with modern functionality.",
+      "inStock": true,
+      "tags": ["new-release", "backpack", "leather", "safari"],
+      "category": "new-releases",
+      "colors": [
+        { "name": "Safari Brown", "value": "#8B4513", "available": true },
+        { "name": "Desert Tan", "value": "#D2B48C", "available": true }
+      ],
+      "features": [
+        "Premium full-grain leather",
+        "Traditional Maasai beadwork",
+        "Water-resistant lining",
+        "Multiple compartments",
+        "Laptop sleeve"
+      ],
+      "materials": "Full-grain leather, brass hardware, cotton lining",
+      "dimensions": "45cm x 30cm x 15cm"
+    },
+    {
+      "id": 7,
+      "name": "Maasai Heritage Tote",
+      "price": "24,500",
+      "image": "/lovable-uploads/tote-1.webp",
+      "images": [
+        "/lovable-uploads/tote-1.webp",
+        "/lovable-uploads/tote-2.webp",
+        "/lovable-uploads/tote-3.webp"
+      ],
+      "rating": 4.8,
+      "reviews": 32,
+      "description": "A stunning new tote bag featuring traditional Maasai patterns and modern design elements. Perfect for both casual and formal occasions.",
+      "inStock": true,
+      "tags": ["new-release", "tote", "leather", "maasai"],
+      "category": "new-releases",
+      "colors": [
+        { "name": "Red", "value": "#E74C3C", "available": true },
+        { "name": "Blue", "value": "#3498DB", "available": true }
+      ],
+      "features": [
+        "Hand-beaded Maasai patterns",
+        "Premium leather construction",
+        "Reinforced handles",
+        "Interior pockets",
+        "Matching dust bag included"
+      ],
+      "materials": "Premium leather, glass beads, cotton lining",
+      "dimensions": "40cm x 35cm x 12cm"
     }
   ]
 }

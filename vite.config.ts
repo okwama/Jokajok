@@ -8,8 +8,10 @@ import { manifest, workbox } from './src/pwa-config';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: true, // Listen on all addresses
     port: 8080,
+    strictPort: true, // Don't try other ports if 8080 is taken
+    open: true, // Open browser on server start
     proxy: {
       // Proxy API requests through Squid
       '/api': {
@@ -19,13 +21,13 @@ export default defineConfig(({ mode }) => ({
         rewrite: (path) => path.replace(/^\/api/, ''),
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
-            console.log('proxy error', err);
+            console.error('Proxy error:', err);
           });
           proxy.on('proxyReq', (proxyReq, req, _res) => {
-            console.log('Sending Request to the Target:', req.method, req.url);
+            console.log('Sending Request:', req.method, req.url);
           });
           proxy.on('proxyRes', (proxyRes, req, _res) => {
-            console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
+            console.log('Received Response:', proxyRes.statusCode, req.url);
           });
         },
       },
@@ -34,7 +36,16 @@ export default defineConfig(({ mode }) => ({
         target: 'http://127.0.0.1:3128',
         changeOrigin: true,
         secure: false,
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.error('Asset proxy error:', err);
+          });
+        },
       }
+    },
+    hmr: {
+      overlay: true, // Show errors as overlay
+      clientPort: 8080, // WebSocket port
     },
   },
   plugins: [
@@ -45,30 +56,36 @@ export default defineConfig(({ mode }) => ({
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest,
       workbox: {
-        // Precaching patterns
         globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,json}'],
-        // Don't fallback on document based (e.g. `/some-page`) requests
-        // This removes the errant console.log message from showing up.
         navigateFallback: null,
-        // Don't precache sourcemaps (they're large and not needed for production)
         dontCacheBustURLsMatching: /\.\w{8}\./,
-        // Runtime caching configuration
         runtimeCaching: workbox.runtimeCaching,
+      },
+      devOptions: {
+        enabled: true, // Enable PWA in development
+        type: 'module',
       },
     }),
   ].filter(Boolean),
-  // Base public path when served in production
   base: './',
-  // Build configuration
   build: {
-    // Generate sourcemaps for production builds
     sourcemap: true,
-    // Minify output
     minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['@/components/ui'],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
   },
 }));

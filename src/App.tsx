@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -29,6 +28,7 @@ import Admin from '@/pages/Admin';
 import AdminLogin from '@/pages/admin/login';
 import AdminRegister from '@/pages/admin/register';
 import AdminRoutes from '@/routes/AdminRoutes';
+import Wishlist from '@/pages/Wishlist';
 
 const queryClient = new QueryClient();
 
@@ -50,6 +50,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/account" element={<Account />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/video/:id" element={<VideoWatch />} />

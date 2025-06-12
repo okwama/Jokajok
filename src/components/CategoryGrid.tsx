@@ -1,7 +1,8 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
+import OptimizedImage from '@/components/OptimizedImage';
+import { prefetchImages } from '@/utils/imagePrefetch';
 
 const CategoryGrid = () => {
   const categories = [
@@ -43,6 +44,12 @@ const CategoryGrid = () => {
     }
   ];
 
+  // Prefetch category images
+  useEffect(() => {
+    const imageUrls = categories.map(category => category.image);
+    prefetchImages(imageUrls);
+  }, []);
+
   return (
     <section
       className="py-20 relative"
@@ -71,10 +78,11 @@ const CategoryGrid = () => {
             <Link key={index} to={category.link} className="group">
               <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-swahili-dust-800/90 copper-glow overflow-hidden sisal-texture backdrop-blur-sm">
                 <div className="aspect-square overflow-hidden relative">
-                  <img
+                  <OptimizedImage
                     src={category.image}
                     alt={category.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="group-hover:scale-105 transition-transform duration-300"
+                    priority={index < 3} // Prioritize loading for first 3 categories
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-charred-wood/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4">

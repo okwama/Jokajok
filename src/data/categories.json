@@ -1,6 +1,24 @@
 {
   "mainCategories": [
     {
+      "id": "new-releases",
+      "name": "New Releases",
+      "description": "Latest additions to our collection",
+      "image": "/categories/new-releases.jpg",
+      "subcategories": [
+        {
+          "id": "featured",
+          "name": "Featured",
+          "productCount": 3
+        },
+        {
+          "id": "latest",
+          "name": "Latest",
+          "productCount": 5
+        }
+      ]
+    },
+    {
       "id": "men",
       "name": "Mens Collection",
       "description": "Handcrafted bags and accessories",

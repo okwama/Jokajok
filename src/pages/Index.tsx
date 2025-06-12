@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Truck, Shield, Headphones, ShoppingBag, Heart, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import CategoryGrid from '@/components/CategoryGrid';
-import ImageVideoSlider from '@/components/ImageVideoSlider';
-import HeroSection from '@/components/HeroSection';
-import VideoCarousel from '@/components/VideoCarousel';
-import MasonryGallery from '../components/galleryGrid';
+import OptimizedImage from '@/components/OptimizedImage';
+import { prefetchImages } from '@/utils/imagePrefetch';
+import { preloadLinks, preloadCriticalCSS, imageDimensions, lazyLoadComponent } from '@/utils/preloadUtils';
+
+// Lazy load non-critical components
+const CategoryGrid = lazyLoadComponent(() => import('@/components/CategoryGrid'));
+const ImageVideoSlider = lazyLoadComponent(() => import('@/components/ImageVideoSlider'));
+const HeroSection = lazyLoadComponent(() => import('@/components/HeroSection'));
+const VideoCarousel = lazyLoadComponent(() => import('@/components/VideoCarousel'));
+const MasonryGallery = lazyLoadComponent(() => import('@/components/galleryGrid'));
+
+// Critical CSS paths
+const CRITICAL_CSS = [
+  '/styles/critical.css',
+  '/styles/animations.css'
+];
+
+// Links to preload
+const PRELOAD_LINKS = [
+  '/products?category=new-releases',
+  '/products?category=bags',
+  '/products?category=suitcases'
+];
 
 const Index = () => {
   const featuredProducts = [
@@ -137,63 +155,45 @@ const Index = () => {
     }
   ];
 
+  // Initialize optimizations
+  useEffect(() => {
+    // Preload critical CSS
+    preloadCriticalCSS(CRITICAL_CSS);
+    
+    // Preload important links
+    preloadLinks(PRELOAD_LINKS);
+    
+    // Prefetch images
+    const allImages = [
+      ...featuredProducts.map(product => product.image),
+      ...sliderItems.map(item => item.src),
+      ...videoCarousels.flatMap(carousel => 
+        carousel.videos.map(video => video.thumbnail)
+      )
+    ];
+    prefetchImages(allImages);
+  }, []);
+
   return (
     <div className="min-h-screen bg-charred-wood">
       {/* Full Screen Image/Video Slider as Hero */}
       <section className="h-screen">
-        <ImageVideoSlider slides={sliderItems} />
+        <Suspense fallback={<div className="h-screen bg-dark-clay-100 animate-pulse" />}>
+          <ImageVideoSlider slides={sliderItems} />
+        </Suspense>
       </section>
 
       {/* Category Grid with new background */}
-      <CategoryGrid />
+      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
+        <CategoryGrid />
+      </Suspense>
 
-      {/* Netflix-style Video Carousels */}
-      <section className="py-10 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
-              Our Stories
-            </h2>
-            <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
-              Dive into the world of African craftsmanship through our video stories
-            </p>
-          </div>
-          
-          {videoCarousels.map((carousel, index) => (
-            <VideoCarousel
-              key={index}
-              title={carousel.title}
-              videos={carousel.videos}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-charred-wood">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-burnished-copper-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-copper-wood-700">
-                  <feature.icon className="h-8 w-8 text-charred-wood" />
-                </div>
-                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-copper-wood-400">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products - Safari Collection */}
+      {/* Featured Products - New Collection */}
       <section className="py-20 bg-gradient-to-br from-charred-wood via-dark-clay-100 to-swahili-dust-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-serif font-bold text-soft-sand mb-4">
-              Safari Collection
+              New Collection
             </h2>
             <p className="text-xl text-copper-wood-400 max-w-2xl mx-auto">
               Adventure-ready leather companions, handcrafted for the modern explorer
@@ -203,11 +203,21 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
               <Card key={product.id} className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-dark-clay-100 border border-copper-wood-700">
-                <div className="aspect-square overflow-hidden">
-                  <img 
+                <div 
+                  className="overflow-hidden"
+                  style={{ 
+                    aspectRatio: imageDimensions['featured-products'].aspectRatio,
+                    width: '100%',
+                    maxWidth: imageDimensions['featured-products'].width
+                  }}
+                >
+                  <OptimizedImage 
                     src={product.image} 
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="group-hover:scale-105 transition-transform duration-300"
+                    priority={true}
+                    width={imageDimensions['featured-products'].width}
+                    height={imageDimensions['featured-products'].height}
                   />
                 </div>
                 <CardContent className="p-6">
@@ -237,9 +247,9 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/products?category=safari">
+            <Link to="/products?category=new-releases">
               <Button className="bg-burnished-copper-500 hover:bg-burnished-copper-600 text-charred-wood">
-                View Safari Collection
+                View New Releases
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
@@ -247,10 +257,38 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Video Carousels */}
+      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
+        <VideoCarousel />
+      </Suspense>
+
       {/* Gallery Section */}
-      <section className="w-full bg-gradient-to-r from-swahili-dust-800 to-burnished-copper-900"
-      style={{ background:'color: #2c2a25' }}>
+      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
         <MasonryGallery />
+      </Suspense>
+
+      {/* Hero Section */}
+      <Suspense fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
+        <HeroSection />
+      </Suspense>
+
+      {/* Features Section */}
+      <section className="py-20 bg-charred-wood">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-burnished-copper-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-copper-wood-700">
+                  <feature.icon className="h-8 w-8 text-charred-wood" />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-soft-sand mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-copper-wood-400">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Original Hero Section with Leather Texture */}

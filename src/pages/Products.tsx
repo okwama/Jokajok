@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { Search, Filter, Star, ShoppingCart, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
+import OptimizedImage from '@/components/OptimizedImage';
+import { prefetchProductImages } from '@/utils/imagePrefetch';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -72,48 +74,15 @@ const Products = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        console.log('  // Fetch categories and products');
         const [productsData, categoriesData] = await Promise.all([
           getProducts(),
-          getCategories() // This now only returns main categories
+          getCategories()
         ]);
         
-        // Debug: Log the raw data
-        console.log('Raw products data:', productsData);
-        console.log('Main categories data:', categoriesData);
+        // Prefetch images for all products
+        prefetchProductImages(productsData);
         
-        // Validate products data
-        productsData.forEach((product: Product) => {
-          console.log('Product data:', {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            category: product.category,
-            hasRequiredFields: product && product.id !== undefined && product.name && product.price !== undefined
-          });
-        });
-        
-        // Ensure all products have required fields
-        const validProducts = productsData.filter(product => {
-          const isValid = product && 
-            product.id !== undefined && 
-            product.name && 
-            product.price !== undefined &&
-            product.category !== undefined;
-          
-          if (!isValid) {
-            console.warn('Invalid product skipped:', product);
-          }
-          
-          return isValid;
-        });
-        
-        if (validProducts.length !== productsData.length) {
-          console.warn(`Filtered out ${productsData.length - validProducts.length} invalid products`);
-        }
-        
-        console.log(`Setting ${validProducts.length} valid products to state`);
-        setProducts(validProducts);
+        setProducts(productsData);
         setCategories(categoriesData || []);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -382,10 +351,11 @@ const Products = () => {
                       className="block flex-1"
                     >
                       <div className="aspect-[4/5] overflow-hidden relative">
-                        <img 
+                        <OptimizedImage 
                           src={product.images?.[0] || ''} 
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="group-hover:scale-105 transition-transform duration-300"
+                          priority={product.id <= 4} // Prioritize loading for first 4 products
                         />
                         {!product.inStock && (
                           <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded">
