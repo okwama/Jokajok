@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Play, Info } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 interface Video {
@@ -22,15 +22,18 @@ const NetflixStyleVideoCard: React.FC<NetflixStyleVideoCardProps> = ({
   video, 
   isLarge = false 
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/video/${video.id}`);
+  };
 
   return (
     <div 
       className={`relative group cursor-pointer transition-all duration-300 ${
         isLarge ? 'aspect-[16/9]' : 'aspect-video'
-      } ${isHovered ? 'scale-105 z-10' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      } hover:scale-105 hover:z-10`}
+      onClick={handleCardClick}
     >
       {/* Thumbnail */}
       <div className="relative w-full h-full overflow-hidden rounded-lg">
@@ -55,47 +58,56 @@ const NetflixStyleVideoCard: React.FC<NetflixStyleVideoCardProps> = ({
 
         {/* Play button overlay */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Link to={`/video/${video.id}`}>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 text-white border-2 border-white/50"
-            >
-              <Play className="h-6 w-6 ml-1" />
-            </Button>
-          </Link>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 text-white border-2 border-white/50"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/video/${video.id}`);
+            }}
+          >
+            <Play className="h-6 w-6 ml-1" />
+          </Button>
         </div>
       </div>
 
-      {/* Netflix-style info card on hover */}
-      {isHovered && (
-        <div className="absolute top-full left-0 right-0 bg-dark-clay-100 border border-copper-wood-700 rounded-b-lg p-4 shadow-2xl transform transition-all duration-300 z-20">
-          <h3 className="text-soft-sand font-semibold mb-2 line-clamp-2">
-            {video.title}
-          </h3>
-          {video.description && (
-            <p className="text-copper-wood-400 text-sm mb-3 line-clamp-3">
-              {video.description}
-            </p>
-          )}
-          <div className="flex items-center space-x-2">
-            <Link to={`/video/${video.id}`}>
-              <Button size="sm" className="bg-white text-black hover:bg-white/90">
-                <Play className="h-4 w-4 mr-2" />
-                Play
-              </Button>
-            </Link>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
-            >
-              <Info className="h-4 w-4 mr-2" />
-              More Info
-            </Button>
-          </div>
+      {/* Netflix-style info card - always visible */}
+      <div className="absolute top-full left-0 right-0 bg-dark-clay-100 border border-copper-wood-700 rounded-b-lg p-4 shadow-2xl transform transition-all duration-300 z-20">
+        <h3 className="text-soft-sand font-semibold mb-2 line-clamp-2">
+          {video.title}
+        </h3>
+        {video.description && (
+          <p className="text-copper-wood-400 text-sm mb-3 line-clamp-3">
+            {video.description}
+          </p>
+        )}
+        <div className="flex items-center space-x-2">
+          <Button 
+            size="sm" 
+            className="bg-white text-black hover:bg-white/90"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/video/${video.id}`);
+            }}
+          >
+            <Play className="h-4 w-4 mr-2" />
+            Play
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="border-copper-wood-600 text-copper-wood-300 hover:bg-copper-wood-800"
+            onClick={(e) => {
+              e.stopPropagation();
+              // Add more info functionality here later
+            }}
+          >
+            <Info className="h-4 w-4 mr-2" />
+            More Info
+          </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

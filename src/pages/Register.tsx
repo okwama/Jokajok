@@ -1,6 +1,6 @@
 import React, { useState, startTransition } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,31 +21,85 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear errors when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = { name: '', email: '', password: '', confirmPassword: '' };
+    let isValid = true;
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required';
+      isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+      isValid = false;
+    }
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+      isValid = false;
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+      isValid = false;
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+      isValid = false;
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      newErrors.password = 'Password must contain uppercase, lowercase, and number';
+      isValid = false;
+    }
+
+    // Confirm password validation
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+      isValid = false;
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: "Passwords don't match",
-        description: "Please make sure your passwords match.",
-        variant: "destructive",
-      });
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
-      await register(formData.email, formData.password, formData.name);
+      await register(formData.email, formData.password, formData.name.trim());
       toast({
-        title: "Account created!",
-        description: "Welcome to JokaJok! Your account has been created successfully.",
+        title: "Account created successfully!",
+        description: "Welcome to JokaJok! Please check your email for verification.",
       });
       startTransition(() => navigate('/'));
     } catch (error) {
@@ -70,8 +124,6 @@ const Register = () => {
               <img src="/lovable-uploads/logo_clean.png" alt="" />
             </div>
           </div>
-
-
         </div>
 
         {/* Register Form */}
@@ -85,32 +137,52 @@ const Register = () => {
                 <Label htmlFor="name" className="text-swahili-dust-900 font-semibold">
                   Full Name
                 </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 "
-                  placeholder="Enter your full name"
-                />
+                <div className="relative mt-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-copper-wood-400" />
+                  </div>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`pl-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                      errors.name ? 'border-red-500' : ''
+                    }`}
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                )}
               </div>
 
               <div>
                 <Label htmlFor="email" className="text-swahili-dust-900 font-semibold">
                   Email Address
                 </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="mt-1 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 "
-                  placeholder="Enter your email"
-                />
+                <div className="relative mt-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-copper-wood-400" />
+                  </div>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`pl-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                      errors.email ? 'border-red-500' : ''
+                    }`}
+                    placeholder="Enter your email"
+                  />
+                </div>
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                )}
               </div>
 
               <div>
@@ -118,6 +190,9 @@ const Register = () => {
                   Password
                 </Label>
                 <div className="relative mt-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-copper-wood-400" />
+                  </div>
                   <Input
                     id="password"
                     name="password"
@@ -125,7 +200,9 @@ const Register = () => {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="mt-1 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 "
+                    className={`pl-10 pr-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                      errors.password ? 'border-red-500' : ''
+                    }`}
                     placeholder="Create a password"
                   />
                   <button
@@ -134,12 +211,15 @@ const Register = () => {
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-swahili-dust-400" />
+                      <EyeOff className="h-5 w-5 text-copper-wood-400 hover:text-burnished-copper-500" />
                     ) : (
-                      <Eye className="h-5 w-5 text-swahili-dust-400" />
+                      <Eye className="h-5 w-5 text-copper-wood-400 hover:text-burnished-copper-500" />
                     )}
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="mt-1 text-sm text-red-400">{errors.password}</p>
+                )}
               </div>
 
               <div>
@@ -147,6 +227,9 @@ const Register = () => {
                   Confirm Password
                 </Label>
                 <div className="relative mt-1">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-copper-wood-400" />
+                  </div>
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -154,7 +237,9 @@ const Register = () => {
                     required
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className="mt-1 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 "
+                    className={`pl-10 pr-10 bg-white border-copper-wood-600 text-swahili-dust-900 focus:border-burnished-copper-500 focus:ring-burnished-copper-500 ${
+                      errors.confirmPassword ? 'border-red-500' : ''
+                    }`}
                     placeholder="Confirm your password"
                   />
                   <button
@@ -163,12 +248,15 @@ const Register = () => {
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-5 w-5 text-swahili-dust-400" />
+                      <EyeOff className="h-5 w-5 text-copper-wood-400 hover:text-burnished-copper-500" />
                     ) : (
-                      <Eye className="h-5 w-5 text-swahili-dust-400" />
+                      <Eye className="h-5 w-5 text-copper-wood-400 hover:text-burnished-copper-500" />
                     )}
                   </button>
                 </div>
+                {errors.confirmPassword && (
+                  <p className="mt-1 text-sm text-red-400">{errors.confirmPassword}</p>
+                )}
               </div>
 
               <div className="flex items-center">
@@ -190,7 +278,7 @@ const Register = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-burnished-copper-500 hover:bg-burnished-copper-700 text-white font-medium py-3 text-lg"
+                className="w-full bg-burnished-copper-500 hover:bg-burnished-copper-700 text-white font-medium py-3 text-lg disabled:opacity-50"
               >
                 {isLoading ? 'Creating account...' : 'Create Account'}
               </Button>

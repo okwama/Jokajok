@@ -17,9 +17,9 @@
       "tags": ["leather", "handmade", "weekender", "travel", "bag"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Natural Brown", "value": "#8B4513", "available": true },
-        { "name": "Dark Walnut", "value": "#654321", "available": true },
-        { "name": "Cognac", "value": "#A0522D", "available": true }
+        { "name": "Warm Caramel", "value": "#C4915C", "available": true },
+        { "name": "Rich Mahogany", "value": "#8B4513", "available": true },
+        { "name": "Burnt Sienna", "value": "#A0522D", "available": true }
       ],
       "features": [
         "Handcrafted by Maasai artisans",
@@ -48,9 +48,9 @@
       "tags": ["bag", "sling", "travel"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Multicolor", "value": "#E67E22", "available": true },
-        { "name": "Gold", "value": "#F1C40F", "available": true },
-        { "name": "Red", "value": "#E74C3C", "available": true }
+        { "name": "Terracotta", "value": "#CD853F", "available": true },
+        { "name": "Golden Ochre", "value": "#DAA520", "available": true },
+        { "name": "Clay Red", "value": "#B22222", "available": true }
       ],
       "features": [
         "100% leather",
@@ -78,8 +78,8 @@
       "tags": ["drum", "nyayabingi", "music"],
       "category": "accessories",
       "colors": [
-        { "name": "Natural Wood", "value": "#8B4513", "available": true },
-        { "name": "Dark Stain", "value": "#3E2723", "available": true }
+        { "name": "Warm Cedar", "value": "#D2691E", "available": true },
+        { "name": "Deep Walnut", "value": "#5D4037", "available": true }
       ],
       "features": [
         "Hand-carved from sustainable wood",
@@ -106,9 +106,9 @@
       "tags": ["bags", "tote", "leather"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Multi-color", "value": "#FF5733", "available": true },
-        { "name": "Blue", "value": "#3498DB", "available": true },
-        { "name": "Red", "value": "#E74C3C", "available": true }
+        { "name": "Sunset Orange", "value": "#FF8C42", "available": true },
+        { "name": "Earth Blue", "value": "#4682B4", "available": true },
+        { "name": "Rustic Red", "value": "#CD5C5C", "available": true }
       ],
       "features": [
         "100% leather",
@@ -136,9 +136,9 @@
       "tags": ["footwear", "leather", "handmade"],
       "category": "accessories",
       "colors": [
-        { "name": "Brown", "value": "#8B4513", "available": true },
-        { "name": "Black", "value": "#000000", "available": true },
-        { "name": "Tan", "value": "#D2B48C", "available": true }
+        { "name": "Warm Chestnut", "value": "#954535", "available": true },
+        { "name": "Charcoal", "value": "#36454F", "available": true },
+        { "name": "Sandy Beige", "value": "#F5DEB3", "available": true }
       ],
       "features": [
         "Genuine leather",
@@ -166,8 +166,8 @@
       "tags": ["new-release", "backpack", "leather", "safari"],
       "category": "new-releases",
       "colors": [
-        { "name": "desert green", "value": "#2A4427FF", "available": true },
-        { "name": "jungle green", "value": "#022E0CFF", "available": true }
+        { "name": "Sage Green", "value": "#87A96B", "available": true },
+        { "name": "Forest Moss", "value": "#4F7942", "available": true }
       ],
       "features": [
         "Premium full-grain leather",
@@ -196,8 +196,8 @@
       "tags": ["new-release", "tote", "leather", "maasai"],
       "category": "new-releases",
       "colors": [
-        { "name": "Red", "value": "#E74C3C", "available": true },
-        { "name": "Blue", "value": "#3498DB", "available": true }
+        { "name": "Brick Red", "value": "#B22222", "available": true },
+        { "name": "Dusty Blue", "value": "#6B8CAE", "available": true }
       ],
       "features": [
         "Hand-beaded Maasai patterns",
@@ -226,9 +226,9 @@
       "tags": ["safari", "messenger", "leather", "adventure"],
       "category": "safari-collection",
       "colors": [
-        { "name": "Safari Tan", "value": "#D2B48C", "available": true },
-        { "name": "Bush Brown", "value": "#8B4513", "available": true },
-        { "name": "Khaki", "value": "#C3B091", "available": true }
+        { "name": "Warm Sand", "value": "#C19A6B", "available": true },
+        { "name": "Cocoa Brown", "value": "#8B4513", "available": true },
+        { "name": "Desert Khaki", "value": "#BDB76B", "available": true }
       ],
       "features": [
         "Weather-resistant leather",
@@ -258,7 +258,7 @@
       "category": "safari-collection",
       "colors": [
         { "name": "Acacia Brown", "value": "#8B4513", "available": true },
-        { "name": "Sunset Orange", "value": "#D2691E", "available": true }
+        { "name": "Amber Sunset", "value": "#FF8C00", "available": true }
       ],
       "features": [
         "Large capacity design",
@@ -288,7 +288,7 @@
       "category": "safari-collection",
       "colors": [
         { "name": "Desert Sand", "value": "#F4A460", "available": true },
-        { "name": "Forest Green", "value": "#228B22", "available": true },
+        { "name": "Olive Green", "value": "#6B8E23", "available": true },
         { "name": "Earth Brown", "value": "#8B4513", "available": true }
       ],
       "features": [
@@ -319,7 +319,7 @@
       "category": "safari-collection",
       "colors": [
         { "name": "Classic Brown", "value": "#8B4513", "available": true },
-        { "name": "Mahogany", "value": "#C04000", "available": true }
+        { "name": "Rich Mahogany", "value": "#C04000", "available": true }
       ],
       "features": [
         "Tablet compartment",
@@ -348,8 +348,8 @@
       "tags": ["safari", "camera", "photography", "protective"],
       "category": "safari-collection",
       "colors": [
-        { "name": "Olive Green", "value": "#808000", "available": true },
-        { "name": "Tan", "value": "#D2B48C", "available": true }
+        { "name": "Sage Olive", "value": "#9CAF88", "available": true },
+        { "name": "Warm Tan", "value": "#D2B48C", "available": true }
       ],
       "features": [
         "Padded camera compartments",
@@ -489,11 +489,11 @@
       "id": 17,
       "name": "Classic Leather Wallet",
       "price": "8,500",
-      "image": "/lovable-uploads/25.jpg",
+      "image": "/categories/wallets.jpg",
       "images": [
-        "/lovable-uploads/25.jpg",
-        "/lovable-uploads/26.jpg",
-        "/lovable-uploads/27.jpg"
+        "/categories/wallets.jpg",
+        "/categories/wallets.jpg",
+        "/categories/wallets.jpg"
       ],
       "rating": 4.6,
       "reviews": 156,
@@ -610,19 +610,19 @@
     },
     {
       "id": 21,
-      "name": "African Print Headwrap",
-      "price": "2,500",
-      "image": "/lovable-uploads/ii.png",
+      "name": "Kipochi",
+      "price": "12,500",
+      "image": "/img/kipoch.jpeg",
       "images": [
-        "/lovable-uploads/ii.png",
-        "/lovable-uploads/this.png",
-        "/lovable-uploads/logo_clean.png"
+        "/img/kipoch.jpeg",
+        "/img/kipo.jpeg",
+        "/img/kip.jpeg"
       ],
       "rating": 4.6,
       "reviews": 198,
-      "description": "Vibrant African print headwrap made from premium cotton fabric. Perfect for adding a pop of color and cultural flair to any outfit.",
+      "description": "kipochi.",
       "inStock": true,
-      "tags": ["accessories", "headwrap", "african-print", "cotton"],
+      "tags": ["accessories", "pouch", "leather"],
       "category": "accessories",
       "colors": [
         { "name": "Ankara Blue", "value": "#1E3A8A", "available": true },
@@ -688,7 +688,7 @@
       "tags": ["womens", "tote", "leather", "traditional"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Caramel Brown", "value": "#8B4513", "available": true },
+        { "name": "Caramel Brown", "value": "#C4915C", "available": true },
         { "name": "Deep Mahogany", "value": "#C04000", "available": true },
         { "name": "Natural Tan", "value": "#D2B48C", "available": true }
       ],
@@ -719,8 +719,8 @@
       "tags": ["womens", "handbag", "luxury", "beaded"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Royal Black", "value": "#000000", "available": true },
-        { "name": "Burgundy", "value": "#800020", "available": true },
+        { "name": "Charcoal Black", "value": "#36454F", "available": true },
+        { "name": "Wine Burgundy", "value": "#722F37", "available": true },
         { "name": "Golden Brown", "value": "#B8860B", "available": true }
       ],
       "features": [
@@ -750,9 +750,9 @@
       "tags": ["womens", "tote", "versatile", "work"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Espresso", "value": "#3C2415", "available": true },
-        { "name": "Cognac", "value": "#A0522D", "available": true },
-        { "name": "Olive Green", "value": "#808000", "available": true }
+        { "name": "Rich Espresso", "value": "#6F4E37", "available": true },
+        { "name": "Warm Cognac", "value": "#A0522D", "available": true },
+        { "name": "Sage Green", "value": "#87A96B", "available": true }
       ],
       "features": [
         "Large capacity design",
@@ -782,7 +782,7 @@
       "category": "womens-collection",
       "colors": [
         { "name": "Safari Tan", "value": "#D2B48C", "available": true },
-        { "name": "Forest Green", "value": "#228B22", "available": true },
+        { "name": "Moss Green", "value": "#8A9A5B", "available": true },
         { "name": "Sunset Orange", "value": "#FF8C00", "available": true }
       ],
       "features": [
@@ -812,9 +812,9 @@
       "tags": ["womens", "compact", "evening", "traditional"],
       "category": "womens-collection",
       "colors": [
-        { "name": "Classic Black", "value": "#000000", "available": true },
+        { "name": "Charcoal Black", "value": "#36454F", "available": true },
         { "name": "Rich Brown", "value": "#8B4513", "available": true },
-        { "name": "Coral Red", "value": "#FF7F50", "available": true }
+        { "name": "Terracotta", "value": "#E2725B", "available": true }
       ],
       "features": [
         "Compact elegant design",

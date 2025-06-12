@@ -37,7 +37,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ title, videos }) => {
   const visibleVideos = safeVideos.slice(currentIndex, currentIndex + itemsPerView);
 
   return (
-    <div className="mb-12 relative">
+    <div className="mb-24 pb-8 relative">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-serif font-bold text-soft-sand">{title}</h2>
         <div className="flex space-x-2">

@@ -269,7 +269,7 @@ const Index = () => {
             </p>
           </div>
           {videoCarousels.map((carousel, idx) => (
-            <Suspense key={idx} fallback={<div className="h-96 bg-dark-clay-100 animate-pulse" />}>
+            <Suspense key={idx} fallback={<div className="py-20 h-96 bg-dark-clay-100 animate-pulse" />}>
               <VideoCarousel title={carousel.title} videos={carousel.videos} />
             </Suspense>
           ))}
