@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<service>
+  <id>squid</id>
+  <name>Squid Web Proxy Server</name>
+  <description>Squid Web Proxy Server for Windows</description>
+  <executable>C:\squid\sbin\squid.exe</executable>
+  <arguments>-f C:\squid\etc\squid.conf</arguments>
+  <logmode>rotate</logmode>
+  <startmode>Automatic</startmode>
+  <stopexecutable>C:\squid\sbin\squid.exe</stopexecutable>
+  <stoparguments>-k shutdown</stoparguments>
+</service> 

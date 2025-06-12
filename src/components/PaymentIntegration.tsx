@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CreditCard, Smartphone, DollarSign } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 interface PaymentIntegrationProps {
   total: number;
@@ -17,23 +16,19 @@ const PaymentIntegration = ({ total, onPaymentSuccess }: PaymentIntegrationProps
   const [selectedMethod, setSelectedMethod] = useState('stripe');
   const [isProcessing, setIsProcessing] = useState(false);
   const [mpesaPhone, setMpesaPhone] = useState('');
-  const { toast } = useToast();
 
   const handleStripePayment = async () => {
     setIsProcessing(true);
     try {
       // Simulate Stripe payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
-      toast({
-        title: "Payment Successful",
+      toast.success("Payment Successful", {
         description: "Your payment has been processed via Stripe.",
       });
       onPaymentSuccess();
     } catch (error) {
-      toast({
-        title: "Payment Failed",
+      toast.error("Payment Failed", {
         description: "There was an error processing your payment.",
-        variant: "destructive"
       });
     } finally {
       setIsProcessing(false);
@@ -42,10 +37,8 @@ const PaymentIntegration = ({ total, onPaymentSuccess }: PaymentIntegrationProps
 
   const handleMpesaPayment = async () => {
     if (!mpesaPhone) {
-      toast({
-        title: "Phone Number Required",
+      toast.error("Phone Number Required", {
         description: "Please enter your M-Pesa phone number.",
-        variant: "destructive"
       });
       return;
     }
@@ -54,16 +47,13 @@ const PaymentIntegration = ({ total, onPaymentSuccess }: PaymentIntegrationProps
     try {
       // Simulate M-Pesa STK push
       await new Promise(resolve => setTimeout(resolve, 3000));
-      toast({
-        title: "Payment Successful",
+      toast.success("Payment Successful", {
         description: `Payment of Ksh${total} received via M-Pesa from ${mpesaPhone}.`,
       });
       onPaymentSuccess();
     } catch (error) {
-      toast({
-        title: "Payment Failed",
+      toast.error("Payment Failed", {
         description: "M-Pesa payment was not completed.",
-        variant: "destructive"
       });
     } finally {
       setIsProcessing(false);
@@ -75,16 +65,13 @@ const PaymentIntegration = ({ total, onPaymentSuccess }: PaymentIntegrationProps
     try {
       // Simulate PayPal payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
-      toast({
-        title: "Payment Successful",
+      toast.success("Payment Successful", {
         description: "Your payment has been processed via PayPal.",
       });
       onPaymentSuccess();
     } catch (error) {
-      toast({
-        title: "Payment Failed",
+      toast.error("Payment Failed", {
         description: "PayPal payment was not completed.",
-        variant: "destructive"
       });
     } finally {
       setIsProcessing(false);

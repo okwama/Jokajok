@@ -7,14 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import PaymentIntegration from '@/components/PaymentIntegration';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { items, total, clearCart } = useCart();
   const { user } = useAuth();
-  const { toast } = useToast();
   
   const [formData, setFormData] = useState({
     email: user?.email || '',
@@ -36,8 +35,7 @@ const Checkout = () => {
   const handlePaymentSuccess = () => {
     const orderId = Math.random().toString(36).substr(2, 9).toUpperCase();
     
-    toast({
-      title: "Order placed successfully!",
+    toast.success("Order placed successfully!", {
       description: `Your order #${orderId} has been confirmed.`,
     });
 

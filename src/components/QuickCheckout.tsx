@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { X, CreditCard, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 interface QuickCheckoutProps {
   isOpen: boolean;
@@ -16,7 +15,6 @@ interface QuickCheckoutProps {
 const QuickCheckout = ({ isOpen, onClose }: QuickCheckoutProps) => {
   const { items, total, clearCart } = useCart();
   const { user } = useAuth();
-  const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -46,8 +44,7 @@ const QuickCheckout = ({ isOpen, onClose }: QuickCheckoutProps) => {
       clearCart();
       setIsProcessing(false);
       onClose();
-      toast({
-        title: "Order Placed Successfully!",
+      toast.success("Order Placed Successfully!", {
         description: "You will receive a confirmation email shortly.",
       });
     }, 2000);

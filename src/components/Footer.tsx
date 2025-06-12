@@ -1,9 +1,17 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MapPin, Phone, Mail, Facebook, Instagram, Twitter } from 'lucide-react';
 
 const Footer = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [location.pathname]);
+
   return (
     <footer className="bg-swahili-dust-800 text-swahili-dust-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
@@ -12,7 +20,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-copper-600 rounded-full flex items-center justify-center">
-              <img src="/lovable-uploads/logo_clean.png" alt="" />
+                <img src="/lovable-uploads/logo_clean.png" alt="" />
               </div>
               {/* <span className="text-xl font-serif font-bold">JokaJok</span> */}
             </div>

@@ -1,0 +1,15 @@
+[Unit]
+Description=Squid Web Proxy Server
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/squid -f /etc/squid/squid.conf
+ExecReload=/usr/sbin/squid -k reconfigure
+ExecStop=/usr/sbin/squid -k shutdown
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=90
+
+[Install]
+WantedBy=multi-user.target 
