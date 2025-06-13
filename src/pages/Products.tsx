@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, startTransition } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { Search, Filter, Star, ShoppingCart, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -181,19 +181,23 @@ const Products = () => {
     switch(filters.sortBy) {
       case 'price-asc':
         // Parse price strings by removing commas and converting to number
-        const priceA = parseFloat(a.price.replace(/,/g, ''));
-        const priceB = parseFloat(b.price.replace(/,/g, ''));
+        const priceA = parseFloat((a.price || '0').toString().replace(/,/g, ''));
+        const priceB = parseFloat((b.price || '0').toString().replace(/,/g, ''));
         return priceA - priceB;
       case 'price-desc':
         // Parse price strings by removing commas and converting to number
-        const priceA2 = parseFloat(a.price.replace(/,/g, ''));
-        const priceB2 = parseFloat(b.price.replace(/,/g, ''));
+        const priceA2 = parseFloat((a.price || '0').toString().replace(/,/g, ''));
+        const priceB2 = parseFloat((b.price || '0').toString().replace(/,/g, ''));
         return priceB2 - priceA2;
       case 'rating':
-        return b.rating - a.rating;
+        const ratingA = a.rating || 0;
+        const ratingB = b.rating || 0;
+        return ratingB - ratingA;
       case 'name':
       default:
-        return a.name.localeCompare(b.name);
+        const nameA = (a.name || '').toString();
+        const nameB = (b.name || '').toString();
+        return nameA.localeCompare(nameB);
     }
   });
 
@@ -283,7 +287,11 @@ const Products = () => {
                 type="search"
                 placeholder="Search products..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  startTransition(() => {
+                    setSearchTerm(e.target.value);
+                  });
+                }}
                 className="pl-10 bg-dark-clay-100 border-copper-wood-700 text-soft-sand placeholder:text-copper-wood-400 h-12 text-base"
               />
             </div>
@@ -294,13 +302,15 @@ const Products = () => {
                 {/* All Products Button */}
                 <button
                   onClick={() => {
-                    setSearchTerm('');
-                    setFilters(prev => ({
-                      ...prev,
-                      categories: [],
-                      priceRange: [0, 50000],
-                      inStock: false
-                    }));
+                    startTransition(() => {
+                      setSearchTerm('');
+                      setFilters(prev => ({
+                        ...prev,
+                        categories: [],
+                        priceRange: [0, 50000],
+                        inStock: false
+                      }));
+                    });
                   }}
                   className={`px-4 py-2 text-sm font-medium rounded-full transition-all flex items-center gap-2 ${
                     filters.categories.length === 0
@@ -316,14 +326,17 @@ const Products = () => {
                   <button
                     key={category.id}
                     onClick={() => {
-                      setSearchTerm('');
                       const isCurrentlySelected = filters.categories.includes(category.id);
-                      setFilters(prev => ({
-                        ...prev,
-                        categories: isCurrentlySelected ? [] : [category.id],
-                        priceRange: [0, 50000],
-                        inStock: false
-                      }));
+                      
+                      startTransition(() => {
+                        setSearchTerm('');
+                        setFilters(prev => ({
+                          ...prev,
+                          categories: isCurrentlySelected ? [] : [category.id],
+                          priceRange: [0, 50000],
+                          inStock: false
+                        }));
+                      });
                       
                       // Prefetch images for this category when selected
                       if (!isCurrentlySelected && products.length > 0) {
@@ -377,17 +390,19 @@ const Products = () => {
                           {[...Array(5)].map((_, i) => (
                             <Star 
                               key={i} 
-                              className={`h-4 w-4 ${i < Math.floor(product.rating) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
+                              className={`h-4 w-4 ${i < Math.floor(product.rating || 0) ? 'text-burnished-copper-500 fill-current' : 'text-copper-wood-600'}`} 
                             />
                           ))}
-                          <span className="ml-2 text-sm text-copper-wood-400">({product.rating.toFixed(1)})</span>
+                          <span className="ml-2 text-sm text-copper-wood-400">({(product.rating || 0).toFixed(1)})</span>
                         </div>
                         <h3 className="text-sm font-serif font-semibold text-soft-sand mb-2">
                           {product.name}
                         </h3>
                         <p className="text-copper-wood-400 mb-4 line-clamp-2">{product.description}</p>
                         <div className="flex items-center justify-between mb-4">
-                          <span className="text-xl font-bold text-soft-sand">Ksh {product.price.toLocaleString()}</span>
+                          <span className="text-xl font-bold text-soft-sand">
+                            Ksh {(product.price || 0).toLocaleString()}
+                          </span>
                         </div>
                       </CardContent>
                     </Link>
@@ -448,13 +463,15 @@ const Products = () => {
                 <Button
                   variant="outline"
                   onClick={() => {
-                    setSearchTerm('');
-                    setFilters({
-                      priceRange: [0, 50000],
-                      categories: [],
-                      rating: 0,
-                      sortBy: 'name',
-                      inStock: false
+                    startTransition(() => {
+                      setSearchTerm('');
+                      setFilters({
+                        priceRange: [0, 50000],
+                        categories: [],
+                        rating: 0,
+                        sortBy: 'name',
+                        inStock: false
+                      });
                     });
                   }}
                   className="mt-4 border-copper-wood-600 text-copper-wood-400 hover:bg-copper-wood-800"

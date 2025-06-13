@@ -12,9 +12,25 @@
     <link rel="preload" href="/src/main.tsx" as="script" />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'Sawarda Nubian';
+        src: url('/public/fonts/SawardaNubianAlphaRegular.woff') format('woff'),
+             url('/public/fonts/SawardaNubianAlphaRegular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Sawarda Nubian';
+        src: url('/public/fonts/SawardaNubianAlphaSemibold.woff') format('woff'),
+             url('/public/fonts/SawardaNubianAlphaSemibold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
 
     <!-- Open Graph -->
     <meta property="og:title" content="JokaJok - African Luxury" />
@@ -44,7 +60,7 @@
         justify-content: center;
         background-color: #1e1b18;
         color: #e6d5c3;
-        font-family: 'Ubuntu', sans-serif;
+        font-family: 'Sawarda Nubian', serif;
       }
     </style>
   </head>

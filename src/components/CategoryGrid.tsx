@@ -7,52 +7,52 @@ import { prefetchImages } from '@/utils/imagePrefetch';
 const CategoryGrid = () => {
   const categories = [
     {
-      name: 'Bags',
+      name: 'New Releases',
       image: '/lovable-uploads/4.jpg',
       webp400: '/lovable-uploads/4-400w.webp',
       webp800: '/lovable-uploads/4-800w.webp',
-      link: '/products?category=bags',
-      description: 'Handcrafted leather bags'
+      link: '/products?category=new-releases',
+      description: 'Latest additions to our collection'
     },
     {
-      name: 'Suitcases',
-      image: '/lovable-uploads/n.jpg',
-      webp400: '/lovable-uploads/n-400w.webp',
-      webp800: '/lovable-uploads/n-800w.webp',
-      link: '/products?category=suitcases',
-      description: 'Premium travel companions'
-    },
-    {
-      name: 'Wallets',
-      image: '/lovable-uploads/36.jpg',
-      webp400: '/lovable-uploads/36-400w.webp',
-      webp800: '/lovable-uploads/36-800w.webp',
-      link: '/products?category=wallets',
-      description: 'Elegant leather wallets'
-    },
-    {
-      name: 'Backpacks',
+      name: 'Mens Collection',
       image: '/lovable-uploads/100.jpeg',
       webp400: '/lovable-uploads/100-400w.webp',
       webp800: '/lovable-uploads/100-800w.webp',
-      link: '/products?category=backpacks',
-      description: 'Adventure-ready packs'
+      link: '/products?category=men',
+      description: 'Handcrafted bags and accessories'
     },
     {
-      name: 'Handbags',
+      name: 'Womens Collection',
       image: '/lovable-uploads/29.jpg',
       webp400: '/lovable-uploads/29-400w.webp',
       webp800: '/lovable-uploads/29-800w.webp',
-      link: '/products?category=handbags',
-      description: 'Sophisticated carriers'
+      link: '/products?category=womens-collection',
+      description: 'Traditional and modern African bags'
     },
     {
-      name: 'Sleeves',
+      name: 'Safari Collection',
       image: '/lovable-uploads/200.webp',
       webp400: '/lovable-uploads/200-400w.webp',
       webp800: '/lovable-uploads/200-800w.webp',
-      link: '/products?category=sleeves',
-      description: 'Protective covers'
+      link: '/products?category=safari-collection',
+      description: 'Adventure-ready safari gear'
+    },
+    {
+      name: 'Redline',
+      image: '/lovable-uploads/n.jpg',
+      webp400: '/lovable-uploads/n-400w.webp',
+      webp800: '/lovable-uploads/n-800w.webp',
+      link: '/products?category=redline',
+      description: 'Premium redline collection'
+    },
+    {
+      name: 'Accessories',
+      image: '/lovable-uploads/36.jpg',
+      webp400: '/lovable-uploads/36-400w.webp',
+      webp800: '/lovable-uploads/36-800w.webp',
+      link: '/products?category=accessories',
+      description: 'Handmade accessories'
     }
   ];
 

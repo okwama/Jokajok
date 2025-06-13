@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Minimize, SkipBack, SkipForward } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface VideoPlayerProps {
@@ -25,7 +25,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -93,19 +95,74 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     }
   };
 
+  const toggleFullscreen = async () => {
+    if (!containerRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await containerRef.current.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    } catch (error) {
+      console.error('Error toggling fullscreen:', error);
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'f' || event.key === 'F') {
+        if (document.activeElement === containerRef.current || 
+            containerRef.current?.contains(document.activeElement as Node)) {
+          event.preventDefault();
+          toggleFullscreen();
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('keydown', handleKeyPress);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
-    <div className="relative bg-black rounded-lg overflow-hidden group">
+    <div 
+      ref={containerRef}
+      className={`relative bg-black overflow-hidden group ${
+        isFullscreen ? 'fixed inset-0 z-50' : 'rounded-lg'
+      }`}
+    >
       {/* Video Element */}
       <video
         ref={videoRef}
-        className="w-full aspect-video object-cover"
+        className={`w-full object-cover ${
+          isFullscreen ? 'h-screen' : 'aspect-video'
+        }`}
         poster={thumbnail}
         onTimeUpdate={handleTimeUpdate}
         onMouseMove={() => setShowControls(true)}
         onClick={togglePlay}
+        preload="metadata"
       >
-        {/* Placeholder for video source - in real implementation, you'd have actual video files */}
-        <source src={`/videos/${videoId}.mp4`} type="video/mp4" />
+        {/* Local video file */}
+            <source 
+          src="/videos/jokajok_video_1.mp4" 
+              type="video/mp4" 
+            />
+            <source 
+          src="/videos/jokajok_video_1.webm" 
+              type="video/webm" 
+            />
         Your browser does not support the video tag.
       </video>
 
@@ -195,8 +252,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               variant="ghost"
               size="icon"
               className="text-white hover:bg-white/20"
+              onClick={toggleFullscreen}
+              title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
             >
-              <Maximize className="h-5 w-5" />
+              {isFullscreen ? (
+                <Minimize className="h-5 w-5" />
+              ) : (
+                <Maximize className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>

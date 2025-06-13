@@ -63,7 +63,17 @@ export const getProducts = (): Promise<Product[]> => {
       
       // Simulate API call with setTimeout
       setTimeout(() => {
-        resolve(productsData.products);
+        // Filter out any undefined, null, or malformed products
+        const validProducts = productsData.products.filter(product => 
+          product && 
+          typeof product === 'object' && 
+          product.id !== undefined && 
+          product.name !== undefined && 
+          product.price !== undefined
+        );
+        
+        console.log(`Filtered ${productsData.products.length - validProducts.length} invalid products`);
+        resolve(validProducts);
       }, 100);
     } catch (error) {
       console.error('Error in getProducts:', error);

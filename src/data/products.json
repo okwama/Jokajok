@@ -120,36 +120,7 @@
       "materials": "100% leather",
       "dimensions": "Length: 100cm, Waist: Adjustable"
     },
-    {
-      "id": 5,
-      "name": "Beaded Leather Sandals",
-      "price": "55",
-      "image": "/lovable-uploads/1.jpg",
-      "images": [
-        "/lovable-uploads/1.jpg",
-        "/lovable-uploads/1.jpg"
-      ],
-      "rating": 4.7,
-      "reviews": 134,
-      "description": "Handmade leather sandals with traditional African beadwork.",
-      "inStock": true,
-      "tags": ["footwear", "leather", "handmade"],
-      "category": "accessories",
-      "colors": [
-        { "name": "Warm Chestnut", "value": "#954535", "available": true },
-        { "name": "Charcoal", "value": "#36454F", "available": true },
-        { "name": "Sandy Beige", "value": "#F5DEB3", "available": true }
-      ],
-      "features": [
-        "Genuine leather",
-        "Hand-beaded details",
-        "Comfortable footbed",
-        "Adjustable straps"
-      ],
-      "materials": "Genuine leather, glass beads",
-      "dimensions": "Available in sizes 5-12"
-    },
-    {
+     {
       "id": 6,
       "name": "Tye and Dye Canvas Backpack",
       "price": "20,500",
@@ -161,7 +132,7 @@
       ],
       "rating": 4.9,
       "reviews": 45,
-      "description": "Our newest addition to the Safari Collection. This premium leather backpack combines traditional African craftsmanship with modern functionality.",
+      "description": "Tye and Dye Canvas Backpack",
       "inStock": true,
       "tags": ["new-release", "backpack", "leather", "safari"],
       "category": "new-releases",
@@ -181,8 +152,8 @@
     },
     {
       "id": 7,
-      "name": "Maasai Heritage Tote",
-      "price": "24,500",
+      "name": "Wanderlust Ladies Bag",
+      "price": "20,500",
       "image": "/img/wn.webp",
       "images": [
         "/img/rr.webp",
@@ -191,7 +162,7 @@
       ],
       "rating": 4.8,
       "reviews": 32,
-      "description": "A stunning new tote bag featuring traditional Maasai patterns and modern design elements. Perfect for both casual and formal occasions.",
+      "description": "Wanderlust Ladies Bag",
       "inStock": true,
       "tags": ["new-release", "tote", "leather", "maasai"],
       "category": "new-releases",
@@ -270,46 +241,16 @@
       "materials": "Full-grain leather, heavy-duty zippers, cotton canvas lining",
       "dimensions": "55cm x 30cm x 25cm"
     },
-    {
-      "id": 10,
-      "name": "Bush Ranger Crossbody",
-      "price": "15,500",
-      "image": "/lovable-uploads/36.jpg",
-      "images": [
-        "/lovable-uploads/36.jpg",
-        "/lovable-uploads/29.jpg",
-        "/lovable-uploads/38.jpg"
-      ],
-      "rating": 4.6,
-      "reviews": 89,
-      "description": "Compact yet functional, this crossbody bag is perfect for day safaris and bush walks. Features quick-access pockets for your camera, phone, and other essentials.",
-      "inStock": true,
-      "tags": ["safari", "crossbody", "compact", "adventure"],
-      "category": "safari-collection",
-      "colors": [
-        { "name": "Desert Sand", "value": "#F4A460", "available": true },
-        { "name": "Olive Green", "value": "#6B8E23", "available": true },
-        { "name": "Earth Brown", "value": "#8B4513", "available": true }
-      ],
-      "features": [
-        "Quick-access front pocket",
-        "Adjustable crossbody strap",
-        "Water-resistant coating",
-        "Secure zip closure",
-        "Lightweight design"
-      ],
-      "materials": "Treated leather, water-resistant coating, nylon lining",
-      "dimensions": "25cm x 20cm x 8cm"
-    },
+ 
     {
       "id": 11,
-      "name": "Safari Guide Portfolio",
-      "price": "12,500",
+      "name": "Urban NAtive Backpack",
+      "price": "23,500",
       "image": "/lovable-uploads/100.jpeg",
       "images": [
         "/lovable-uploads/100.jpeg",
-        "/lovable-uploads/42.jpg",
-        "/lovable-uploads/35.jpg"
+        "/lovable-uploads/100.jpeg",
+        "/lovable-uploads/100.jpeg"
       ],
       "rating": 4.8,
       "reviews": 56,
@@ -363,13 +304,13 @@
     },
     {
       "id": 13,
-      "name": "Acacia Field Journal Cover",
-      "price": "8,500",
-      "image": "/lovable-uploads/33.jpg",
+      "name": "Leather Cigar Pouch",
+      "price": "12,500",
+      "image": "/img/c.webp",
       "images": [
-        "/lovable-uploads/33.jpg",
-        "/lovable-uploads/34.jpg",
-        "/lovable-uploads/31.jpg"
+        "/img/cg.webp",
+        "/img/c.webp",
+        "/img/cg.webp"
       ],
       "rating": 4.5,
       "reviews": 92,
@@ -392,58 +333,8 @@
       "materials": "Vegetable-tanned leather, elastic band, cotton paper",
       "dimensions": "22cm x 15cm x 2cm"
     },
-    {
-      "id": 14,
-      "name": "Executive Briefcase",
-      "price": "35,000",
-      "image": "/lovable-uploads/16.jpg",
-      "images": [
-        "/lovable-uploads/16.jpg",
-        "/lovable-uploads/17.jpg",
-        "/lovable-uploads/18.jpg"
-      ],
-      "rating": 4.8,
-      "reviews": 78,
-      "description": "A sophisticated briefcase designed for the modern African gentleman. Handcrafted from premium leather with traditional touches, perfect for business meetings and professional settings.",
-      "inStock": true,
-      "tags": ["mens", "briefcase", "business", "professional"],
-      "category": "men",
-      "colors": [
-        { "name": "Classic Black", "value": "#000000", "available": true },
-        { "name": "Rich Brown", "value": "#8B4513", "available": true },
-        { "name": "Cognac", "value": "#A0522D", "available": true }
-      ],
-      "features": [
-        "Premium full-grain leather",
-        "Laptop compartment (15 inch)",
-        "Document organizer",
-        "Combination lock",
-        "Reinforced corners"
-      ],
-      "materials": "Full-grain leather, brass hardware, felt lining",
-      "dimensions": "42cm x 32cm x 12cm"
-    },
-    {
-      "id": 15,
-      "name": "Gentleman's Messenger",
-      "price": "24,500",
-      "image": "/lovable-uploads/19.jpg",
-      "images": [
-        "/lovable-uploads/19.jpg",
-        "/lovable-uploads/20.jpg",
-        "/lovable-uploads/21.jpg"
-      ],
-      "rating": 4.7,
-      "reviews": 95,
-      "description": "A versatile messenger bag that transitions seamlessly from office to casual settings. Features traditional African leather craftsmanship with modern functionality.",
-      "inStock": true,
-      "tags": ["mens", "messenger", "versatile", "leather"],
-      "category": "men",
-      "colors": [
-        { "name": "Mahogany", "value": "#C04000", "available": true },
-        { "name": "Dark Tan", "value": "#8B4513", "available": true },
-        { "name": "Charcoal", "value": "#36454F", "available": true }
-      ],
+
+{
       "features": [
         "Adjustable shoulder strap",
         "Multiple interior pockets",
@@ -456,7 +347,7 @@
     },
     {
       "id": 16,
-      "name": "Urban Explorer Backpack",
+      "name": "Kifaru 360",
       "price": "28,000",
       "image": "/lovable-uploads/22.jpg",
       "images": [
@@ -485,7 +376,7 @@
       "materials": "Waxed leather, heavy-duty zippers, padded interior",
       "dimensions": "45cm x 32cm x 18cm"
     },
-    {
+    { 
       "id": 17,
       "name": "Classic Leather Wallet",
       "price": "8,500",
@@ -516,40 +407,11 @@
       "materials": "Premium leather, RFID blocking material",
       "dimensions": "11cm x 9cm x 2cm"
     },
-    {
-      "id": 18,
-      "name": "Professional Laptop Sleeve",
-      "price": "12,000",
-      "image": "/lovable-uploads/28.jpg",
-      "images": [
-        "/lovable-uploads/28.jpg",
-        "/lovable-uploads/29.jpg",
-        "/lovable-uploads/30.jpg"
-      ],
-      "rating": 4.7,
-      "reviews": 89,
-      "description": "Protect your laptop in style with this handcrafted leather sleeve. Features traditional African patterns and modern protection technology.",
-      "inStock": true,
-      "tags": ["mens", "laptop", "protection", "professional"],
-      "category": "men",
-      "colors": [
-        { "name": "Espresso", "value": "#3C2415", "available": true },
-        { "name": "Camel", "value": "#C19A6B", "available": true }
-      ],
-      "features": [
-        "Fits 13-15 inch laptops",
-        "Padded interior",
-        "Magnetic closure",
-        "Document pocket",
-        "Slim profile"
-      ],
-      "materials": "Premium leather, foam padding, magnetic closure",
-      "dimensions": "38cm x 27cm x 3cm"
-    },
+
     {
       "id": 19,
-      "name": "Beaded Leather Bracelet",
-      "price": "3,500",
+      "name": "Kifaru 360 Paired with waridi",
+      "price": "60,000",
       "image": "/lovable-uploads/37.jpg",
       "images": [
         "/lovable-uploads/37.jpg",
@@ -558,10 +420,10 @@
       ],
       "rating": 4.5,
       "reviews": 234,
-      "description": "Handcrafted leather bracelet featuring traditional Maasai beadwork. A perfect accessory to showcase African heritage and craftsmanship.",
+      "description": "kifaru 360.",
       "inStock": true,
-      "tags": ["accessories", "bracelet", "beaded", "traditional"],
-      "category": "accessories",
+      "tags": ["mens", "backpack", "urban", "travel"],
+      "category": "men",
       "colors": [
         { "name": "Red & Black", "value": "#E74C3C", "available": true },
         { "name": "Blue & White", "value": "#3498DB", "available": true },
@@ -577,37 +439,7 @@
       "materials": "Genuine leather, glass beads, cotton thread",
       "dimensions": "Adjustable 16-22cm circumference"
     },
-    {
-      "id": 20,
-      "name": "Leather Key Holder",
-      "price": "4,500",
-      "image": "/lovable-uploads/40.jpg",
-      "images": [
-        "/lovable-uploads/40.jpg",
-        "/lovable-uploads/41.jpg",
-        "/lovable-uploads/42.jpg"
-      ],
-      "rating": 4.4,
-      "reviews": 167,
-      "description": "Elegant leather key holder with traditional African motifs. Keeps your keys organized while adding a touch of African style to your everyday carry.",
-      "inStock": true,
-      "tags": ["accessories", "keys", "organization", "leather"],
-      "category": "accessories",
-      "colors": [
-        { "name": "Natural Brown", "value": "#8B4513", "available": true },
-        { "name": "Black", "value": "#000000", "available": true },
-        { "name": "Burgundy", "value": "#800020", "available": true }
-      ],
-      "features": [
-        "Holds 6-8 keys",
-        "Snap closure",
-        "Belt loop attachment",
-        "Embossed patterns",
-        "Compact design"
-      ],
-      "materials": "Premium leather, metal hardware, cotton stitching",
-      "dimensions": "12cm x 7cm x 2cm"
-    },
+    
     {
       "id": 21,
       "name": "Kipochi",

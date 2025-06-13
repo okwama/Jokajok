@@ -73,16 +73,16 @@ const NetflixStyleVideoCard: React.FC<NetflixStyleVideoCardProps> = ({
       </div>
 
       {/* Netflix-style info card - always visible */}
-      <div className="absolute top-full left-0 right-0 bg-dark-clay-100 border border-copper-wood-700 rounded-b-lg p-4 shadow-2xl transform transition-all duration-300 z-20">
-        <h3 className="text-soft-sand font-semibold mb-2 line-clamp-2">
-          {video.title}
-        </h3>
-        {video.description && (
-          <p className="text-copper-wood-400 text-sm mb-3 line-clamp-3">
-            {video.description}
+      <div className="absolute top-full left-0 right-0 bg-dark-clay-100 border border-copper-wood-700 rounded-b-lg p-4 shadow-2xl transform transition-all duration-300 z-20 h-40 flex flex-col">
+        <div className="flex-1 overflow-hidden">
+          <h3 className="text-soft-sand font-semibold mb-2 line-clamp-2">
+            {video.title}
+          </h3>
+          <p className="text-copper-wood-400 text-sm line-clamp-2 overflow-hidden">
+            {video.description || "Watch this amazing video to learn more about our artisan craftsmanship."}
           </p>
-        )}
-        <div className="flex items-center space-x-2">
+        </div>
+        <div className="flex items-center space-x-2 mt-3 flex-shrink-0">
           <Button 
             size="sm" 
             className="bg-white text-black hover:bg-white/90"

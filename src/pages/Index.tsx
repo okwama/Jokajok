@@ -121,7 +121,7 @@ const Index = () => {
       videos: [
         {
           id: '5',
-          title: 'Bag Collection 2024',
+          title: 'Waridi Leather Tote bag By Jokajok Leather',
           thumbnail: '/lovable-uploads/d25894e7-0c87-441b-bd66-75fe377c8cb4.png',
           duration: '6:30',
           category: 'Collection',

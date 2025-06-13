@@ -116,8 +116,8 @@ export default {
 				}
 			},
 			fontFamily: {
-				sans: ['Cormorant Garamond', 'serif'],
-				serif: ['Crimson Text', 'serif'],
+				sans: ['Sawarda Nubian', 'serif'],
+				serif: ['Sawarda Nubian', 'serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

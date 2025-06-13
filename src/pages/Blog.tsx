@@ -223,7 +223,7 @@ const Blog = () => {
       </section>
 
       {/* Video Content Section */}
-      <section className="py-12">
+      <section className="py-12 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-serif font-bold text-soft-sand mb-8 text-center">
             Video Stories
